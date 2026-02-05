@@ -1,0 +1,140 @@
+\documentclass{article}
+\usepackage{graphicx} 
+\usepackage{xcolor}
+
+% Bibliography 
+\usepackage[backend=biber,style=authoryear]{biblatex}
+\addbibresource{references.bib} 
+
+\begin{document}
+
+%=================================================================
+% 1) Deckblatt
+%-----------------------------------------------------------------
+\begin{titlepage}
+  \vspace*{2cm}
+  \begin{center}
+    % Logo
+    \includegraphics[width=0.7\textwidth]{Bildmarke_black_23cm.png}\\[2cm]
+
+    {\LARGE\bfseries Projekt 10: Bodenatmung\par}
+
+    \vspace{2cm}
+
+    \large
+    Friedrich-Schiller-Universität Jena\\
+    Fakultät für Mathematik und Informatik\\
+    Statistische Verfahren WW 2025
+
+    \vfill
+
+    \Large
+    Anshul Khubchandani et al. 
+
+    \vspace{1.5cm}
+
+    \normalsize
+  \end{center}
+\end{titlepage}
+
+% ---------------------------------------------------------
+\tableofcontents
+\thispagestyle{empty}
+\addtocounter{page}{-1}
+
+% ---------------------------------------------------------
+\newpage
+\section{Organisatorisches}
+\textcolor{red}{Abgabetermin: 31.03.2026}
+
+
+Umfang:
+
+
+• keine explizite Vorgabe
+
+• Aufgabenstellung muss vollständig bearbeitet sein
+
+• 15 Seiten reichen sicher aus \newline
+
+Abgabe:
+
+• Projektarbeit in elektronischer Form
+
+• Selbstständigkeitserklärung (keine Zulassung von KI!)
+
+• zulässige Sprachen: deutsch, englisch (ungarisch)
+
+• R-Skripte (werden nicht bewertet, aber zur Kontrolle benötigt)\newline 
+
+Diese Seite wird am ende gelöscht :)
+
+% ---------------------------------------------------------
+\newpage
+\section{Einleitung}
+\textcolor{red} {• von der Fragestellung zur Statistik
+• kurze Beschreibung der Fragestellung
+• Hinführen zur statistischen Modellierung
+• warum statistische Modellierung
+• welche Modellklasse}
+
+Die Bodenatmung beschreibt die Freisetzung von Kohlenstoffdioxid (CO$_2$) aus dem Boden und ist ein zentrales Maß für mikrobielle Aktivität sowie Wurzelatmung in terrestrischen Ökosystemen. Sie stellt einen wichtigen Bestandteil des globalen Kohlenstoffkreislaufs dar und wird in Waldklimamodellen häufig als Funktion abiotischer und biotischer Umweltfaktoren beschrieben.
+
+Im Nationalpark Hainich wurden umfangreiche Messungen zur Bodenatmung sowie zu physikalischen, chemischen und biologischen Bodenparametern durchgeführt. Diese Daten ermöglichen die statistische Modellierung der Bodenatmung in Abhängigkeit von Umweltvariablen wie Bodentemperatur, Bodenfeuchte, pH-Wert und Nährstoffgehalten.
+
+Ziel dieser Arbeit ist die Herleitung eines einfachen, aber aussagekräftigen Prognosemodells für die Bodenatmung auf Basis des gegebenen Datensatzes. Darüber hinaus wird im Rahmen einer Simulationsstudie untersucht, welche Auswirkungen eine falsche Anwendung von t-Tests im Kontext der Vorwärtsselektion von Prädiktoren auf die Irrtumswahrscheinlichkeit hat.
+% ---------------------------------------------------------
+\newpage
+\section{Material und Methoden}
+\textcolor{red}{• Bescreinung des Datensatzes • statistisches Modell!!!
+• deterministischer und stochastischer Teil
+• verwendete statistische Methoden
+• Beschreibung der Vorgehensweise
+• kein Beweis theoretischer Resultate, aber Definition der verwendeten Größen
+• nachvollziehbare Beschreibung der Simulation}
+
+\subsection{Datensatz}
+
+Die Analyse basiert auf dem Datensatz \texttt{hainich.csv}, der von A.~Soe (MPI Biogeochemie) bereitgestellt wurde. Der Datensatz enthält Messungen der Bodenatmung (\texttt{soil.res}) sowie ...
+
+
+\subsection{Modellwahl}
+
+Zur Vorhersage der Bodenatmung wurde ...
+
+\subsection{Simulationsstudie}
+
+...
+% ---------------------------------------------------------
+\newpage
+\section{Ergebnisse}
+\textcolor{red}{• Darstellung der Ergebnisse:
+• Tabellen
+• Grafiken
+• Text
+• für Datenanalyse und Simulation}
+
+hier tabellen und graphs
+
+\subsection{Simulation}
+
+Die Simulationsstudie zeigt, dass ...
+% ---------------------------------------------------------
+\newpage
+\section{Diskussion}
+\textcolor{red}{• von der Statistik zur Fragestellung
+• Interpretation der statistischen Ergebnisse im Kontext der ursprünglichen Fragestellung
+sind die Ergebnisse plausibel/überraschend?
+was bedeuten die Ergebnisse
+• statistische Diskussion der Simulationsergebnisse}
+
+Die Ergebnisse der Modellwahl zeigen, dass...
+
+
+
+% ---------------------------------------------------------
+\newpage
+\section{Literatur}\label{sec:literatur}
+\printbibliography
+
+\end{document}
