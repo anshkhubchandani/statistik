@@ -3,8 +3,8 @@ r	Bedeutung
 0.1–0.3	schwach
 0.3–0.5	moderat
 0.5–0.7	relativ stark
-> 0.7	stark
-_______________________________________
+>0.7	stark
+______________________________
 
 ## Bodenfeuchte smoi -> wichtig
 cor(y, hainich.data$smoi)
@@ -21,6 +21,7 @@ cor(y, hainich.data$lmoi)
 Höhere Streufeuchte → höhere Bodenatmung.
 
 -------------------------
+# Sreuschicht Nährstoffe
 
 ## Dicke der Sreuschicht -> wichtig
 cor(y, hainich.data$litter.d)
@@ -36,8 +37,108 @@ cor(y, hainich.data$litter.n) #neg korrelation
 cor(y, hainich.data$litter.c)
 0.138910847972551 -> sehr schwach, kaum zusammenhangFast alle Streu enthält viel Kohlenstoff.→ C ist selten limitierend.
 
+# Boden Nährstoffe
 
-# ----------PH Wert---------------------------
+## Stickstoffgehalt des Bodens in 0-5 cm Tiefe"
+cor(y, hainich.data$soiln0)
+0.326089433400278 ->  schwach bis moderat
+höherer Stickstoffgehalt → etwas höhere Bodenatmung
+Im Plot sieht man:
+	•	steigende Regressionslinie
+	•	moderate Streuung
+
+
+## Stickstoffgehalt des Bodens in 5-10 cm Tiefe
+cor(y, hainich.data$soiln5)
+0.269114779377351 -> etwas schwächer als bei 0.5 cm
+
+-> Mehr Stickstoff kann bedeuten:
+	•	bessere Nährstoffversorgung der Mikroben
+	•	schnellere Zersetzung organischer Substanz
+	•	mehr CO2-Produktion
+
+## Kohlenstoffgehalt des Bodens in 0-5 cm Tiefe
+cor(y, hainich.data$soilc0)
+0.229798870427361 -> schwach 
+mehr Kohlenstoff → etwas mehr Bodenatmung
+theorie sagt: Kohlenstoff ist Energiequelle für Mikroben.
+
+
+## Kohlenstoffgehalt des Bodens in 5-10 cm Tiefe
+cor(y, hainich.data$soilc5)
+0.21385157685631 -> leicht schwächer als bei 0-5 cm
+
+hier Stickstoff im Oberboden zeigt den stärksten Zusammenhang.
+		mehr C → mehr Energie
+    	mehr N → schnelleres Wachstum
+-> mehr CO₂-Freisetzung.
+Ich würde beide fürs modell nutzen
+
+---------------------------------------------------------------------
+
+
+# Nitrat , Amonium , DOC( dissolved organic carbon) der Streuschicht bzw. des Bodens 
+
+## Nitratgehalt der Streuschicht in 0-5 cm Tiefe
+cor(y, hainich.data$litno3)
+0.162947191275231 ->  schwach 
+		mehr Nitrat → eeetwas höhere Bodenatmung
+
+## Nitratgehalt des Bodens in 0-5 cm bzw. Tiefe
+cor(y, hainich.data$sno30)
+-0.00118291180005637 -> kein zsmhang - plot zeigt auch fast horizontale linie
+
+
+## Nitratgehalt des Bodens in 5-10 cm Tiefe
+cor(y, hainich.data$sno35)
+-0.268060994648253 -> schwach neg
+Wenn viel Nitrat vorhanden ist, kann das bedeuten:
+	weniger aktive mikrobielle Immobilisierung
+	weniger Zersetzung ?
+-> Nitrat -> schwacher effekr
+
+----- 
+## Ammoniumgehalt der Streuschicht in 0-5 cm Tiefe
+cor(y, hainich.data$litnh4)
+0.192512251509065 -> schwach 
+Mehr Ammonium kann bedeuten:
+	höhere mikrobielle Aktivität
+
+## Ammoniumgehalt des Bodens in 0-5 cm bzw. Tiefe
+cor(y, hainich.data$snh40)
+0.0715219572819145 -> kein zshm
+
+
+## Ammoniumgehalt des Bodens in 5-10 cm Tiefe
+cor(y, hainich.data$snh45)
+-0.00171113429793457 > kein zshm fast horizontale linie
+
+-> 
+---
+## DOC der Streuschicht in 0-5 cm Tiefe wichtigste
+cor(y, hainich.data$litdoc)
+0.275734616548858 -> schwach bis moderat (plot zeigt steigende linie)
+mehr DOC → mehr Bodenatmung
+
+## DOC des Bodens in 0-5 cm bzw. Tiefe
+cor(y, hainich.data$sdoc0)
+0.155185168823793 -> schwach
+
+
+## DOC  des Bodens in 5-10 cm Tiefe
+cor(y, hainich.data$sdoc5)
+0.202014792609833 -> schwach, aber besser al bei 0-5 cm
+
+
+-> DOC ist sehr wichtig biologisch, weil es direkt verfügbarer Kohlenstoff für Mikroben ist.
+
+-> litdoc zeigt das stärkste effekt mitnehemn
+
+
+
+
+
+#----------PH Wert---------------------------
 ## ph.litter
 cor(y, hainich.data$ph.litter) #negative korrelation
 -0.0456583095568331 -> kein zusammenhang
@@ -58,15 +159,15 @@ Mikroorganismen reagieren stark auf pH nur wenn der pH extrem ist.
 ph wert ist wichtig aber variiert hier im Datensatz zu wenig, um einen Effekt zu zeigen.
 
 
-# -----Würzeln-----------------------
+#-----Würzeln-----------------------
 
-## Trockenmasse der Wurzeln in 0-5 cm
+##Trockenmasse der Wurzeln in 0-5 cm
 cor(y, hainich.data$rootdw0)
 0.28532376568652 -> schwach bis moderat positiv
 - mehr Wurzelbiomasse → etwas höhere Bodenatmung
 (feine wurzel hier wahrscheinlich)korreliert besser als bei 5.10 cm (1)
 
-## Trockenmasse der Wurzeln in 5-10 cm
+##Trockenmasse der Wurzeln in 5-10 cm
 cor(y, hainich.data$rootdw5)
 0.246419362524827 -> schwach positiv aber schäche als wurzel an der oberfläche
 Die meisten feinen Wurzeln liegen in den oberen Bodenschichten. (1)
@@ -86,22 +187,22 @@ cor(y, hainich.data$rootn5) #pos, höher
 
 ## Kohlenstoffgehalt der Wurzeln in 0-5 cm Tiefe
 cor(y, hainich.data$rootc0)
-0.133312884879414
+0.133312884879414 -> sehr schwach, kaum effekt
 
 ## Kohlenstoffgehalt der Wurzeln in 5-10 cm Tiefe
 cor(y, hainich.data$rootc5) #neg
--0.23002382865889
+-0.23002382865889 -> schwacher negativ effekr
+
+-> Also: mehr Wurzelbiomasse → mehr Bodenatmung
+N-C-Konzentration spielt kaum Rolle
+Wurzelbiomasse (vor allem an der oberfläche) ist der wichtigste Faktor 
 
 
+#nn – Entfernung der Probestelle zum nächsten Baum (nearest neighbour) 
+cor(y, hainich.data$nn)
+-0.151853113442641 -> schwach neg
 
+-> Distanz zum Baum erklärt nur einen kleinen Teil der Variation der Bodenatmung.
 
 
 (1)https://nph.onlinelibrary.wiley.com/doi/10.1111/nph.70326#:~:text=Approximately%2040%25%20of%20fine-root,soil%20layers%20through%20mineral%20weathering.
-(2) nachschauen ob das mit dem Stickstoff stimmt
-(3)
-
-
-
-
-"Dominanz der Kohlenstoffmenge: Studien zeigen, dass der gesamte unterirdische Kohlenstoffvorrat (in Wurzeln und Oberboden) der stärkste Treiber 
-für die Bodenatmung ist. Die Menge an "Futter" für Mikroben ist entscheidender als dessen Nährstoffqualität." nachschauen
