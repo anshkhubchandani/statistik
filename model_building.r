@@ -66,6 +66,8 @@ powerset_quads <- function(pred) {
 #length(models)
 #models[1:5]
 
+
+#################################################################
 # Funktion regsubsets()
 # macht globale Suche, also brute force
 # Variablen: smoi^2, lmoi, litter.d, soiln0, soiln5, soilc0, soilc5, sno35, litdoc, rootdw0, rootdw5, temp.0, temp.15, rootc5
@@ -121,28 +123,22 @@ cbind(
 [26,] 0.8875835 0.6218719 25.009402  15.164124
 [27,] 0.8876355 0.5842512 27.005241  18.784154
 [28,] 0.8877008 0.5383257 29.000000  22.399619'
-# Modell 21 sieht gut aus, hohes r quadrat aber kleines BIC
+# Modell 6 sieht gut aus, niedrigstes BIC
 
-# Modell 21 auswählen (Position 21 in der Liste)
-coef(fit, 21)  # Zeigt Koeffizienten
+# Modell 6 auswählen (Position6 in der Liste)
+coef(fit, 6)  # Zeigt Koeffizienten
 
 # Namen der Variablen extrahieren
-vars_21 <- names(coef(fit, 21))[-1]  # ohne Intercept
-formel_21 <- as.formula(paste("log(soil.res) ~", paste(vars_21, collapse = " + ")))
+vars_6 <- names(coef(fit, 6))[-1]  # ohne Intercept
+formel_6 <- as.formula(paste("log(soil.res) ~", paste(vars_6, collapse = " + ")))
 
 # Anzeigen
-formel_21
-'log(soil.res) ~ smoi + I(smoi^2) + lmoi + I(lmoi^2) + soiln5 + 
-    I(soiln5^2) + soilc0 + I(soilc0^2) + soilc5 + I(soilc5^2) + 
-    I(sno35^2) + I(litdoc^2) + rootdw0 + I(rootdw0^2) + rootdw5 + 
-    I(rootdw5^2) + temp.0 + I(temp.0^2) + temp.15 + I(temp.15^2) + 
-    rootc5'
+formel_6
+'log(soil.res) ~ I(lmoi^2) + I(litter.d^2) + soilc0 + I(soilc0^2) + 
+    I(rootdw0^2) + I(temp.15^2)'
 
-best_model <- lm(log(soil.res) ~ smoi + I(smoi^2) + lmoi + I(lmoi^2) + soiln5 + 
-    I(soiln5^2) + soilc0 + I(soilc0^2) + soilc5 + I(soilc5^2) + 
-    I(sno35^2) + I(litdoc^2) + rootdw0 + I(rootdw0^2) + rootdw5 + 
-    I(rootdw5^2) + temp.0 + I(temp.0^2) + temp.15 + I(temp.15^2) + 
-    rootc5, data = hainich.data)
+best_model <- lm(log(soil.res) ~ I(lmoi^2) + I(litter.d^2) + soilc0 + I(soilc0^2) + 
+    I(rootdw0^2) + I(temp.15^2), data = hainich.data)
 
 summary(best_model)
 plot(best_model)
@@ -165,59 +161,4 @@ cbind(
   Cp = sum_fit2$cp,
   BIC = sum_fit2$bic
 )
-
-# Modell 21 auswählen (Position 21 in der Liste)
-coef(fit, 21)  # Zeigt Koeffizienten
-
-# Namen der Variablen extrahieren
-vars_21 <- names(coef(fit, 21))[-1]  # ohne Intercept
-formel_21 <- as.formula(paste("log(soil.res) ~", paste(vars_21, collapse = " + ")))
-
-# Anzeigen
-formel_21
-
-'log(soil.res) ~ smoi + I(smoi^2) + lmoi + I(lmoi^2) + soiln5 + 
-    I(soiln5^2) + soilc0 + I(soilc0^2) + soilc5 + I(soilc5^2) + 
-    I(sno35^2) + I(litdoc^2) + rootdw0 + I(rootdw0^2) + rootdw5 + 
-    I(rootdw5^2) + temp.0 + I(temp.0^2) + temp.15 + I(temp.15^2) + 
-    rootc5'
-
-#keine Änderung in der Formel
-#ich habe mir die summary angeschaut und alle Variablen die nicht signifikant waren aus dem Modell genommen
-#damit ist dieses Modell entstanden
-#der code ist nochmal im notebook a separate notebook damit man die Plots besser anschauen kann
-
-best_model <- lm(log(soil.res) ~ smoi + I(smoi^2) + lmoi + I(lmoi^2) + soilc0 + I(soilc0^2) + I(litdoc^2)
-                 + rootdw0 + I(rootdw0^2) + rootc5, data = hainich.data)
-
-summary(best_model)
-plot(best_model)
-
-Call:
-lm(formula = log(soil.res) ~ smoi + I(smoi^2) + lmoi + I(lmoi^2) + 
-    soilc0 + I(soilc0^2) + I(litdoc^2) + rootdw0 + I(rootdw0^2) + 
-    rootc5, data = hainich.data)
-
-'Residuals:
-      Min        1Q    Median        3Q       Max 
--0.234111 -0.118037 -0.006095  0.117311  0.297293 
-
-Coefficients:
-               Estimate Std. Error t value Pr(>|t|)   
-(Intercept)   9.242e+00  3.962e+00   2.333  0.02736 * 
-smoi         -2.331e-01  1.079e-01  -2.161  0.03973 * 
-I(smoi^2)     3.175e-03  1.480e-03   2.146  0.04101 * 
-lmoi         -1.835e+01  9.741e+00  -1.884  0.07038 . 
-I(lmoi^2)     1.741e+01  8.287e+00   2.101  0.04511 * 
-soilc0        5.322e-02  2.061e-02   2.583  0.01555 * 
-I(soilc0^2)  -3.164e-04  1.479e-04  -2.139  0.04166 * 
-I(litdoc^2)   5.001e-01  1.585e-01   3.156  0.00391 **
-rootdw0      -8.557e+00  3.197e+00  -2.677  0.01248 * 
-I(rootdw0^2)  5.727e+01  1.764e+01   3.246  0.00312 **
-rootc5       -3.409e-02  1.396e-02  -2.443  0.02140 * 
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 0.1814 on 27 degrees of freedom
-Multiple R-squared:  0.7272,	Adjusted R-squared:  0.6262 
-F-statistic: 7.199 on 10 and 27 DF,  p-value: 2.03e-05'
+# das gleiche Ergebnis!
