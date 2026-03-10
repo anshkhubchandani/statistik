@@ -81,28 +81,27 @@ Diese Seite wird am ende gelöscht :)
 Die Bodenatmung beschreibt die Freisetzung von Kohlenstoffdioxid (CO$_2$) aus dem Boden und bildet den 
 zweitgrößten Kohlenstofffluss in terrestrischen Ökosystemen nach der Photosynthese. \cite{raich1992global} Sie setzt
 sich aus der mikrobielle Aktivität und der Wurzelatmung zusammen und bildet dafür zentrale Maße. Der Anteil 
-der Wurzelatmung schwankt je nach Ökosystem und Jahreszeit zwischen 10\% und 90\%. \cite{}
+der Wurzelatmung schwankt je nach Ökosystem und Jahreszeit zwischen 10\% und 90\%. \cite{Hanson2000}
 Die Bodenatmung stellt einen wichtigen Bestandteil des globalen Kohlenstoffkreislaufs dar. Böden sind das
 größte terrestrische Reservoir für organischen Kohlenstoff und speichern etwa 71\% bis 81\% des gesamten
 terrestrischen Kohlenstoffs. \cite{IPCC2001} Die Bodenatmung ist der Hauptweg auf dem Kohlenstoff wieder in die 
 Atmosphäre zurückkehrt, wodurch kleine Änderungen in dessen Intensität große Auswirkungen auf die globale 
 CO$_2$-Konzentration und damit auf das Klima hat. \cite{1997biogeochemistry,IPCC2001,Churkina2003}
 
-und wird in Waldklimamodellen häufig als Funktion
-abiotischer und biotischer Umweltfaktoren beschrieben.
-
 Im Nationalpark Hainich wurden umfangreiche Messungen zur Bodenatmung sowie zu physikalischen, chemischen und
 biologischen Bodenparametern durchgeführt. Diese Daten ermöglichen die statistische Modellierung der Bodenatmung
-in Abhängigkeit von Umweltvariablen wie Bodentemperatur, Bodenfeuchte, pH-Wert und Nährstoffgehalten.
+in Abhängigkeit von Umweltvariablen wie Bodentemperatur, Bodenfeuchte, pH-Wert und Nährstoffgehalten. Das Ziel
+der Forschung ist es, die Sensitivität der Bodenatmung gegenüber dem Klimawandel besser vorherzusagen. \cite{diss}
 
 Ziel dieser Arbeit ist die Herleitung eines einfachen, aber aussagekräftigen Prognosemodells für die
-Bodenatmung auf Basis des gegebenen Datensatzes. Darüber hinaus wird im Rahmen einer Simulationsstudie
+Bodenatmung auf Basis des gegebenen Datensatzes. Dies wird mit einem klassisch linearem Modell auf
+log-transformierten Daten umgesetzt. Darüber hinaus wird im Rahmen einer Simulationsstudie
 untersucht, welche Auswirkungen eine falsche Anwendung von t-Tests im Kontext der Vorwärtsselektion von
 Prädiktoren auf die Irrtumswahrscheinlichkeit hat.
 % ---------------------------------------------------------
 \newpage
 \section{Material und Methoden}
-\textcolor{red}{• Bescreinung des Datensatzes • statistisches Modell!!!
+\textcolor{red}{• Beschreibung des Datensatzes • statistisches Modell!!!
 • deterministischer und stochastischer Teil
 • verwendete statistische Methoden
 • Beschreibung der Vorgehensweise
@@ -111,12 +110,49 @@ Prädiktoren auf die Irrtumswahrscheinlichkeit hat.
 
 \subsection{Datensatz}
 
-Die Analyse basiert auf dem Datensatz \texttt{hainich.csv}, der von A.~Soe (MPI Biogeochemie) bereitgestellt wurde. Der Datensatz enthält Messungen der Bodenatmung (\texttt{soil.res}) sowie ...
+Die Analyse basiert auf dem Datensatz \texttt{hainich.csv}, der von A.~Soe (MPI Biogeochemie)
+bereitgestellt wurde. Der Datensatz enthält 38 Messungen der Bodenatmung (\texttt{soil.res}) sowie
+folgende Einflussgrößen:
 
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+\item \texttt{temp.0}, \texttt{temp.5}, \texttt{temp.10}, \texttt{temp.15} – Bodentemperatur in 0, 5, 10, 15 cm Tiefe
+\item \texttt{smoi} – relative Bodenfeuchte (soil moisture)
+\item \texttt{lmoi} – relative Feuchte der Streuschicht (litter moisture)
+\item \texttt{litter.d} – Dicke der Streuschicht
+\item \texttt{ph.litter}, \texttt{ph.soil0}, \texttt{ph.soil5} – pH-Wert der Streuschicht bzw. des Bodens in 0-5 cm bzw. 5-10 cm Tiefe
+\item \texttt{rootdw0}, \texttt{rootdw5} – Trockenmasse der Wurzeln in 0-5 cm bzw. 5-10 cm Tiefe
+\item \texttt{rootn0}, \texttt{rootn5} – Stickstoffgehalt der Wurzeln in 0-5 cm bzw. 5-10 cm Tiefe
+\item \texttt{rootc0}, \texttt{rootc5} – Kohlenstoffgehalt der Wurzeln in 0-5 cm bzw. 5-10 cm Tiefe
+\item \texttt{litter.c}, \texttt{litter.n} – Kohlenstoff- bzw. Stickstoffgehalt der Streuschicht
+\item \texttt{soiln0}, \texttt{soiln5} – Stickstoffgehalt des Bodens in 0-5 cm bzw. 5-10 cm Tiefe
+\item \texttt{soilc0}, \texttt{soilc5} – Kohlenstoffgehalt der Bodens in 0-5 cm bzw. 5-10 cm Tiefe
+\item \texttt{litno3}, \texttt{sno30}, \texttt{sno35} – Nitratgehalt der Streuschicht bzw. des Bodens in 0-5 cm bzw. 5-10 cm Tiefe
+\item \texttt{litnh4}, \texttt{snh40}, \texttt{snh45} - Ammoniumgehalt der Streuschicht bzw. des Bodens in 0-5 cm bzw. 5-10 cm Tiefe
+\item \texttt{litdoc}, \texttt{sdoc0}, \texttt{sdoc5} – Gehalt an gelöstem organischen Kohlenstoff (DOC - dissolved organic carbon) der Streuschicht bzw. des Bodens in 0-5 cm bzw. 5-10 cm Tiefe
+\item \texttt{nn} – Entfernung der Probestelle zum nächsten Baum (nearest neighbour)
+\end{itemize}
+
+\subsubsection{Transformation}
+\subsubsection{Korrelation}
+\subsubsection{Interaktion} %oder zu Modellwahl?
 
 \subsection{Modellwahl}
 
-Zur Vorhersage der Bodenatmung wurde ...
+Zur Vorhersage der Bodenatmung wurde ein lineares Modell (\texttt{lm}) mit log-transformierten Zielgröße verwendet.\\
+Deterministischer Teil: $\mathbb{E}Y_i= \mu_i =\beta_1 + \beta_2x_{i2} + ... + \beta_kx_{ik}$ mit $i= 1,...,n$\\
+Stochastischer Teil: $Y_i \sim N(\mu_i, \sigma^2)$ mit $i= 1,...,n$\\
+\\
+Als Einflussgrößen für das Modell kamen alle Variablen infrage, die eine gewisse Korrelation aufweisen. Als Grenze wurde
+eine Korrelation von mehr als 0,2 festgelegt. Damit halbiert sich die Anzahl der Einflussgrößen. Auf den übrigen Variablen
+wurde mittels globaler Suche das beste Modell ausgewählt.
+
+Die globale Suche wurde mit der Funktion \texttt{regsubsets()} durchgeführt. Diese Funktion geht alle möglichen Kombinationen der
+Einflussgrößen in einem linearem Modell durch. Ausgewählt wurde dann das Modell mit dem kleinsten BIC. Der BIC ist das Bayesian Information Criterion und ist
+ein Kriterium zur Modellwahl. Es wägt die Anpassungsgüte eines statistischen Modells gegen seine Komplexität, also die Anzahl der
+Variablen ab. Das BIC wird berechnet mit der Formel $-2*logL+log(n)*p$ mit der Log-Likelihood (L) des Modells, der Anzahl der
+geschätzten Parameter (p) und dem Stichprobenumfang (n). Da wir nur einen kleinen Datensatz mit 38 Datenpunkten haben, ist ein kleiner
+BIC am wichtigsten, da es sonst schnell zu Overfitting kommt.
 
 \subsection{Simulationsstudie}
 
