@@ -91,7 +91,7 @@ cbind(
   Rsq = sum_fit$rsq,
   AdjRsq = sum_fit$adjr2, 
   Cp = sum_fit$cp,
-  BIC = sum_fit$bic
+  BIC = sum_fit$bic,
 )
 
 #           Rsq    AdjRsq        Cp        BIC

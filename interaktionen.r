@@ -94,4 +94,4 @@ BIC(best_model, best_model_interaktion5)
 # BIC ist schlechter
 
 anova(best_model, best_model_interaktion5)
-# Interaktion liefert keine signifikante Verbesserung
+# Interaktion liefert keine signifikante Verbesserung durch Datengröße

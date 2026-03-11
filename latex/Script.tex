@@ -135,28 +135,53 @@ folgende Einflussgrößen:
 
 \subsubsection{Transformation}
 \subsubsection{Korrelation}
-\subsubsection{Interaktion} %oder zu Modellwahl?
+\subsubsection{Interaktionen zwischen den Einflussgrößen}
 
-\subsection{Modellwahl}
+folgende Interaktionen gelten als biologisch relevant:
+\texttt{lmoi} und \texttt{litter.de}:
+Je dicker die Streuschicht ist, desto mehr Wasser kann sie speichern und desto länger dauert es,
+bis sie ausgetrocknet ist.
 
-Zur Vorhersage der Bodenatmung wurde ein lineares Modell (\texttt{lm}) mit log-transformierten Zielgröße verwendet.\\
+\texttt{temp.15} und \texttt{lmoi}:
+Mikroorganismen drosseln bei extremer Trockenheit trotz hoher Temperaturen ihre Aktivität
+In trockenen Perioden (wie im August 2001 beobachtet) bricht die normale
+Temperatur-Respirations-Kurve ein. Das Modell für Bodenatmung wird signifikant besser,
+wenn sowohl Temperatur als auch Feuchte einbezogen werden
+
+\texttt{temp.15} und \texttt{rootdw0}:
+Die Temperatur-Sensitivität (Q10) unterscheidet sich zwischen der autotrophen Respiration (Wurzeln) und der heterotrophen Respiration (Mikroorganismen)
+Wurzelrespiration macht oft mehr als die Hälfte der gesamten Bodenatmung aus. Da Wurzeln und
+Mikroorganismen unterschiedliche physiologische Optima haben, hängt die Gesamtreaktion des Bodens auf
+Erwärmung davon ab, wie viel Wurzelbiomasse vorhanden ist
+
+\texttt{soilc0} und \texttt{rootdw0}
+Räumliche Muster der Bodenatmung werden oft gemeinsam durch die Verteilung von Pflanzen (Wurzeln) und Bodenressourcen (C) erklärt
+Das beste Modell in der Publikation kombiniert explizit Wurzelbiomasse, Boden-C und Feuchte.
+Diese Faktoren korrelieren oft räumlich miteinander, da Bäume über den Wurzeleintrag den Bodenkohlenstoff beeinflussen
+
+\texttt{litter.d} und \texttt{soilc0}:
+Die Verfügbarkeit von Substrat (Kohlenstoff) für den Abbau wird durch die Feuchtigkeit limitiert oder gefördert.
+Ein sehr hoher Wassergehalt (besonders in tonreichen Böden wie im Hainich) kann die
+Sauerstoffdiffusion hemmen und so die mikrobielle Aktivität trotz vorhandenen Kohlenstoffs
+einschränken. Zudem sind Streufeuchte (lmoi) und Streudicke (litter.d) zentrale Parameter für die
+räumliche Variabilität
+
+\subsection{statistisches Modell}
+
+Zur Vorhersage der Bodenatmung wurde ein lineares Modell (\texttt{lm}) verwendet.\\
 Deterministischer Teil: $\mathbb{E}Y_i= \mu_i =\beta_1 + \beta_2x_{i2} + ... + \beta_kx_{ik}$ mit $i= 1,...,n$\\
 Stochastischer Teil: $Y_i \sim N(\mu_i, \sigma^2)$ mit $i= 1,...,n$\\
 \\
-Als Einflussgrößen für das Modell kamen alle Variablen infrage, die eine gewisse Korrelation aufweisen. Als Grenze wurde
-eine Korrelation von mehr als 0,2 festgelegt. Damit halbiert sich die Anzahl der Einflussgrößen. Auf den übrigen Variablen
-wurde mittels globaler Suche das beste Modell ausgewählt.
-
 Die globale Suche wurde mit der Funktion \texttt{regsubsets()} durchgeführt. Diese Funktion geht alle möglichen Kombinationen der
-Einflussgrößen in einem linearem Modell durch. Ausgewählt wurde dann das Modell mit dem kleinsten BIC. Der BIC ist das Bayesian Information Criterion und ist
+Einflussgrößen in einem linearem Modell durch. Für die Qualität der Modelle wurde das BIC genutzt. Der BIC ist das Bayesian Information Criterion und ist
 ein Kriterium zur Modellwahl. Es wägt die Anpassungsgüte eines statistischen Modells gegen seine Komplexität, also die Anzahl der
 Variablen ab. Das BIC wird berechnet mit der Formel $-2*logL+log(n)*p$ mit der Log-Likelihood (L) des Modells, der Anzahl der
-geschätzten Parameter (p) und dem Stichprobenumfang (n). Da wir nur einen kleinen Datensatz mit 38 Datenpunkten haben, ist ein kleiner
-BIC am wichtigsten, da es sonst schnell zu Overfitting kommt.
+geschätzten Parameter (p) und dem Stichprobenumfang (n). Damit lässt sich einfach der Varianz-Trade off ablesen.
 
 \subsection{Simulationsstudie}
 
-...
+\subsection{Code-Verfügbarkeit}
+link zum repository
 % ---------------------------------------------------------
 \newpage
 \section{Ergebnisse}
@@ -167,6 +192,16 @@ BIC am wichtigsten, da es sonst schnell zu Overfitting kommt.
 • für Datenanalyse und Simulation}
 
 hier tabellen und graphs
+\subsection{Modellwahl}
+
+Als Einflussgrößen für das Modell kamen alle Variablen infrage, die eine gewisse Korrelation aufweisen. Als Grenze wurde
+eine Korrelation von mehr als 0,2 festgelegt. Damit halbiert sich die Anzahl der Einflussgrößen. Auf den übrigen Variablen
+wurde mittels globaler Suche das beste Modell ausgewählt. Ausgewählt wurde dann das Modell mit dem kleinsten BIC.
+
+Bei den Interaktionen wurden alle biologisch plausible ausprobiert. Die Interaktion die den AIC und BIC verbessert hat wurde
+benutzt. Durch die Menge der Daten, ist sie nicht statistisch signifikant.
+
+das Modell: $ln(soil.res)=\beta_0+\beta_1*{lmoi}^2+\beta_2*soilc0+\beta_3*({lmoi}^2*soilc0)+\beta_4*{soilc0}^2+\beta_5*{temp.15}^2+\beta_6*{rootdw0}^2+\beta_7*{litter.d}^2+\epsilon$
 
 \subsection{Simulation}
 
