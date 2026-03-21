@@ -173,10 +173,59 @@ Deterministischer Teil: $\mathbb{E}Y_i= \mu_i =\beta_1 + \beta_2x_{i2} + ... + \
 Stochastischer Teil: $Y_i \sim N(\mu_i, \sigma^2)$ mit $i= 1,...,n$\\
 \\
 Die globale Suche wurde mit der Funktion \texttt{regsubsets()} durchgeführt. Diese Funktion geht alle möglichen Kombinationen der
-Einflussgrößen in einem linearem Modell durch. Für die Qualität der Modelle wurde das BIC genutzt. Der BIC ist das Bayesian Information Criterion und ist
+Einflussgrößen in einem linearem Modell durch. 
+
+\subsubsection{Validierung des finalen Modells}
+
+Zur Beurteilung der Qualität der Modelle wurden mehrere Validierungsschritte durchgeführt. Ziel war es, sowohl die statistische Zulässigkeit der Modelle als auch deren Prognosegüte und Komplexität zu bewerten.
+\\
+
+\textit{Überprüfung der Modellannahmen}  \\
+Die Standard-Diagnoseplots des linearen Modells wurden betrachtet (Residuals vs. Fitted, Normal Q-Q, Scale-Location, Residuals vs. Leverage). Diese dienen der Identifikation nichtlinearer Strukturen, der Beurteilung der Varianzhomogenität sowie der Erkennung einflussreicher Beobachtungen. \\
+
+Zur formalen Prüfung der Normalverteilung der Residuen wurde der Shapiro-Wilk-Test verwendet. Die Teststatistik ergibt sich zu
+\[
+W = \frac{\left( \sum_{i=1}^n a_i \varepsilon_{(i)} \right)^2}{\sum_{i=1}^n (\varepsilon_i - \bar{\varepsilon})^2},
+\]
+wobei \(\varepsilon_{(i)}\) die geordneten Residuen und \(a_i\) konstante Gewichte sind. Werte von \(W\) nahe \(1\) sprechen für eine Normalverteilung.\\
+
+Zur Prüfung der Homoskedastizität wurde der Breusch-Pagan-Test verwendet, welcher in R mit der Funktion \texttt{bptest()} implementiert ist. Dieser untersucht, ob die Varianz der Residuen von den Regressoren abhängt. Hierzu wird eine Hilfsregression der quadrierten Residuen auf die erklärenden Variablen durchgeführt:
+\[
+\hat{u}_i^2 = \gamma_0 + \gamma_1 z_{i1} + \dots + \gamma_q z_{iq} + v_i.
+\]
+Unter der Nullhypothese \(H_0: \gamma_1 = \dots = \gamma_q = 0\) liegt Homoskedastizität vor, während signifikante Koeffizienten auf Heteroskedastizität hinweisen.\\
+
+Um Einfluss einzelner Beobachtungen auf die Parameterschätzung zu messen, wurde die Cook's Distance verwendet, berechnet in R mit \texttt{cooks.distance()}:
+\[
+\[
+D_i = \frac{\sum_{j=1}^n (\hat{y}_j - \hat{y}_{j(i)})^2}{(k + 1) s^2}.
+\]
+Große Werte von \(D_i\) weisen auf Beobachtungen hin, die die Modellschätzung stark beeinflussen.\\
+
+\textit{Modellwahl} \\ 
+Für die Qualität der Modelle wurde das BIC genutzt. Der BIC ist das Bayesian Information Criterion und ist
 ein Kriterium zur Modellwahl. Es wägt die Anpassungsgüte eines statistischen Modells gegen seine Komplexität, also die Anzahl der
 Variablen ab. Das BIC wird berechnet mit der Formel $-2*logL+log(n)*p$ mit der Log-Likelihood (L) des Modells, der Anzahl der
 geschätzten Parameter (p) und dem Stichprobenumfang (n). Damit lässt sich einfach der Varianz-Trade off ablesen.
+\\
+
+\textit{Bewertung der Prognosegüte.}  \\
+Zur Bewertung der Prognosegüte wurden LOOCV (Leave-One-Out-Cross-Validation) sowie k-fold-Cross-Validation eingesetzt.\\
+
+Bei der LOOCV wird das Modell \(n\)-mal geschätzt, wobei jeweils eine Beobachtung als Testfall und die übrigen \(n-1\) als Trainingsdaten verwendet werden. Dadurch wird jede Beobachtung genau einmal validiert und der Vorhersagefehler auf unabhängigen Daten geschätzt.
+
+\[
+\mathrm{RMSE}_{\mathrm{LOOCV}} = \sqrt{\frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_{(i)})^2}
+\] \\
+
+Bei der \( k \)-fold-Cross-Validation wird der Datensatz in \( k \) disjunkte Teilmengen (Folds) aufgeteilt. In jeder Iteration dient ein Fold als Testmenge, während die übrigen \( k-1 \) Folds zur Modellschätzung verwendet werden. Dieser Vorgang wird \( k \)-mal wiederholt. Für jeden Durchlauf wird ein mittlerer quadratischer Fehler \(MSE_j\) bestimmt, der auf dem jeweiligen Testfold basiert.
+
+\[
+\mathrm{RMSE}_{k\text{-fold}} = \sqrt{\frac{1}{k} \sum_{j=1}^{k} MSE_j}
+\]\\
+
+Durch die Kombination beider Verfahren kann sowohl eine nahezu unverzerrte als auch eine stabilere Schätzung des Vorhersagefehlers erzielt werden.
+
 
 \subsection{Simulationsstudie}
 
