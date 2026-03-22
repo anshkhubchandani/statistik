@@ -64,9 +64,9 @@ extract_coefficients <- function(model, all_pred = all_predictors) {
   for (name in model_names) {
     if (name %in% all_pred) {
       coef_vector[name] <- coefs[name]
-    } else {
-      warning(paste("Predictor", name, "not found in all_predictors vector"))
-    }
+    } #else {
+      #warning(paste("Predictor", name, "not found in all_predictors vector"))
+    #}
   }
   
   return(coef_vector)
