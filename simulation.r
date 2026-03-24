@@ -14,7 +14,7 @@ print(best_model)
 # Parameter festlegung
 n <- 100 #Stichprobenumfang
 p <- 64 #DOUBLE CHECK Anzahl moeglicher Praediktoren DOUBLE CHECK
-nsim <- 500 #Anzahl simulationen
+nsim <- 5000 #Anzahl simulationen
 tmax <- numeric(nsim) #speichern des maximums der t-statistiken
 sigma <- 1 # Fehlerstandardabweichung
 nsteps <- 10 #Anzahl an vorwaertzselektionsschritten 
@@ -101,7 +101,6 @@ for(sim in 1:nsim){
   }
 }
 included_vars <- c()
-
 
 
 # After all simulations and forward selection loops are complete:

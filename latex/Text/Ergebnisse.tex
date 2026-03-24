@@ -1,0 +1,24 @@
+\section{Ergebnisse}
+\textcolor{red}{• Darstellung der Ergebnisse:
+• Tabellen
+• Grafiken
+• Text
+• für Datenanalyse und Simulation}
+
+hier tabellen und graphs
+\subsection{Modellwahl}
+
+Es wurde folgendes Modell mit einem BIC von -13.7 aus der \texttt{regsubsets()}-Funktion ausgewählt:\\
+$ln(soil.res)=\beta_0+\beta_1*{lmoi}^2+\beta_2*soilc0+\beta_3*{soilc0}^2+\beta_4*{temp.15}^2+\beta_5*{rootdw0}^2+\beta_6*{litter.d}^2+\epsilon$\\
+Die Interaktion zwischen Feuchte und Kohlenstoffgehalt hat den AIC-Wert von -8.69 auf -8.95 verbessert, damit ergibt sich folgendes Modell:\\
+$ln(soil.res)=\beta_0+\beta_1*{lmoi}^2+\beta_2*soilc0+\beta_3*({lmoi}^2*soilc0)+\beta_4*{soilc0}^2+\beta_5*{temp.15}^2+\beta_6*{rootdw0}^2+\beta_7*{litter.d}^2+\epsilon$\\
+Abbildung 1 zeigt die Residuen für das Modell. Auf der x-Achse sind die vorhergesagten Werte und auf der y-Achse die Residuen.
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.3]{pictures/residuals_model.png}
+  \caption{Residuenplot des finalen Modells}
+\end{figure}
+
+\subsection{Simulation}
+
+Die Simulationsstudie zeigt, dass ...
