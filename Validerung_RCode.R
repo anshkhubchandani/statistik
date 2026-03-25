@@ -35,6 +35,7 @@ bic_best <- BIC(best_model)
 bic_big  <- BIC(model_big)
 
 #LOOCV: Modell wird n-mal geschaetzt, jeweils eine Beobachtung weggelassen
+#je kleiner, desto besser
 cv_rmse_loocv <- function(formula, data){
   glm.fit <- glm(formula, data = data)
   cv.out <- cv.glm(data, glm.fit)
@@ -42,6 +43,7 @@ cv_rmse_loocv <- function(formula, data){
 }
 
 #k-fold Cross Validation: Datensatz wird in k Teile aufgeteilt
+#ebenso je kleiner, desto besser
 cv_rmse_kfold <- function(formula, data, K = 10){
   glm.fit <- glm(formula, data = data)
   cv.out <- cv.glm(data, glm.fit, K = K)
@@ -75,11 +77,13 @@ cat(
 #Test auf Normalverteilung Residuen
 #mit shapiro wilk test
 #reduziertes mdoel
+# W sollte nahe 1 sein, für Normalverteilung
 print(shapiro.test(residuals(best_model)))
 
 #test auf konstante Varianz residuen
 #breusch pagan test: Tests zur Pruefung von Heteroskedastizitaet.
 #reduziertes modell
+# wenn p-Wert signifikant ist das Hinweis für Heterokedastizität, die wollen wir nicht haben!
 print(bptest(best_model))
 
 #model_big: shapiro
@@ -118,3 +122,4 @@ plot(cook, type = "h",
      ylab = "Cook's D")
 abline(h = cook.limit, col = 2, lty = 2)
 
+#anova
