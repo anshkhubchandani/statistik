@@ -6,6 +6,25 @@ was bedeuten die Ergebnisse
 • statistische Diskussion der Simulationsergebnisse}
 
 \subsection{Modellwahl}
-Die Ergebnisse der Modellwahl zeigen, dass...
+
+Von den Prädikatoren wurden die mit dem größten Einfluss (Korrelation größer gleich 0,2) ausgewählt
+und mittels globaler suche das sparsamste Modell mittels des BIC identifiziert. Dann wurde die beste
+Interaktion dem Modell hinzugefügt, diese Interaktion ist zwar nicht signifikant und verbessert nicht den
+BIC Wert aber verbessert den AIC Wert. Da die Interaktion biologisch plausibel ist und die Residuen verbessert.
+Aufgrund der geringen Messpunkte kann diesbezüglich nur schwer eine Signifikanz erreicht werden, da zu wenig
+Datenpunkte vorliegen um die Interaktion eindeutig vom Rauschen zu unterscheiden.
+
+Das Modell enthält biotische und abiotische Faktoren. Die Trockenmasse der Wurzeln ist der wichtigste
+biotische Faktor, was mit dem Anteil von mehr als der Hälfte der autotrophen Respiration der Wurzeln an der
+Bodenatmung erklärt werden kann. cite
+
+Im Residuenplot erkennt man noch einen starken Bias, ab dem fitted Wert zwischen den Werten 1,1 und 1,4 werden
+die Werte systematisch unterschätz, danach systematisch überschätzt. Dies zeigt das im deterministischem Teil
+des Modells die systematische Variabilität der Bodenatmung nich nicht systematisch erfasst wird. Und noch Prädikatoren
+nicht-lineare Zusammenhänge oder Interaktion fehlen. Aufgrund der geringen Datengröße wurde jedoch im Sinne der
+Modell-Parsimonie auf die Aufnahme weiterer Parameter verzichtet, um eine Überanpassung (Overfitting) zu vermeiden.
+
+das modell ist ziemlich komplex für die menge an daten
+\subsection{Validierung}
 
 \subsection{Simulation}

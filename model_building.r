@@ -178,3 +178,46 @@ residuals(best_model)
 -0.09491005 -0.05458537 -0.12711075 -0.31797905 -0.02392405 -0.21795185 
          37          38 
  0.26599609  0.25044167'
+
+ # Variablen: lmoi, soiln0, soilc5, sno35, litdoc, temp.15, rootc5
+
+ fit3 <- regsubsets(log(soil.res) ~ lmoi + I(lmoi^2) + soiln0+ I(soiln0^2) + soilc5 + I(soilc5^2) + sno35 + I(sno35^2)
+                  + litdoc + I(litdoc^2) + temp.15 + I(temp.15^2) + rootc5 + I(rootc5^2), 
+                  data = hainich.data, 
+                  nvmax = 14)
+
+# Übersichtstabelle
+sum_fit3 <- summary(fit3)
+sum_fit3$which    # TRUE/FALSE-Matrix: welche Variable in welchem Modell
+
+# Kriterien anschauen
+cbind(
+  Rsq = sum_fit3$rsq,
+  AdjRsq = sum_fit3$adjr2, 
+  Cp = sum_fit3$cp,
+  BIC = sum_fit3$bic
+)
+
+# Modell 6 auswählen (Position6 in der Liste)
+coef(fit3, 6)  # Zeigt Koeffizienten
+
+# Namen der Variablen extrahieren
+vars_6 <- names(coef(fit3, 6))[-1]  # ohne Intercept
+formel_6 <- as.formula(paste("log(soil.res) ~", paste(vars_6, collapse = " + ")))
+
+# Anzeigen
+formel_6
+'log(soil.res) ~ I(lmoi^2) + I(litter.d^2) + soilc0 + I(soilc0^2) + 
+    I(rootdw0^2) + I(temp.15^2)'
+
+# Modell 6 auswählen (Position6 in der Liste)
+coef(fit3, 21)  # Zeigt Koeffizienten
+
+# Namen der Variablen extrahieren
+vars_21 <- names(coef(fit3, 6))[-1]  # ohne Intercept
+formel_21 <- as.formula(paste("log(soil.res) ~", paste(vars_6, collapse = " + ")))
+
+# Anzeigen
+formel_21
+'log(soil.res) ~ I(lmoi^2) + I(litter.d^2) + soilc0 + I(soilc0^2) + 
+    I(rootdw0^2) + I(temp.15^2)'

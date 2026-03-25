@@ -107,10 +107,10 @@ $$D_i = \frac{\sum_{j=1}^n (\hat{y}_j - \hat{y}_{j(i)})^2}{(k + 1) s^2}.$$
 Große Werte von \(D_i\) weisen auf Beobachtungen hin, die die Modellschätzung stark beeinflussen.\\
 
 \subsubsection{Modellwahl}
-Für die Qualität der Modelle wurde das BIC genutzt. Der BIC ist das Bayesian Information Criterion und ist
+Für die Qualität der Modelle wurde das BIC genutzt. Das BIC ist das Bayesian Information Criterion und ist
 ein Kriterium zur Modellwahl. Es wägt die Anpassungsgüte eines statistischen Modells gegen seine Komplexität, also die Anzahl der
-Variablen ab. Das BIC wird berechnet mit der Formel $-2*logL+log(n)*p$ mit der Log-Likelihood (L) des Modells, der Anzahl der
-geschätzten Parameter (p) und dem Stichprobenumfang (n). Damit lässt sich einfach der Varianz-Trade off ablesen.\\
+Variablen ab. Das BIC wird berechnet mit der Formel: \[-2\cdot logL+log(n)\cdot p \] mit der Log-Likelihood (L) des Modells, der Anzahl der
+geschätzten Parameter (p) und dem Stichprobenumfang (n). Damit lässt sich einfach der Varianz Trade-off ablesen.\\
 
 \subsubsection{Bewertung der Prognosegüte}
 Zur Bewertung der Prognosegüte wurden LOOCV (Leave-One-Out-Cross-Validation) sowie k-fold-Cross-Validation eingesetzt.\\
