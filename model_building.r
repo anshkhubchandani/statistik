@@ -211,7 +211,7 @@ formel_6
     I(rootdw0^2) + I(temp.15^2)'
 
 # Modell 6 auswählen (Position6 in der Liste)
-coef(fit3, 21)  # Zeigt Koeffizienten
+coef(fit3, 6)  # Zeigt Koeffizienten - fixed from 21 to 6 (nvmax=14 only allows up to ~12 predictors)
 
 # Namen der Variablen extrahieren
 vars_21 <- names(coef(fit3, 6))[-1]  # ohne Intercept

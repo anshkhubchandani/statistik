@@ -4,7 +4,7 @@ if (!require("leaps", quietly = TRUE)) {
   library(leaps)
 }
 
-setwd(dirname(sys.frame(1)$ofile))
+# setwd(dirname(sys.frame(1)$ofile))  # Commented out - doesn't work with Rscript
 source("model_building.r")
 source("helper.r")
 
