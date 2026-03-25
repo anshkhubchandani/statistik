@@ -125,8 +125,43 @@ Bei der \( k \)-fold-Cross-Validation wird der Datensatz in \( k \) disjunkte Te
 
 Durch die Kombination beider Verfahren kann sowohl eine nahezu unverzerrte als auch eine stabilere Schätzung des Vorhersagefehlers erzielt werden.
 
-
 \subsection{Simulationsstudie}
+Gegenstand der Simulationsaufgabe ist die falsche Anwendung des t-Tests bei der
+Vorwärtsselektion von Prädiktoren. Während der Vorwärtsselektion wird mehrfach
+eine Hypothese der Form
+überprüft, wobei jedoch jeweils die absolut größte von mehreren möglichen t-
+Statistiken betrachtet wird.
+
+Wählen Sie das im ersten Teil bestimmte Modell als wahres Modell für die
+Simulation. Wählen Sie für jeden Stichprobenumfang eine feste Designmatrix , die aus
+zufällig ausgewählten Zeilen der ursprünglichen Designmatrix besteht (evtl. mit
+Wiederholung). Simulieren Sie dann jeweils mehrfach Pseudobeobachtungen der
+Zielgröße. Vergleichen Sie die simulierte Häufigkeitsverteilung des Maximums
+mehrerer t-Statistiken für die Hinzunahme einer weiteren Einflussgröße beim nächsten
+Schritt der Vorwärtsselektion mit der für einen einzelnen Test passenden t-Verteilung
+und diskutieren Sie die Auswirkungen auf die Wahrscheinlichkeit einer irrtümlichen
+Ablehnung der Null-Hypothese.
+
+
+
+Ziel der Simulationsstudie ist eine mehrfache Vorwärtsselektion von Prädiktoren. Dies erfolgt unter hilfe des Modells von. 
+
+Nach der wahl des besten modells ($\beta$) erfolgt die berechnung einer Designmatrix (X) die für jeden Stichprobenumfang gleich fest ist. Dies geschiet durch ziehen mit zurücklegen aus der ursprünglichen Designmatrix.
+Danach erfolgt die simulierung mehrerer Pseudobeobachtungen durch:\\
+\[\mathrm{Y} \sim X\beta + \epsilon \]\\
+wobei $\epsilon$ ist gleichverteilte zufallszahl aus $[-1,1]$. 
+Danach folgt eine serie an T-tests wobei jeder T-test die qualität der aufnahme eines praediktors in das modell tested. Dies passiert durch testung der Null Hypothese:\\
+\[\mathrm{H_0 : \beta_j}  = 0 \]\\
+was zusammen mit:
+
+\[\mathrm{t_{\hat{\beta}} =} \frac{\hat{\beta} - \beta_0}{\mathrm{SE}(\hat{\beta})}\]
+
+Die T-statistik besteht folgend aus 
+\begin{equation}
+T = \mathop{max}_{\textbf{j}}|t_j|
+\end{equation}
+
 
 \subsection{Code-Verfügbarkeit}
-link zum repository
+link zum repository\\
+TODO MAKE REPO PUBLIC
