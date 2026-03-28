@@ -137,10 +137,10 @@ formel_6
 'log(soil.res) ~ I(lmoi^2) + I(litter.d^2) + soilc0 + I(soilc0^2) + 
     I(rootdw0^2) + I(temp.15^2)'
 
-best_model <- lm(log(soil.res) ~ I(lmoi^2) + I(litter.d^2) + soilc0 + I(soilc0^2) + 
-    I(rootdw0^2) + I(temp.15^2), data = hainich.data)
+#best_model <- lm(log(soil.res) ~ I(lmoi^2) + I(litter.d^2) + soilc0 + I(soilc0^2) + 
+    #I(rootdw0^2) + I(temp.15^2), data = hainich.data)
 
-summary(best_model)
+#summary(best_model)
 #plot(best_model)
 
 # alle Variablen, größer Korrelation 0.2 da kommt nur noch sdoc5 dazu
@@ -221,3 +221,5 @@ formel_21 <- as.formula(paste("log(soil.res) ~", paste(vars_6, collapse = " + ")
 formel_21
 'log(soil.res) ~ I(lmoi^2) + I(litter.d^2) + soilc0 + I(soilc0^2) + 
     I(rootdw0^2) + I(temp.15^2)'
+
+best_model <- <- lm(log(soil.res) ~ I(temp.15^2) + I(litter.d^2), data = hainich.data)
