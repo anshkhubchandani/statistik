@@ -71,7 +71,7 @@ Sauerstoffdiffusion hemmen und so die mikrobielle Aktivität trotz vorhandenen K
 einschränken. Zudem sind Streufeuchte (lmoi) und Streudicke (litter.d) zentrale Parameter für die
 räumliche Variabilität
 
-\subsection{Statistisches Modell}
+\subsection{Statistisches Modell} \label{Statistisches Modell}
 
 Zur Vorhersage der Bodenatmung wurde ein lineares Modell (\texttt{lm}) verwendet.\\
 Deterministischer Teil: $\mathbb{E}Y_i= \mu_i =\beta_1 + \beta_2x_{i2} + ... + \beta_kx_{ik}$ mit $i= 1,...,n$\\
@@ -125,7 +125,6 @@ Bei der \( k \)-fold-Cross-Validation wird der Datensatz in \( k \) disjunkte Te
 
 Durch die Kombination beider Verfahren kann sowohl eine nahezu unverzerrte als auch eine stabilere Schätzung des Vorhersagefehlers erzielt werden.
 
-\subsection{Simulationsstudie}
 Gegenstand der Simulationsaufgabe ist die falsche Anwendung des t-Tests bei der
 Vorwärtsselektion von Prädiktoren. Während der Vorwärtsselektion wird mehrfach
 eine Hypothese der Form
@@ -143,24 +142,50 @@ und diskutieren Sie die Auswirkungen auf die Wahrscheinlichkeit einer irrtümlic
 Ablehnung der Null-Hypothese.
 
 
+\subsection{Simulationsstudie}
 
-Ziel der Simulationsstudie ist eine mehrfache Vorwärtsselektion von Prädiktoren. Dies erfolgt unter hilfe des Modells von. 
+Ziel der Simulationsstudie ist eine mehrfache Vorwärtsselektion von Prädiktoren.
 
-Nach der wahl des besten modells ($\beta$) erfolgt die berechnung einer Designmatrix (X) die für jeden Stichprobenumfang gleich fest ist. Dies geschiet durch ziehen mit zurücklegen aus der ursprünglichen Designmatrix.
-Danach erfolgt die simulierung mehrerer Pseudobeobachtungen durch:\\
-\[\mathrm{Y} \sim X\beta + \epsilon \]\\
-wobei $\epsilon$ ist gleichverteilte zufallszahl aus $[-1,1]$. 
+Nach der wahl des besten Modells ($\beta$) in \ref{Statistisches Modell} erfolgt die berechnung einer Designmatrix ($X$). Diese wird fuer jede Simulation neu gezogen ist aber für jeden Stichprobenumfang in einer Simulation gleich. Die berechnung geschieht durch ziehen mit zurücklegen aus der ursprünglichen Designmatrix. 
+Die simulierung mehrerer Pseudobeobachtungen ($Y$) ist notwendig um, die verteilung von Teststatistiken zu approximieren. Simuliert werden diese durch:\\
+\begin{equation}
+\mathrm{Y} \sim X\beta + \epsilon
+\end{equation}
+wobei $\epsilon$ ein gleichverteilte zufallszahl aus $[-1,1]$ ist. 
+
 Danach folgt eine serie an T-tests wobei jeder T-test die qualität der aufnahme eines praediktors in das modell tested. Dies passiert durch testung der Null Hypothese:\\
-\[\mathrm{H_0 : \beta_j}  = 0 \]\\
-was zusammen mit:
-
-\[\mathrm{t_{\hat{\beta}} =} \frac{\hat{\beta} - \beta_0}{\mathrm{SE}(\hat{\beta})}\]
-
-Die T-statistik besteht folgend aus 
+\begin{equation}
+\mathrm{H_0 : \beta_j}  = 0 
+\end{equation}
+was zusammen dem Einstichprobentest: 
+\begin{equation}
+t = \frac{\overline{x}-\mu_0}{\frac{s}{\sqrt{n}}}
+\end{equation}
+%\[\mathrm{t_{\hat{\beta}} =} \frac{\hat{\beta} - \beta_0}{\mathrm{SE}(\hat{\beta})}\]
+den T-statistik bildet:
 \begin{equation}
 T = \mathop{max}_{\textbf{j}}|t_j|
 \end{equation}
 
+Wir selektieren den praediktor mit dem hoechesten tmax und testen ob der T wert ueber $\alpha$ liegt. Wenn dies der fall ist nehmen wir den praediktor in unser modell auf und beginnen eine neues selektionsverfahren. Wenn nicht behalten wir das vorherige modell und versuchen die aufnahme erneut. Dies passiert bis zu einer vordefinierten anzahl an aufnahme schritten. 
+
+\subsubsection{Parameter und Parameterwahl}
+Die Simulationsstudie ist stark abhaengig von der wahl der parameter. Die Parameter der Simulation die gesetzt werden koennen sind:
+\begin{itemize}
+    \item Stichprobenumfang
+    \item Anzahl der Simulationen
+    \item Fehlerstandardabweichung $\sigma$
+    \item Anzahl der Selektionsschritte
+    \item Kritischer wert
+\end{itemize}
+
+Der Stichprobenumfang beschreibt wie haeufig wir aus der ursprünglichen Designmatrix ziehen um die Designmatrix fuer jede Simulation zu erstellen. Dafuer haben wir den wert 100 gewaehlt da dies zu stabilieren schaetzungen fuehrt als kleinere Stichprobenumfaenge wie 20 oder die groese der originalen designmatrix (38). In formel \ref{formel 3} ist der Stichprobenumfang im zaehler des zaehlers, es folgt das die erwarteten T-werte groeser sein werden wenn der Stichprobenumfang steigt. 
+
+Die anzahl an Simulationen beschreibt wie viele simulationen in betracht gezogen werden bei der Wahl des naechsten prediktor der aufgenommen wird. Diesen wert haben wir auf 50,000 gesetzt. Hier gilt grundsaetzlich groeser ist besser allerdings hat mehr als 50,000 die laufzeit zu sehr angehoben also mussten wir da aufhoeren.
+
+Die Fehlerstandardabweichung haben wir auf 1 gesetzts was gaengige praxis entspricht das gleiche gilt fuer den kritischen wert von 0.05.
+
+Die anzahl an selektionsschritten haben wir auf 10 gesetzt da im schnitt 7 praediktoren aufgenommen werden und wir noch ein paar schritte simulieren wollten um zu zeigen das es nicht nur zufall war das es nichts mehr aufgenommen hat.
 
 \subsection{Code-Verfügbarkeit}
 link zum repository\\
