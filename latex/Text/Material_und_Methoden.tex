@@ -40,54 +40,53 @@ zu erreichen, wurden die Zielgröße mit dem natürlichen Logarithmus transformi
 Es gibt Einflussgrößen deren Effekt, den sie auf die Zielgröße ausüben, von der Ausprägung
 einer anderen Einflussgröße abhängig ist. Dabei handelt es sich um eine Interaktion, welche in einem
 linearem Modell explizit beschrieben werden muss.
-
-folgende Interaktionen zwischen den Einflussgrößen gelten als biologisch relevant:
+\\
+Folgende Interaktionen zwischen den Einflussgrößen in dem Modell (\texttt{lmoi}, \texttt{litter.de}, \texttt{temp.15}) gelten als biologisch relevant:
 \\
 \texttt{lmoi} und \texttt{litter.de}:\\
-Je dicker die Streuschicht ist, desto mehr Wasser kann sie speichern und desto länger dauert es,
-bis sie ausgetrocknet ist.
+Die Streuschicht ist der Lebensraum der Mikroorganismen, welche heterotrophe Atmung betreiben.
+Dafür brauchen sie auch Wasser. Eine dicke Streuschicht lönnte also nur dann zu einer massiven Steigerung
+der Atmung führen, wenn die Feuchtigkeit optimal ist, um die Mikroben am Leben zu halten. Zudem könnte
+eine dicke Streuschicht die Feuchtigkeit im Oberboden länger konservieren, was den Effekt verstärkt.
 \\
 \texttt{temp.15} und \texttt{lmoi}:\\
-Mikroorganismen drosseln bei extremer Trockenheit trotz hoher Temperaturen ihre Aktivität
-In trockenen Perioden (wie im August 2001 beobachtet) bricht die normale
-Temperatur-Respirations-Kurve ein. Das Modell für Bodenatmung wird signifikant besser,
-wenn sowohl Temperatur als auch Feuchte einbezogen werden
+Die Temperatur ist der primäre kinetische Treiber für biochemische Reaktionen.
+Die Feuchtigkeit wirkt jedoch als limitierender Faktor, in trockenen Perioden sinkt die
+Stoffwechselrate. Umgekehrt kann bei sehr hoher Feuchtigkeit in tonreichen Böden
+Sauerstoffmangel entstehen, der die aerobe Atmung trotz optimaler Temperaturen unterdrückt. \cite{diss}
 \\
-\texttt{temp.15} und \texttt{rootdw0}:\\
-Die Temperatur-Sensitivität (Q10) unterscheidet sich zwischen der autotrophen Respiration (Wurzeln) und der heterotrophen Respiration (Mikroorganismen)
-Wurzelrespiration macht oft mehr als die Hälfte der gesamten Bodenatmung aus. Da Wurzeln und
-Mikroorganismen unterschiedliche physiologische Optima haben, hängt die Gesamtreaktion des Bodens auf
-Erwärmung davon ab, wie viel Wurzelbiomasse vorhanden ist
-\\
-\texttt{soilc0} und \texttt{rootdw0}:\\
-Räumliche Muster der Bodenatmung werden oft gemeinsam durch die Verteilung von Pflanzen (Wurzeln) und Bodenressourcen (C) erklärt
-Das beste Modell in der Publikation kombiniert explizit Wurzelbiomasse, Boden-C und Feuchte.
-Diese Faktoren korrelieren oft räumlich miteinander, da Bäume über den Wurzeleintrag den Bodenkohlenstoff beeinflussen
-\\
-\texttt{litter.d} und \texttt{soilc0}:\\
-Die Verfügbarkeit von Substrat (Kohlenstoff) für den Abbau wird durch die Feuchtigkeit limitiert oder gefördert.
-Ein sehr hoher Wassergehalt (besonders in tonreichen Böden wie im Hainich) kann die
-Sauerstoffdiffusion hemmen und so die mikrobielle Aktivität trotz vorhandenen Kohlenstoffs
-einschränken. Zudem sind Streufeuchte (lmoi) und Streudicke (litter.d) zentrale Parameter für die
-räumliche Variabilität
+\texttt{temp.15} und \texttt{litter.de}:\\
+Die Menge an potenziell verfügbarem Kohlenstoff in dem Streu begrenzt die maximale Respiration.
+Höhere Temperaturen beschleunigen den Abbau dieses organischen Materials durch Mikroben exponentiell \cite{diss}.
+Ein hoher Wert bei beiden Variablen könnte zu einem überproportionalen Anstieg der (CO$_2$)-Abgabe führen,
+da die mikrobielle Population in einer dicken Streuschicht bei Wärme ihre maximale metabolische Kapazität
+ausschöpfen kann.
+
+\subsubsection{Korrelationen}
+
+Es wurden alle Korrelationen zwischen Zielgröße und den Einflussgrößen bestimmt, sowie Multikollinearität
+zwischen den Einflussgrößen.
 
 \subsection{Statistisches Modell}
 
 Zur Vorhersage der Bodenatmung wurde ein lineares Modell (\texttt{lm}) verwendet.\\
 Deterministischer Teil: $\mathbb{E}Y_i= \mu_i =\beta_1 + \beta_2x_{i2} + ... + \beta_kx_{ik}$ mit $i= 1,...,n$\\
 Stochastischer Teil: $Y_i \sim N(\mu_i, \sigma^2)$ mit $i= 1,...,n$\\
-\\ 
-Um die Anzahl der potenziellen Prädiktoren auf ein für die Größe des Datensatzes angemessenes Maß zu
-reduzieren, wurde die gängige Heuristik angewandt, nur Variablen mit einer Einzelkorrelation zum Betrag
-von >0,2 für die weitere Modellierung zu berücksichtigen. Dies ermöglichte eine Konzentration auf die
-einflussreichsten Faktoren und diente dem Schutz vor Overfitting.
-Die globale Suche wurde mit der Funktion \texttt{regsubsets()} durchgeführt. Diese Funktion testet alle möglichen Kombinationen der
-Einflussgrößen in einem linearem Modell.
-\\
-Weiterhin wurden alle biologisch plausiblen Interaktionen getestet, siehe \ref{Interaktionen}. Die Interaktion die den AIC verbessert hat, wurde
-in das Modell einbezogen. Durch die Menge der Daten, ist die Interaktion nicht statistisch signifikant. Wurde jedoch trotzdem behalten aufgrund des verbessertem AIC und dem Parsimonie-Prinzip.
 
-\subsubsection{Validierung des finalen Modells}
+\subsubsection{Aufstellen der Kandidatenmodelle}
+
+Da wir nur einen kleinen Datensatz mit 38 Datenpunkten haben, suchen wir ein Modell mit maximal 4
+Variablen, um Overfitting zu vermeiden. Dafür wurden Variablen angeschaut die die größte Kollinearität zur
+Zielgröße haben, um die Anzahl der möglichen Einflussgrößen zu verringern. Die Variablen mit der größten
+Kollinearität zur Zielgröße sind \texttt{lmoi} (0,47), \texttt{litter.de} (0,3), \texttt{temp.15} (0,43)
+und \texttt{soiln0} (0,32). Wobei \texttt{soiln0} mit 0,96 sehr stark mit \texttt{soilc0} korreliert.
+
+\subsubsection{Auswahl und Validierung des finalen Modells}
+
+Für die Qualität der Modelle wurde das BIC genutzt. Das BIC ist das Bayesian Information Criterion und ist
+ein Kriterium zur Modellwahl. Es wägt die Anpassungsgüte eines statistischen Modells gegen seine Komplexität, also die Anzahl der
+Variablen ab. Das BIC wird berechnet mit der Formel: \[-2\cdot logL+log(n)\cdot p \] mit der Log-Likelihood (L) des Modells, der Anzahl der
+geschätzten Parameter (p) und dem Stichprobenumfang (n). Damit lässt sich einfach der Varianz Trade-off ablesen.\\
 
 Zur Beurteilung der Qualität der Modelle wurden mehrere Validierungsschritte durchgeführt. Ziel war es, sowohl die statistische Zulässigkeit der Modelle als auch deren Prognosegüte und Komplexität zu bewerten.\\
 
@@ -105,12 +104,6 @@ Unter der Nullhypothese \(H_0: \gamma_1 = \dots = \gamma_q = 0\) liegt Homoskeda
 Um Einfluss einzelner Beobachtungen auf die Parameterschätzung zu messen, wurde die Cook's Distance verwendet, berechnet in R mit \texttt{cooks.distance()}:
 $$D_i = \frac{\sum_{j=1}^n (\hat{y}_j - \hat{y}_{j(i)})^2}{(k + 1) s^2}.$$
 Große Werte von \(D_i\) weisen auf Beobachtungen hin, die die Modellschätzung stark beeinflussen.\\
-
-\subsubsection{Modellwahl}
-Für die Qualität der Modelle wurde das BIC genutzt. Das BIC ist das Bayesian Information Criterion und ist
-ein Kriterium zur Modellwahl. Es wägt die Anpassungsgüte eines statistischen Modells gegen seine Komplexität, also die Anzahl der
-Variablen ab. Das BIC wird berechnet mit der Formel: \[-2\cdot logL+log(n)\cdot p \] mit der Log-Likelihood (L) des Modells, der Anzahl der
-geschätzten Parameter (p) und dem Stichprobenumfang (n). Damit lässt sich einfach der Varianz Trade-off ablesen.\\
 
 \subsubsection{Bewertung der Prognosegüte}
 Zur Bewertung der Prognosegüte wurden LOOCV (Leave-One-Out-Cross-Validation) sowie k-fold-Cross-Validation eingesetzt.\\
