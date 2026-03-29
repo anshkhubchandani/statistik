@@ -67,7 +67,7 @@ ausschöpfen kann.
 Es wurden alle Korrelationen zwischen Zielgröße und den Einflussgrößen bestimmt, sowie Multikollinearität
 zwischen den Einflussgrößen.
 
-\subsection{Statistisches Modell}
+\subsection{Statistisches Modell} \label{Statistisches Modell}
 
 Zur Vorhersage der Bodenatmung wurde ein lineares Modell (\texttt{lm}) verwendet.\\
 Deterministischer Teil: $\mathbb{E}Y_i= \mu_i =\beta_0 + \beta_1x_{i1} + ... + \beta_kx_{ik}$ mit $i= 1,...,n$\\
@@ -145,41 +145,48 @@ Bei der \( k \)-fold-Cross-Validation wird der Datensatz in \( k \) disjunkte Te
 Durch die Kombination beider Verfahren kann sowohl eine nahezu unverzerrte als auch eine stabilere Schätzung des Vorhersagefehlers erzielt werden.
 
 \subsection{Simulationsstudie}
-Gegenstand der Simulationsaufgabe ist die falsche Anwendung des t-Tests bei der
-Vorwärtsselektion von Prädiktoren. Während der Vorwärtsselektion wird mehrfach
-eine Hypothese der Form
-überprüft, wobei jedoch jeweils die absolut größte von mehreren möglichen t-
-Statistiken betrachtet wird.
 
-Wählen Sie das im ersten Teil bestimmte Modell als wahres Modell für die
-Simulation. Wählen Sie für jeden Stichprobenumfang eine feste Designmatrix , die aus
-zufällig ausgewählten Zeilen der ursprünglichen Designmatrix besteht (evtl. mit
-Wiederholung). Simulieren Sie dann jeweils mehrfach Pseudobeobachtungen der
-Zielgröße. Vergleichen Sie die simulierte Häufigkeitsverteilung des Maximums
-mehrerer t-Statistiken für die Hinzunahme einer weiteren Einflussgröße beim nächsten
-Schritt der Vorwärtsselektion mit der für einen einzelnen Test passenden t-Verteilung
-und diskutieren Sie die Auswirkungen auf die Wahrscheinlichkeit einer irrtümlichen
-Ablehnung der Null-Hypothese.
-
-
-
-Ziel der Simulationsstudie ist eine mehrfache Vorwärtsselektion von Prädiktoren. Dies erfolgt unter hilfe des Modells von. 
-
-Nach der wahl des besten modells ($\beta$) erfolgt die berechnung einer Designmatrix (X) die für jeden Stichprobenumfang gleich fest ist. Dies geschiet durch ziehen mit zurücklegen aus der ursprünglichen Designmatrix.
-Danach erfolgt die simulierung mehrerer Pseudobeobachtungen durch:\\
-\[\mathrm{Y} \sim X\beta + \epsilon \]\\
-wobei $\epsilon$ ist gleichverteilte zufallszahl aus $[-1,1]$. 
-Danach folgt eine serie an T-tests wobei jeder T-test die qualität der aufnahme eines praediktors in das modell tested. Dies passiert durch testung der Null Hypothese:\\
-\[\mathrm{H_0 : \beta_j}  = 0 \]\\
-was zusammen mit:
-
-\[\mathrm{t_{\hat{\beta}} =} \frac{\hat{\beta} - \beta_0}{\mathrm{SE}(\hat{\beta})}\]
-
-Die T-statistik besteht folgend aus 
+Ziel der Simulationsstudie ist eine mehrfache Vorwärtsselektion von Prädiktoren. Nach der Wahl des besten Modells ($\beta$) in \ref{Statistisches Modell} erfolgt die Berechnung einer Designmatrix ($X$). Diese wird fuer jede Simulation neu gezogen ist aber für jeden Stichprobenumfang in einer Simulation gleich. Die Berechnung geschieht durch ziehen mit zurücklegen aus der ursprünglichen Designmatrix. 
+Die Simulierung mehrerer Pseudobeobachtungen ($Y$) ist notwendig um, die Verteilung von Teststatistiken zu approximieren. Simuliert werden diese durch:\\
+\begin{equation}
+\mathrm{Y} \sim X\beta + \epsilon
+\end{equation}
+wobei $\epsilon$ eine gleichverteilte Zufallszahl aus $[-1,1]$ ist. Darauf folgt eine Serie an t-Tests wobei jeder t-Test die Qualität der aufnahme eines Prädiktors in das Modell tested. Dies passiert durch testung der Null Hypothese:\\
+\begin{equation}
+\mathrm{H_0 : \beta_j}  = 0 
+\end{equation}
+was zusammen mit dem t-Test mit einer Stichprobe: 
+\begin{equation} \label{Einstichprobentest}
+t = \frac{\overline{x}-\mu_0}{\frac{s}{\sqrt{n}}}
+\end{equation}
+%\[\mathrm{t_{\hat{\beta}} =} \frac{\hat{\beta} - \beta_0}{\mathrm{SE}(\hat{\beta})}\]
+die t-Statistik bildet. Der maximal Wert aller t-Tests aller Simulationen bildet T:
 \begin{equation}
 T = \mathop{max}_{\textbf{j}}|t_j|
 \end{equation}
+In jeder runde der Vorwärtsselektion wird der Prädiktor mit dem höchesten t-max selektiert und es wird überprüft ob T über dem kritischen Wert liegt. Wenn dies der fall ist wird der Prädiktor in das Modell aufgenommen und es beginnt ein neues Selektionsverfahren. Wenn nicht wird der Selektionsschritt wiederholt mit den gleichen bereits selektierten Prädiktoren. Das ganze wird wiederholt bis zu einer vordefinierten Anzahl an versuchten aufnahme Schritten. 
 
+\subsubsection{Parameter und Parameterwahl}
+Die Simulationsstudie ist stark abhängig von der Wahl der Parameter. Die Parameter der Simulation die gesetzt werden können sind:
+\begin{itemize}
+    \item Stichprobenumfang
+    \item Anzahl der Simulationen
+    \item Fehlerstandardabweichung $\sigma$
+    \item Anzahl der Selektionsschritte
+    \item Kritischer wert
+\end{itemize}
+
+Der Stichprobenumfang beschreibt wie häufig aus der ursprünglichen Designmatrix gezogen wird um die Designmatrix für jede Simulation zu erstellen. Dafür wurde der wert 100 gewählt da dies zu stabilieren Schätzungen führt als kleinere Stichprobenumfänge wie 20 oder die größe der originalen Designmatrix (38). In Formel \ref{Einstichprobentest} ist der Stichprobenumfang im zähler des zählers, es folgt das die erwarteten T-werte größer sein werden wenn der Stichprobenumfang steigt. 
+
+Die anzahl an Simulationen beschreibt wie viele Simulationen in betracht gezogen werden bei der Wahl des nächsten Prediktor der aufgenommen wird. Diesen wert wurde auf 5,000 gesetzt. Hier gilt grundsätzlich größer ist besser da somit ein besserer dürchschnitt gebildet wird, allerdings haben Laufzeit limitationen die Grenze bei 5,000 bedingt.
+
+Die Fehlerstandardabweichung  ist auf eins gesetzt was gängiger Praxis entspricht, das gleiche gilt fuer das $\alpha$ von 0.05. Da H0 = 0 gegen H0 != 0 getested wird entspricht das einem zweiseitigen Test und alpha muss aufgeteilt werden: 
+\begin{equation}
+P(T>t_{crit}) = \frac{\alpha}{2} = 0.025 \rightarrow P(T \leq t_{crit}) = 0.975
+\end{equation}
+Aus 100 Simulationen und zwei Prädiktoren folgt 98 Freiheitsgrade und $t_{crit} = t_{0.975,98} \approx 1.984$.
+
+Die anzahl an Selektionsschritten wurde auf 10 gesetzt da im schnitt sieben Praediktoren aufgenommen werden und noch ein paar Schritte simuliert werden um zu zeigen das nicht nur durch zufall nichts mehr aufgenommen wird.
 
 \subsection{Code-Verfügbarkeit}
 link zum repository\\

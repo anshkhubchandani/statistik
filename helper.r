@@ -76,7 +76,7 @@ extract_coefficients <- function(model, all_pred = all_predictors) {
 #coef_vec_6 <- extract_coefficients(stats::coef(fit, 6))
 
 # Usage with lm object:
-#coef_vec_lm <- extract_coefficients(best_model)
+#coef_vec_lm <- extract_coefficients(best_model)  # best_model = lm(log(soil.res) ~ I(temp.15^2) + I(litter.d^2), data = hainich.data)
 
 # Get coefficients for any model size from regsubsets
 get_model_coefs <- function(regfit_obj, model_size, all_pred = all_predictors) {
