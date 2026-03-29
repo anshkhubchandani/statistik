@@ -25,13 +25,38 @@ Abbildung \ref{fig:Residuen} zeigt die Residuen für das Modell. Auf der x-Achse
 \end{figure}
 
 \subsection{Simulation}
-Die Simulationsstudie erzeugt fuer jeden aufnahme schritt eine verteilung der tMax werte:
+Die Simulationsstudie erzeugt für jeden aufnahmeschritt eine Verteilung der T-max werte:
 \newpage
 \input{Text/Plots}
 
+Diese sind stark Rechtsschief für die ersten paar aufnahme schritte. Zudem sind viele werte größer als $T=2$ zu sehen. Bei Simulationsschritt fünf ist ein starker abfall zu sehen und nach Schritt sieben existieren keine T werte größer als 2. Die drei meist aufgenommenen Prädiktoren in jedem Selektionsschitt sind: 
+\begin{itemize}
+  \item Schritt 1: $temp.15^2, litdoc, temp.15$
+  \item Schritt 2: $temp.15^2, litter.d, temp.15$
+  \item Schritt 3: $litter.d, snh40, litter.d^2$
+  \item Schritt 4: $rootn5^2, rootdw0^2, litter.d^2$
+  \item Schritt 5: $snh45^2, smoi, ph.soil5^2$
+  \item Schritt 6: $sdoc0, rootc5^2, rootdw0^2$
+  \item Schritt 7: $lmoi^2, none$ 
+  \item Schritt 8: $none$
+  \item Schritt 9: $none$
+  \item Schritt 10: $none$
+\end{itemize}
 
-Diese zeigen einen starke linksneigung wenn man sie mit der erwarteten gausförmigen verteilung vergelicht. Dies zeigt das wir öfter praediktoren aufnehmen als wir laut der erwarteten t statistik eigentlich sollten. 
-
-
-
-Das ist nicht unerwartet da die t statistik davon ausgeht das wir nur einen t wert berechnen und nicht den maximum aus vielen betrachten. Die akzeptanz grenze wurde schlieslich auch nicht erhoeht. 
+Zudem wurde der Empirische Fehler:
+\begin{equation}
+  \text{Empirical error} = \frac{\text{number of simulations with } t_{\max} > t_{\text{crit}}}{\text{number of total simulations}}
+\end{equation}
+für jeden Simulationsschritt berechnet:
+\begin{itemize}
+  \item Schritt 1: 0.853
+  \item Schritt 2: 0.53
+  \item Schritt 3: 0.244
+  \item Schritt 4: 0.094
+  \item Schritt 5: 0.029
+  \item Schritt 6: 0.007
+  \item Schritt 7: 0.002
+  \item Schritt 8: 0
+  \item Schritt 9: 0
+  \item Schritt 10: 0
+\end{itemize}
