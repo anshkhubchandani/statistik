@@ -151,7 +151,7 @@ Die Simulierung mehrerer Pseudobeobachtungen ($Y$) ist notwendig um, die Verteil
 \begin{equation}
 \mathrm{Y} \sim X\beta + \epsilon
 \end{equation}
-wobei $\epsilon$ eine gleichverteilte Zufallszahl aus $[-1,1]$ ist. Darauf folgt eine Serie an t-Tests wobei jeder t-Test die Qualität der aufnahme eines Prädiktors in das Modell tested. Dies passiert durch testung der Null Hypothese:\\
+wobei $\epsilon \sim N(0,\sigma^2)$. Darauf folgt eine Serie an t-Tests wobei jeder t-Test die Qualität der aufnahme eines Prädiktors in das Modell tested. Dies passiert durch testung der Null Hypothese:\\
 \begin{equation}
 \mathrm{H_0 : \beta_j}  = 0 
 \end{equation}

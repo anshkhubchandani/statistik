@@ -111,10 +111,15 @@ for(step in 1:nsteps){
   # Check if table is empty or has no valid entries (all NA)
   if(length(step_table) == 0 || all(is.na(names(step_table)))){
     most_selected <- "none"
+    second_most_selected <- "none"
+    third_most_selected <- "none"
   } else {
     # Get the most frequently included variable position
     sorted_table <- sort(step_table, decreasing=TRUE)
     most_selected_pos <- as.numeric(names(sorted_table[1]))
+    second_most_selected_pos <- as.numeric(names(sorted_table[2]))
+    third_most_selected_pos <- as.numeric(names(sorted_table[3]))
+
     
     # Check if the position is valid and within bounds of all_predictors
     if(is.na(most_selected_pos) || most_selected_pos < 1 || most_selected_pos > length(all_predictors)){
@@ -124,11 +129,25 @@ for(step in 1:nsteps){
       most_selected <- all_predictors[most_selected_pos]
     }
   }
-
+      if(is.na(second_most_selected_pos) || second_most_selected_pos < 1 || second_most_selected_pos > length(all_predictors)){
+      second_most_selected <- "none"
+    } else {
+      # Convert position to variable name from all_predictors in helper.r
+      second_most_selected <- all_predictors[second_most_selected_pos]
+    }
+  
+  if(is.na(third_most_selected_pos) || third_most_selected_pos < 1 || third_most_selected_pos > length(all_predictors)){
+      third_most_selected <- "none"
+    } else {
+      # Convert position to variable name from all_predictors in helper.r
+      third_most_selected <- all_predictors[third_most_selected_pos]
+    }
   
   cat("Step", step,
       "Empirical error:", round(emp_error,3), "\n",
-      "Most frequently included variable:", most_selected, "\n")
+      "Most frequently included variable:", most_selected, "\n",
+      "Second most frequently included variable:", second_most_selected, "\n",
+      "Third most frequently included variable:", third_most_selected, "\n")
 }
 
 # ============================================================================
