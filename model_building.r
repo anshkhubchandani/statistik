@@ -222,4 +222,4 @@ formel_21
 'log(soil.res) ~ I(lmoi^2) + I(litter.d^2) + soilc0 + I(soilc0^2) + 
     I(rootdw0^2) + I(temp.15^2)'
 
-best_model <- <- lm(log(soil.res) ~ I(temp.15^2) + I(litter.d^2), data = hainich.data)
+best_model <- lm(log(soil.res) ~ I(temp.15^2) + I(litter.d^2), data = hainich.data)

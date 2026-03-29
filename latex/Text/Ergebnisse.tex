@@ -24,12 +24,11 @@ Abbildung \ref{fig:Residuen} zeigt die Residuen für das Modell. Auf der x-Achse
   \label{fig:Residuen}
 \end{figure}
 
-\subsection{Simulation}
+\subsection{Simulation} \label{ErgebnisSim}
 Die Simulationsstudie erzeugt für jeden aufnahmeschritt eine Verteilung der T-max werte:
 \newpage
 \input{Text/Plots}
-
-Diese sind stark Rechtsschief für die ersten paar aufnahme schritte. Zudem sind viele werte größer als $T=2$ zu sehen. Bei Simulationsschritt fünf ist ein starker abfall zu sehen und nach Schritt sieben existieren keine T werte größer als 2. Die drei meist aufgenommenen Prädiktoren in jedem Selektionsschitt sind: 
+Diese sind stark Rechtsschief für die ersten paar aufnahme schritte. Zudem sind viele werte größer als $T=1.98$ zu sehen. Bei Simulationsschritt fünf ist ein starker abfall zu sehen und nach Schritt sieben existieren keine T werte größer als 1.98. Die drei meist aufgenommenen Prädiktoren in jedem Selektionsschitt sind: 
 \begin{itemize}
   \item Schritt 1: $temp.15^2, litdoc, temp.15$
   \item Schritt 2: $temp.15^2, litter.d, temp.15$
@@ -42,7 +41,6 @@ Diese sind stark Rechtsschief für die ersten paar aufnahme schritte. Zudem sind
   \item Schritt 9: $none$
   \item Schritt 10: $none$
 \end{itemize}
-
 Zudem wurde der Empirische Fehler:
 \begin{equation}
   \text{Empirical error} = \frac{\text{number of simulations with } t_{\max} > t_{\text{crit}}}{\text{number of total simulations}}
