@@ -111,6 +111,8 @@ for(step in 1:nsteps){
   # Check if table is empty or has no valid entries (all NA)
   if(length(step_table) == 0 || all(is.na(names(step_table)))){
     most_selected <- "none"
+    second_most_selected <- "none"
+    third_most_selected <- "none"
   } else {
     # Get the most frequently included variable position
     sorted_table <- sort(step_table, decreasing=TRUE)
@@ -140,8 +142,6 @@ for(step in 1:nsteps){
       # Convert position to variable name from all_predictors in helper.r
       third_most_selected <- all_predictors[third_most_selected_pos]
     }
-
-
   
   cat("Step", step,
       "Empirical error:", round(emp_error,3), "\n",
