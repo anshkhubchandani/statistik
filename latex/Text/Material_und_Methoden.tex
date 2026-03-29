@@ -32,7 +32,7 @@ folgende Einflussgrößen:
 \end{itemize}
 
 \subsubsection{Transformation}
-Die Zielgröße \texttt{soil.res} zeigt eine linksschiefe Verteilung. Um eine möglichst stabile Schätzung des Modells
+Die Zielgröße \texttt{soil.res} zeigt eine rechtsschiefe Verteilung. Um eine möglichst stabile Schätzung des Modells
 zu erreichen, wurden die Zielgröße mit dem natürlichen Logarithmus transformiert.
 
 \subsubsection{Interaktionen zwischen den Einflussgrößen} \label{Interaktionen}
@@ -41,7 +41,7 @@ Es gibt Einflussgrößen deren Effekt, den sie auf die Zielgröße ausüben, von
 einer anderen Einflussgröße abhängig ist. Dabei handelt es sich um eine Interaktion, welche in einem
 linearem Modell explizit beschrieben werden muss.
 \\
-Folgende Interaktionen zwischen den Einflussgrößen in dem Modell (\texttt{lmoi}, \texttt{litter.de}, \texttt{temp.15}) gelten als biologisch relevant:
+Folgende Interaktionen zwischen den Einflussgrößen in dem Modell (\texttt{lmoi}, \texttt{litter.d}, \texttt{temp.15}) gelten als biologisch relevant:
 \\
 \texttt{lmoi} und \texttt{litter.de}:\\
 Die Streuschicht ist der Lebensraum der Mikroorganismen, welche heterotrophe Atmung betreiben.
@@ -70,23 +70,49 @@ zwischen den Einflussgrößen.
 \subsection{Statistisches Modell}
 
 Zur Vorhersage der Bodenatmung wurde ein lineares Modell (\texttt{lm}) verwendet.\\
-Deterministischer Teil: $\mathbb{E}Y_i= \mu_i =\beta_1 + \beta_2x_{i2} + ... + \beta_kx_{ik}$ mit $i= 1,...,n$\\
+Deterministischer Teil: $\mathbb{E}Y_i= \mu_i =\beta_0 + \beta_1x_{i1} + ... + \beta_kx_{ik}$ mit $i= 1,...,n$\\
 Stochastischer Teil: $Y_i \sim N(\mu_i, \sigma^2)$ mit $i= 1,...,n$\\
 
 \subsubsection{Aufstellen der Kandidatenmodelle}
 
-Da wir nur einen kleinen Datensatz mit 38 Datenpunkten haben, suchen wir ein Modell mit maximal 4
-Variablen, um Overfitting zu vermeiden. Dafür wurden Variablen angeschaut die die größte Kollinearität zur
-Zielgröße haben, um die Anzahl der möglichen Einflussgrößen zu verringern. Die Variablen mit der größten
-Kollinearität zur Zielgröße sind \texttt{lmoi} (0,47), \texttt{litter.de} (0,3), \texttt{temp.15} (0,43)
-und \texttt{soiln0} (0,32). Wobei \texttt{soiln0} mit 0,96 sehr stark mit \texttt{soilc0} korreliert.
+Da wir nur einen kleinen Datensatz mit 38 Datenpunkten haben, suchen wir ein Modell mit so wenig wie möglich
+Variablen, um Overfitting zu vermeiden. Neben der Korrelation zur Zielgröße wurden auch biologische
+Plausibilität und Multikollinearität berücksichtigt, um die Anzahl der möglichen Einflussgrößen zu
+verringern. Die Variablen mit den größten Kollinearitäten zur Zielgröße und ohen Multikollinearität
+untereinander sind \texttt{lmoi} (0,47), \texttt{litter.d} (0,3), \texttt{temp.15} (0,43) und
+\texttt{soiln0} (0,32). Wobei \texttt{soiln0} mit 0,96 sehr stark mit \texttt{soilc0} korreliert.
+\\
+Das erste Modell (\texttt{lm1}) enthält die Einflussgrößen \texttt{temp.15} und \texttt{litter.d}. Darin enthalten ist
+die Annahme, dass die Temperatur die kinetische Energie für biochemische Reaktionen der Mikroben und Wurzeln
+bereitstellt. Die Temperatur in 15 cm tiefe könnte stabiler sein als die Temperatur an der Oberfläche und
+wird deswegen verwendet. Die Streuschichtdicke repräsentiert das Substrat für die heterotrophe Zersetzung.
+\\
+Im zweiten Modell (\texttt{lm2}) werden die Einflussgrößen \texttt{temp.15} und \texttt{lmoi} berücksichtigt.
+Bei extremer Trockenheit sinkt die Stoffwechselrate, sodass die Mikroorganismen die Wärme nicht mehr in
+höhere Respiration umsetzen können. In tonreichen Böden wie im Hainich kann zudem Staunässe zu
+Sauerstoffmangel führen, was die aerobe Atmung ebenfalls hemmt.
+\\
+Dagegen wird im dritten Modell (\texttt{lm3}) die Einflussgrößen \texttt{litter.d} und \texttt{soiln0} betrachtet.
+Während litter.d die Quantität des organischen Materials angibt, steht der Stickstoffgehalt für die
+chemische Verfügbarkeit von Nährstoffen, die das mikrobielle Wachstum und die Enzymproduktion fördern. \cite{diss}
+\\
+Das vierte Modell (\texttt{lm4}) nutzt alle 4 Variablen: \texttt{litter.d}, \texttt{soiln0}, \texttt{temp.15} und \texttt{lmoi}.
+Dieses umfassendes Modell kombiniert abiotische Kontrolle und biologische Ressourcen. Die Temperatur steuert
+die Rate während die Feuchtigkeit dies limitieren kann. Die Dicke der Streuschicht gibt die Menge an Substrat
+an und der Stickstoff ermöglicht die effiziente Nutzung des Kohlenstoffs durch Mikroorganismen.
 
-\subsubsection{Auswahl und Validierung des finalen Modells}
+\subsection{Auswahl des finalen Modells}
 
-Für die Qualität der Modelle wurde das BIC genutzt. Das BIC ist das Bayesian Information Criterion und ist
-ein Kriterium zur Modellwahl. Es wägt die Anpassungsgüte eines statistischen Modells gegen seine Komplexität, also die Anzahl der
-Variablen ab. Das BIC wird berechnet mit der Formel: \[-2\cdot logL+log(n)\cdot p \] mit der Log-Likelihood (L) des Modells, der Anzahl der
-geschätzten Parameter (p) und dem Stichprobenumfang (n). Damit lässt sich einfach der Varianz Trade-off ablesen.\\
+Alle Modelle wurden mit den im Abschnitt \ref{Validation} beschriebenen Tests betrachtet. Für die Wahl
+zwischen den Modellen wurde aber ausschließlich das BIC genutzt. Das BIC ist das Bayesian Information
+Criterion und ist ein Kriterium zur Modellwahl. Es wägt die Anpassungsgüte eines statistischen Modells gegen
+seine Komplexität, also die Anzahl der Variablen ab. Das BIC wird berechnet mit der Formel:
+\[-2\cdot logL+log(n)\cdot p \] mit der Log-Likelihood (L) des Modells, der Anzahl der geschätzten Parameter
+(p) und dem Stichprobenumfang (n). Damit lässt sich einfach der Varianz Trade-off ablesen. Das BIC bestraft
+Modelkomplexität stärker und bevorzugt einfachere Modelle als das AIC und wurde deswegen aufgrund der
+geringen Datenmenge bevorzugt, um Overfitting zu vermeiden.\\
+
+\subsubsection{Validierung des finalen Modells} \label{Validation}
 
 Zur Beurteilung der Qualität der Modelle wurden mehrere Validierungsschritte durchgeführt. Ziel war es, sowohl die statistische Zulässigkeit der Modelle als auch deren Prognosegüte und Komplexität zu bewerten.\\
 

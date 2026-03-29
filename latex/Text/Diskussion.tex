@@ -7,24 +7,46 @@ was bedeuten die Ergebnisse
 
 \subsection{Modellwahl}
 
-Von den Prädikatoren wurden die mit dem größten Einfluss (Korrelation größer gleich 0,2) ausgewählt
-und mittels globaler suche das sparsamste Modell mittels des BIC identifiziert. Dann wurde die beste
-Interaktion dem Modell hinzugefügt, diese Interaktion ist zwar nicht signifikant und verbessert nicht den
-BIC Wert aber verbessert den AIC Wert. Da die Interaktion biologisch plausibel ist und die Residuen verbessert.
-Aufgrund der geringen Messpunkte kann diesbezüglich nur schwer eine Signifikanz erreicht werden, da zu wenig
-Datenpunkte vorliegen um die Interaktion eindeutig vom Rauschen zu unterscheiden.
+Es wurden vier Kandidatenmodelle auf Basis biologischer Überlegungen erstellt und das beste Modell mittels BIC
+ermittelt. Das Kriterium wägt zwischen Modelllgüte und Komplexität ab und identifiziert so das am besten
+passende Modell. Anschließend wurde das beste Modell validiert, indem die Residuen, der LOOCV, k-fache Kreuzvalidierung
+und der Shapiro Test, Breusch-Pagan Test, sowie die Cooks Distanz betrachtet wurden.
+\\
+Das finale Modell \texttt{lm1} enthält nur drei Variablen mit dem Intercept, kann damit aber die Daten
+gut schätzen. Es treten Über- und Unterschätzungen nur im geringen Maß auf siehe \ref{fig:Residuen}.
+Das zeigt die gewählten Prädikatoren erfassen noch nicht alle wichtigen Zusammenhänge. Mögliche Ursachen könnten fehlende
+Einflussgrößen oder Interaktionen sein. Jedoch können auf Grundlage der 38 Datenpunkte keine weiteren
+Zusammenhänge zuverlässig ermittelt werden, wodurch das sparsamste Modell am statistisch stabilsten ist.
+\\
+Die Modelle sind von den Validierungsergebnissen nah beieinander, jedoch zeigt das finale Modell den
+niedrigsten BIC und vergleichbare Validierungswerte. Dies zeigt das die Temperatur und die Dicke der Streuschicht wichtige Faktoren sind die die Daten beschreiben.
+Die Bodentemperatur gibt die kinetische Energie für alle biochemischen Reaktionen in den Zellen der Bodenorganismen.
+Dadurch ist sie ein wichtiger zeitlicher Treiber. Die Temperatur in 15 cm tiefe hat eine hohe Korrelationen (0,43),
+dies ist biologisch sinnvoll, da die Temperaturen in tieferen Schichten stabiler sind und damit besser die
+Wurzel und Mikrobenpopulation repräsentieren. Durch den Quadratischen Term wird abgebildet, dass sich die
+biologische Aktivität bei steigenden Temperaturen überproportional beschleunigt und ein Otpimum besitzt.
+\\
+Die Streuschichtdicke repräsentiert die Quantität des frischen organischen
+Materials, das den Mikroorganismen als primäre Energiequelle für die heterotrophe Respiration dient.
+Während die Temperatur primär zeitliche Schwankungen erklärt, ist die Dicke der Streu in Wäldern ein
+entscheidender Faktor für die räumlichen Muster der Bodenatmung. Der quadratische Term deutet darauf hin,
+dass die Menge des Substrats die Atmung nicht einfach nur linear erhöht, sondern dass z. B. eine sehr
+dicke Streuschicht die mikrobielle Aktivität durch bessere Feuchtigkeitskonservierung oder ein massives
+Nahrungsüberangebot überproportional fördert.
+\\
+Interessant ist das \texttt{lmoi} nicht in dem Modell vorkommt, obwohl es die stärkste Korrelation zur Zielgröße
+aufweist und auch bei ref{diss} im Modell genutzt wird. Das könnte daran liegen das die Feuchte der
+Streuschicht mit der Dicke der Streuschicht korriliert mit 0,37. Ein weiterer Grund könnte sein, dass das
+Signal bei unserem kleinen Stichprobenumfang nicht stark genug war, um sich vom Rauschen abzuheben.
+\\
+Das finale Modell berücksichtigt nur physikalisch-chemische Faktoren, die biotischen Faktoren fehlen.
+Dies könnte auch daran liegen, dass \texttt{temp.15} mit der Trockenmasse der Wurzeln in 0-5 cm tiefe mit 0,37
+korriliert. Und das zu wenige Daten vorliegen um weitere biologische Effekte zu identifizieren.
+\\
+Vorallem bei wenigen Daten ist die Gefahr des Overfittings sehr groß, wobei streng das
+Parsimonie-Prinzip angewendet werden muss. Insgesamt zeigen die Ergebnisse das ein Modell mit wenigen
+Parametern schon gut Daten beschreiben kann.
 
-Das Modell enthält biotische und abiotische Faktoren. Die Trockenmasse der Wurzeln ist der wichtigste
-biotische Faktor, was mit dem Anteil von mehr als der Hälfte der autotrophen Respiration der Wurzeln an der
-Bodenatmung erklärt werden kann. cite
-
-Im Residuenplot erkennt man noch einen starken Bias, ab dem fitted Wert zwischen den Werten 1,1 und 1,4 werden
-die Werte systematisch unterschätz, danach systematisch überschätzt. Dies zeigt das im deterministischem Teil
-des Modells die systematische Variabilität der Bodenatmung nich nicht systematisch erfasst wird. Und noch Prädikatoren
-nicht-lineare Zusammenhänge oder Interaktion fehlen. Aufgrund der geringen Datengröße wurde jedoch im Sinne der
-Modell-Parsimonie auf die Aufnahme weiterer Parameter verzichtet, um eine Überanpassung (Overfitting) zu vermeiden.
-
-das modell ist ziemlich komplex für die menge an daten
 \subsection{Validierung}
 
 \subsection{Simulation}

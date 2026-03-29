@@ -7,21 +7,21 @@
 
 hier tabellen und graphs
 \subsection{Modellwahl}
+%Tabelle mit BIC der Modelle, CV Ergebnisse, ggf. Koeffizienten
+Es wurde Modell \texttt{lm1} als bestes Modell mit einem BIC von 7,5 ermittelt:\\
+\\
+$ln(soil.res)=\beta_0+\beta_1\cdot{temp.15}^2+\beta_2\cdot{litter.d}^2+\epsilon$\\
+\\
+Keine der Interaktionen haben den BIC oder die k-fache Kreuzvalidierung verbessert und werden deswegen
+weggelassen. Auch die linearen Terme  \texttt{temp.15} und \texttt{litter.d} haben das Modell verschlechtert
+und wurden deswegen und aus Parsimonie Gründen weggelassen.
 
-Es wurde folgendes Modell mit einem BIC von -13.7 aus der \texttt{regsubsets()}-Funktion ausgewählt:\\
-\\
-$ln(soil.res)=\beta_0+\beta_1\cdot{lmoi}^2+\beta_2\cdot soilc0+\beta_3\cdot{soilc0}^2+\beta_4\cdot{temp.15}^2+\beta_5\cdot{rootdw0}^2+\beta_6\cdot{litter.d}^2+\epsilon$\\
-\\
-Die Interaktion zwischen Feuchte und Kohlenstoffgehalt hat den AIC-Wert von -8.69 auf -8.95 verbessert, damit ergibt sich folgendes Modell:\\
-\\
-$ln(soil.res)=\beta_0+\beta_1\cdot{lmoi}^2+\beta_2\cdot soilc0+\beta_3\cdot({lmoi}^2\cdot soilc0)+\beta_4\cdot{soilc0}^2+\beta_5\cdot{temp.15}^2+\beta_6\cdot{rootdw0}^2+\beta_7\cdot{litter.d}^2+\epsilon$\\
-\\
-Abbildung \ref{Residuen} zeigt die Residuen für das Modell. Auf der x-Achse sind die vorhergesagten Werte und auf der y-Achse die Residuen.
+Abbildung \ref{fig:Residuen} zeigt die Residuen für das Modell. Auf der x-Achse sind die vorhergesagten Werte und auf der y-Achse die Residuen.
 \begin{figure}[h]
-  \label{Residuen}
   \centering
-  \includegraphics[scale=0.3]{pictures/residuals_model.png}
+  \includegraphics[scale=0.5]{pictures/residuals_lm1.png}
   \caption{Residuenplot des finalen Modells}
+  \label{fig:Residuen}
 \end{figure}
 
 \subsection{Simulation}
