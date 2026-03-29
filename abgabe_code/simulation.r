@@ -1,14 +1,12 @@
-# Load the model from model_building.r
+# laden des models von model_building.r
 if (!require("leaps", quietly = TRUE)) {
   install.packages("leaps")
   library(leaps)
 }
 
-# setwd(dirname(sys.frame(1)$ofile))  # Commented out - doesn't work with Rscript
 source("model_building.r")
 source("helper.r")
 
-# Access the best model directly (it's a global variable)
 print(best_model)
 
 # Parameter festlegung
@@ -21,23 +19,19 @@ nsteps <- 10 #Anzahl an vorwaertzselektionsschritten
 
 X <- matrix(rnorm(n * p), n, p)
 
-# Original design matrix (from the model)
+# definiere originale design matrix
 X_orig <- read.csv2("hainich.csv", header = TRUE, stringsAsFactors = FALSE)
 X_orig <- X_orig[, -1]              # remove soil resp since it be target value
 
-# Convert entire data frame to numeric matrix (ignoring column names)
 X_orig <- as.matrix(sapply(X_orig, as.numeric))
 
 max_positions <- numeric(nsim)
 
-# Sample n rows (with replacement) from X_orig
 set.seed(123)
 X <- X_orig[sample(1:nrow(X_orig), n, replace = TRUE), ]
 
-# Create new matrix: each column followed by its square
 new_X <- do.call(cbind, lapply(1:ncol(X), function(i) cbind(X[,i], X[,i]^2)))
 
-# Optional: add column names
 colnames(new_X) <- as.vector(t(cbind(paste0("V", 1:ncol(X)), 
                                        paste0("V", 1:ncol(X), "_sq"))))
 
@@ -47,7 +41,7 @@ df <- n - 2 #kompensierung fuer 2 praediktoren in best model
 tcrit <- qt(0.975, df) #Kritischer wert
 
 tmax_mat <- matrix(NA, nsim, nsteps) #speicher der tmax fuer jeden schritt der selektion
-selection_mat <- matrix(NA, nsim, nsteps)
+selection_mat <- matrix(NA, nsim, nsteps) #speichert die aufgenommenen praediktoren 
 
 
 for(sim in 1:nsim){
@@ -72,7 +66,6 @@ for(sim in 1:nsim){
 
       coefs <- summary(model)$coefficients
 
-      # safe extraction
       if(nrow(coefs) > 1){
         tvals[i] <- coefs[nrow(coefs), "t value"]
       } else {
@@ -80,10 +73,8 @@ for(sim in 1:nsim){
       }
     }
     
-    #stores max t val for this step
     tmax_mat[sim, step] <- max(abs(tvals), na.rm = TRUE)
 
-    # check if any t exceeds critical value
     if(max(abs(tvals), na.rm=TRUE) > tcrit){
       best_j <- remaining[which.max(abs(tvals))]
       included <- c(included, best_j)
@@ -96,50 +87,38 @@ for(sim in 1:nsim){
 }
 included_vars <- c()
 
-
-# After all simulations and forward selection loops are complete:
-
 for(step in 1:nsteps){
   
-  # empirical error at this step
   emp_error <- mean(tmax_mat[, step] > tcrit, na.rm=TRUE)
   
-  # most frequently included variable at this step (returns position number)
-  # First, get the table of selections for this step
   step_table <- table(selection_mat[, step])
   
-  # Check if table is empty or has no valid entries (all NA)
   if(length(step_table) == 0 || all(is.na(names(step_table)))){
     most_selected <- "none"
     second_most_selected <- "none"
     third_most_selected <- "none"
   } else {
-    # Get the most frequently included variable position
     sorted_table <- sort(step_table, decreasing=TRUE)
     most_selected_pos <- as.numeric(names(sorted_table[1]))
     second_most_selected_pos <- as.numeric(names(sorted_table[2]))
     third_most_selected_pos <- as.numeric(names(sorted_table[3]))
 
     
-    # Check if the position is valid and within bounds of all_predictors
     if(is.na(most_selected_pos) || most_selected_pos < 1 || most_selected_pos > length(all_predictors)){
       most_selected <- "none"
     } else {
-      # Convert position to variable name from all_predictors in helper.r
       most_selected <- all_predictors[most_selected_pos]
     }
   }
       if(is.na(second_most_selected_pos) || second_most_selected_pos < 1 || second_most_selected_pos > length(all_predictors)){
       second_most_selected <- "none"
     } else {
-      # Convert position to variable name from all_predictors in helper.r
       second_most_selected <- all_predictors[second_most_selected_pos]
     }
   
   if(is.na(third_most_selected_pos) || third_most_selected_pos < 1 || third_most_selected_pos > length(all_predictors)){
       third_most_selected <- "none"
     } else {
-      # Convert position to variable name from all_predictors in helper.r
       third_most_selected <- all_predictors[third_most_selected_pos]
     }
   
@@ -150,39 +129,28 @@ for(step in 1:nsteps){
       "Third most frequently included variable:", third_most_selected, "\n")
 }
 
-# ============================================================================
-# Plotting: Visualize tmax evolution over simulation steps
-# ============================================================================
-
-# Create a data frame for plotting (long format)
 tmax_df <- data.frame(
   simulation = rep(1:nsim, each = nsteps),
   step = rep(1:nsteps, times = nsim),
   tmax = as.vector(tmax_mat)
 )
 
-# Plot 5-14: Individual distribution plots for each time step
 for(step in 1:nsteps){
   png_filename <- paste0("tmax_distribution_step", step, ".png")
   png(png_filename, width = 800, height = 600)
   
-  # Get tmax values for this specific step
   tmax_values <- tmax_mat[, step]
   
-  # Create histogram with density overlay
   hist(tmax_values, breaks = 30, freq = FALSE,
        main = paste("Distribution of tmax values at selection step", step),
        xlab = "tmax (maximum |t-statistic|)",
        ylab = "Density",
        col = "lightblue", border = "darkblue")
   
-  # Add density curve
   lines(density(tmax_values, na.rm = TRUE), col = "blue", lwd = 2)
   
-  # Add vertical line for critical value
   abline(v = tcrit, col = "red", lty = 2, lwd = 2)
   
-  # Add legend
   legend("topright",
          legend = c(paste("Critical value (tcrit =", round(tcrit, 2), ")"),
                     paste("Mean tmax =", round(mean(tmax_values, na.rm = TRUE), 2)),
