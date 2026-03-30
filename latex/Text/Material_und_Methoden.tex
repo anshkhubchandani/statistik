@@ -43,9 +43,9 @@ linearem Modell explizit beschrieben werden muss.
 \\
 Folgende Interaktionen zwischen den Einflussgrößen in dem Modell (\texttt{lmoi}, \texttt{litter.d}, \texttt{temp.15}) gelten als biologisch relevant:
 \\
-\texttt{lmoi} und \texttt{litter.de}:\\
+\texttt{lmoi} und \texttt{litter.d}:\\
 Die Streuschicht ist der Lebensraum der Mikroorganismen, welche heterotrophe Atmung betreiben.
-Dafür brauchen sie auch Wasser. Eine dicke Streuschicht lönnte also nur dann zu einer massiven Steigerung
+Dafür brauchen sie auch Wasser. Eine dicke Streuschicht könnte also nur dann zu einer massiven Steigerung
 der Atmung führen, wenn die Feuchtigkeit optimal ist, um die Mikroben am Leben zu halten. Zudem könnte
 eine dicke Streuschicht die Feuchtigkeit im Oberboden länger konservieren, was den Effekt verstärkt.
 \\
@@ -55,7 +55,7 @@ Die Feuchtigkeit wirkt jedoch als limitierender Faktor, in trockenen Perioden si
 Stoffwechselrate. Umgekehrt kann bei sehr hoher Feuchtigkeit in tonreichen Böden
 Sauerstoffmangel entstehen, der die aerobe Atmung trotz optimaler Temperaturen unterdrückt. \cite{diss}
 \\
-\texttt{temp.15} und \texttt{litter.de}:\\
+\texttt{temp.15} und \texttt{litter.d}:\\
 Die Menge an potenziell verfügbarem Kohlenstoff in dem Streu begrenzt die maximale Respiration.
 Höhere Temperaturen beschleunigen den Abbau dieses organischen Materials durch Mikroben exponentiell \cite{diss}.
 Ein hoher Wert bei beiden Variablen könnte zu einem überproportionalen Anstieg der (CO$_2$)-Abgabe führen,
@@ -78,7 +78,7 @@ Stochastischer Teil: $Y_i \sim N(\mu_i, \sigma^2)$ mit $i= 1,...,n$\\
 Da wir nur einen kleinen Datensatz mit 38 Datenpunkten haben, suchen wir ein Modell mit so wenig wie möglich
 Variablen, um Overfitting zu vermeiden. Neben der Korrelation zur Zielgröße wurden auch biologische
 Plausibilität und Multikollinearität berücksichtigt, um die Anzahl der möglichen Einflussgrößen zu
-verringern. Die Variablen mit den größten Kollinearitäten zur Zielgröße und ohen Multikollinearität
+verringern. Die Variablen mit den größten Kollinearitäten zur Zielgröße und ohe Multikollinearität
 untereinander sind \texttt{lmoi} (0,47), \texttt{litter.d} (0,3), \texttt{temp.15} (0,43) und
 \texttt{soiln0} (0,32). Wobei \texttt{soiln0} mit 0,96 sehr stark mit \texttt{soilc0} korreliert.
 \\
@@ -109,7 +109,7 @@ Criterion und ist ein Kriterium zur Modellwahl. Es wägt die Anpassungsgüte ein
 seine Komplexität, also die Anzahl der Variablen ab. Das BIC wird berechnet mit der Formel:
 \[-2\cdot logL+log(n)\cdot p \] mit der Log-Likelihood (L) des Modells, der Anzahl der geschätzten Parameter
 (p) und dem Stichprobenumfang (n). Damit lässt sich einfach der Varianz Trade-off ablesen. Das BIC bestraft
-Modelkomplexität stärker und bevorzugt einfachere Modelle als das AIC und wurde deswegen aufgrund der
+Modellkomplexität stärker und bevorzugt einfachere Modelle als das AIC und wurde deswegen aufgrund der
 geringen Datenmenge bevorzugt, um Overfitting zu vermeiden.\\
 
 \subsubsection{Validierung des finalen Modells} \label{Validation}
@@ -164,7 +164,7 @@ die t-Statistik bildet. Der maximal Wert aller t-Tests aller Simulationen bildet
 \begin{equation}
 T = \mathop{max}_{\textbf{j}}|t_j|
 \end{equation}
-In jeder runde der Vorwärtsselektion wird der Prädiktor mit dem höchesten t-max selektiert und es wird überprüft ob T über dem kritischen Wert liegt. Wenn dies der fall ist wird der Prädiktor in das Modell aufgenommen und es beginnt ein neues Selektionsverfahren. Wenn nicht wird der Selektionsschritt wiederholt mit den gleichen bereits selektierten Prädiktoren. Das ganze wird wiederholt bis zu einer vordefinierten Anzahl an versuchten aufnahme Schritten. 
+In jeder runde der Vorwärtsselektion wird der Prädiktor mit dem höchesten t-max selektiert und es wird überprüft ob T über dem kritischen Wert liegt. Wenn dies der fall ist wird der Prädiktor in das Modell aufgenommen und es beginnt ein neues Selektionsverfahren. Wenn nicht wird der Selektionsschritt wiederholt mit den gleichen bereits selektierten Prädiktoren. Das ganze wird wiederholt bis zu einer vordefinierten Anzahl an versuchten Aufnahmeschritten. 
 
 \subsubsection{Parameter und Parameterwahl}
 Die Simulationsstudie ist stark abhängig von der Wahl der Parameter. Die Parameter der Simulation die gesetzt werden können sind:
@@ -176,9 +176,9 @@ Die Simulationsstudie ist stark abhängig von der Wahl der Parameter. Die Parame
     \item Kritischer wert
 \end{itemize}
 
-Der Stichprobenumfang beschreibt wie häufig aus der ursprünglichen Designmatrix gezogen wird um die Designmatrix für jede Simulation zu erstellen. Dafür wurde der wert 100 gewählt da dies zu stabilieren Schätzungen führt als kleinere Stichprobenumfänge wie 20 oder die größe der originalen Designmatrix (38). In Formel \ref{Einstichprobentest} ist der Stichprobenumfang im zähler des zählers, es folgt das die erwarteten T-werte größer sein werden wenn der Stichprobenumfang steigt. 
+Der Stichprobenumfang beschreibt wie häufig aus der ursprünglichen Designmatrix gezogen wird um die Designmatrix für jede Simulation zu erstellen. Dafür wurde der wert 100 gewählt da dies zu stabileren Schätzungen führt als kleinere Stichprobenumfänge wie 20 oder die größe der originalen Designmatrix (38). In Formel \ref{Einstichprobentest} ist der Stichprobenumfang im zähler des zählers, es folgt das die erwarteten T-werte größer sein werden wenn der Stichprobenumfang steigt. 
 
-Die anzahl an Simulationen beschreibt wie viele Simulationen in betracht gezogen werden bei der Wahl des nächsten Prediktor der aufgenommen wird. Diesen wert wurde auf 5,000 gesetzt. Hier gilt grundsätzlich größer ist besser da somit ein besserer dürchschnitt gebildet wird, allerdings haben Laufzeit limitationen die Grenze bei 5,000 bedingt.
+Die anzahl an Simulationen beschreibt wie viele Simulationen in betracht gezogen werden bei der Wahl des nächsten Prediktor der aufgenommen wird. Diesen wert wurde auf 5,000 gesetzt. Hier gilt grundsätzlich größer ist besser da somit ein besserer Dürchschnitt gebildet wird, allerdings haben Laufzeit limitationen die Grenze bei 5,000 bedingt.
 
 Die Fehlerstandardabweichung  ist auf eins gesetzt was gängiger Praxis entspricht, das gleiche gilt fuer das $\alpha$ von 0.05. Da H0 = 0 gegen H0 != 0 getested wird entspricht das einem zweiseitigen Test und alpha muss aufgeteilt werden: 
 \begin{equation}
@@ -186,7 +186,7 @@ P(T>t_{crit}) = \frac{\alpha}{2} = 0.025 \rightarrow P(T \leq t_{crit}) = 0.975
 \end{equation}
 Aus 100 Simulationen und zwei Prädiktoren folgt 98 Freiheitsgrade und $t_{crit} = t_{0.975,98} \approx 1.984$.
 
-Die anzahl an Selektionsschritten wurde auf 10 gesetzt da im schnitt sieben Praediktoren aufgenommen werden und noch ein paar Schritte simuliert werden um zu zeigen das nicht nur durch zufall nichts mehr aufgenommen wird.
+Die anzahl an Selektionsschritten wurde auf 10 gesetzt da im schnitt sieben Prädiktoren aufgenommen werden und noch ein paar Schritte simuliert werden um zu zeigen das nicht nur durch zufall nichts mehr aufgenommen wird.
 
 \subsection{Code-Verfügbarkeit}
 link zum repository\\
