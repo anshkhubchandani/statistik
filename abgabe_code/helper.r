@@ -1,5 +1,4 @@
 
-# Define the complete set of all possible predictors (linear + quadratic)
 all_predictors <- c(
   #Intercept
   #"(Intercept)",
@@ -46,43 +45,28 @@ all_predictors <- c(
   "nn", "I(nn^2)"
 )
 
-# Function to extract coefficients and place them in a full predictor vector
 extract_coefficients <- function(model, all_pred = all_predictors) {
-  # Extract coefficients from the model
   coefs <- stats::coef(model)
 
-  # Create a vector of zeros with names matching all predictors
   coef_vector <- setNames(
     rep(0, length(all_pred)),
     all_pred
   )
   
-  # Fill in the coefficients at the correct positions 
   model_names <- names(coefs)
-  #model_names <- model_names[model_names != "(Intercept)"]
   
   for (name in model_names) {
     if (name %in% all_pred) {
       coef_vector[name] <- coefs[name]
-    } #else {
-      #warning(paste("Predictor", name, "not found in all_predictors vector"))
-    #}
+    } 
   }
   
   return(coef_vector)
 }
 
-# Usage with regsubsets (model 6):
-#coef_vec_6 <- extract_coefficients(stats::coef(fit, 6))
-
-# Usage with lm object:
-#coef_vec_lm <- extract_coefficients(best_model)  # best_model = lm(log(soil.res) ~ I(temp.15^2) + I(litter.d^2), data = hainich.data)
-
-# Get coefficients for any model size from regsubsets
 get_model_coefs <- function(regfit_obj, model_size, all_pred = all_predictors) {
   coefs <- stats::coef(regfit_obj, model_size)
   extract_coefficients(coefs, all_pred)
 }
 
-# Example: get coefficients for model with 6 predictors
-#coef_vec_6 <- get_model_coefs(fit, 6)
+
