@@ -24,6 +24,39 @@ Abbildung \ref{fig:Residuen} zeigt die Residuen für das Modell. Auf der x-Achse
   \label{fig:Residuen}
 \end{figure}
 
+\subsection{Validierung}
+Die Validierungsergebnisse sind in Tabelle \ref{tab:model_vergleich} zusammengefasst.
+
+Für alle betrachteten Modelle liegen die p-Werte des Shapiro-Wilk-Tests über 0{,}05 (Tabelle \ref{tab:model_vergleich}), sodass die Normalverteilungsannahme der Residuen nicht verworfen wird. 
+Auch der Breusch-Pagan-Test liefert in keinem Fall signifikante Ergebnisse, sodass keine Hinweise auf eine Verletzung der Varianzhomogenität vorliegen.
+Für das finale Modell \texttt{lm1} ergeben sich mit \(p = 0{,}080\) im Shapiro-Wilk-Test und \(p = 0{,}513\) im Breusch-Pagan-Test unauffällige Werte. 
+Damit sind die zentralen Modellannahmen für das ausgewählte Modell erfüllt.
+
+Die Werte der Kreuzvalidierung sind in Tabelle \ref{tab:model_vergleich} ebenfalls dargestellt. Dabei zeigt \texttt{lm1} mit einem LOOCV-RMSE von 0{,}245 und einem k-fold-RMSE von 0{,}250 eine Vorhersagegüte, 
+die mindestens vergleichbar mit den übrigen Modellen ist.
+Auch die Diagnoseplots des finalen Modells zeigen keine auffälligen systematischen Abweichungen. 
+Über die Cook's Distanz wurden einzelne potenziell einflussreiche Beobachtungen identifiziert, diese sind jedoch nicht so ausgeprägt, dass die Stabilität des Modells grundsätzlich in Frage gestellt wird.
+
+Insgesamt bestätigen die Validierungsergebnisse aus Tabelle \ref{tab:model_vergleich}, dass das finale Modell statistisch zulässig und hinreichend robust ist.
+
+
+\begin{table}[htbp]
+  \centering
+  \caption{Vergleich der Regressionsmodelle}
+  \label{tab:model_vergleich}
+  \begin{tabular}{lrrrrrrr}
+  \toprule
+  Modell & Adj.\ $R^2$ & RSE & BIC & LOOCV RMSE & K-fold RMSE & Shapiro $p$ & BP $p$ \\
+  \midrule
+  lm1 & 0.400 & 0.230 & 7.502 & 0.245 & 0.250 & 0.080 & 0.513 \\
+  lm2 & 0.295 & 0.249 & 13.634 & 0.255 & 0.255 & 0.278 & 0.699 \\
+  lm3 & 0.136 & 0.276 & 21.337 & 0.307 & 0.307 & 0.844 & 0.733 \\
+  lm4 & 0.436 & 0.223 & 10.213 & 0.254 & 0.258 & 0.512 & 0.217 \\
+  \bottomrule
+  \end{tabular}
+  \end{table} \\
+
+
 \subsection{Simulation} \label{ErgebnisSim}
 Die Simulationsstudie erzeugt für jeden Aufnahmeschritt eine Verteilung der T-max Werte:
 
