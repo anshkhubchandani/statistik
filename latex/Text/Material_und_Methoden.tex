@@ -134,9 +134,9 @@ verwendet um Overfitting zu vermeiden.\\
 Zur Beurteilung der Qualität der Modelle wurden mehrere Validierungsschritte durchgeführt. Ziel war es, sowohl die statistische Zulässigkeit der Modelle als auch deren Prognosegüte und Komplexität zu bewerten.\\
 
 \subsubsection{Überprüfung der Modellannahmen}
-Die Standard-Diagnoseplots des linearen Modells wurden betrachtet (Residuals vs. Fitted, Normal Q-Q, Scale-Location, Residuals vs. Leverage). Diese dienen der Identifikation nichtlinearer Strukturen, der Beurteilung der Varianzhomogenität sowie der Erkennung einflussreicher Beobachtungen. \\
+Die Standard-Diagnoseplots des linearen Modells wurden betrachtet (Residuals vs. Fitted, Normal Q-Q, Scale-Location, Residuals vs. Leverage) \cite{diagnosticplots}. Diese dienen der Identifikation nichtlinearer Strukturen, der Beurteilung der Varianzhomogenität sowie der Erkennung einflussreicher Beobachtungen. \\
 
-Zur formalen Prüfung der Normalverteilung der Residuen wurde der Shapiro-Wilk-Test verwendet. Die Teststatistik ergibt sich zu
+Zur formalen Prüfung der Normalverteilung der Residuen wurde der Shapiro-Wilk-Test verwendet \cite{shapiro}. Die Teststatistik ergibt sich zu
 \[W = \frac{\left( \sum_{i=1}^n a_i \varepsilon_{(i)} \right)^2}{\sum_{i=1}^n (\varepsilon_i - \bar{\varepsilon})^2},\]
 wobei \(\varepsilon_{(i)}\) die geordneten Residuen und \(a_i\) konstante Gewichte sind. Werte von \(W\) nahe \(1\) sprechen für eine Normalverteilung.\\
 
@@ -149,7 +149,7 @@ $$D_i = \frac{\sum_{j=1}^n (\hat{y}_j - \hat{y}_{j(i)})^2}{(k + 1) s^2}.$$
 Große Werte von \(D_i\) weisen auf Beobachtungen hin, die die Modellschätzung stark beeinflussen.\\
 
 \subsubsection{Bewertung der Prognosegüte}
-Zur Bewertung der Prognosegüte wurden LOOCV (Leave-One-Out-Cross-Validation) sowie k-fold-Cross-Validation eingesetzt.\\
+Zur Bewertung der Prognosegüte wurden LOOCV (Leave-One-Out-Cross-Validation) sowie k-fold-Cross-Validation eingesetzt \cite{kfold}.\\
 
 Bei der LOOCV wird das Modell \(n\)-mal geschätzt, wobei jeweils eine Beobachtung als Testfall und die übrigen \(n-1\) als Trainingsdaten verwendet werden. Dadurch wird jede Beobachtung genau einmal validiert und der Vorhersagefehler auf unabhängigen Daten geschätzt.
 
