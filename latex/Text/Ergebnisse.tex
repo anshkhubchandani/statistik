@@ -1,20 +1,14 @@
 \section{Ergebnisse}
-\textcolor{red}{• Darstellung der Ergebnisse:
-• Tabellen
-• Grafiken
-• Text
-• für Datenanalyse und Simulation}
 
-hier tabellen und graphs
 \subsection{Modellwahl}
 %Tabelle mit BIC der Modelle, CV Ergebnisse, ggf. Koeffizienten
-Es wurde Modell \texttt{lm1} als bestes Modell mit einem BIC von 7,5 ermittelt:\\
+Das Modell \texttt{lm1} wurde als bestes Modell mit einem BIC von 7,5 ermittelt:\\
 \\
 $ln(soil.res)=\beta_0+\beta_1\cdot{temp.15}^2+\beta_2\cdot{litter.d}^2+\epsilon$\\
 \\
-Keine der Interaktionen haben den BIC oder die k-fache Kreuzvalidierung verbessert und werden deswegen
-weggelassen. Auch die linearen Terme  \texttt{temp.15} und \texttt{litter.d} haben die Residuen des Modell verschlechtert
-und den BIC auf 11,72 verschlechtert. Aus diesen Gründen wurde sie weggelassen.
+Die Interaktionen führt nicht zu einer Verbesserung des BIC oder der k-fachen Kreuzvalidierung und wurde deswegen
+weggelassen. Gleiches gilt für die linearen Terme \texttt{temp.15} und \texttt{litter.d}. Diese haben die Residuen des Modell
+und den BIC auf 11,72 verschlechtert.
 
 Abbildung \ref{fig:Residuen} zeigt die Residuen für das Modell. Auf der x-Achse sind die vorhergesagten Werte und auf der y-Achse die Residuen.
 \begin{figure}[h]
@@ -31,10 +25,10 @@ Die Simulationsstudie erzeugt für jeden Aufnahmeschritt eine Verteilung der T-m
 \input{Text/Plots.tex}
 \newpage
 
-Diese sind stark Rechtsschief für die ersten paar Aufnahme Schritte. Zudem sind viele Werte
-größer als $T=1.98$ zu sehen. Bei Simulationsschritt fünf ist ein starker Abfall zu sehen und
-nach Schritt sieben existieren keine T Werte größer als 1.98. Die drei meist aufgenommenen
-Prädiktoren in jedem Selektionsschitt sind: 
+Diese sind stark rechtsschief für die ersten paar Aufnahmeschritte. Zudem sind viele Werte
+größer als $T=1.98$ zu beobachten. Bei Simulationsschritt fünf ist ein deutlicher Abfall zu erkennen und
+nach Schritt sieben existieren keine T-Werte größer als 1.98. Die drei meist aufgenommenen
+Prädiktoren in jedem Selektionsschritt sind: 
 \begin{itemize}
   \item Schritt 1: $temp.15^2, litdoc, temp.15$
   \item Schritt 2: $temp.15^2, litter.d, temp.15$

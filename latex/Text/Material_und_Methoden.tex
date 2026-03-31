@@ -1,10 +1,4 @@
 \section{Material und Methoden}
-\textcolor{red}{• Beschreibung des Datensatzes • statistisches Modell!!!
-• deterministischer und stochastischer Teil
-• verwendete statistische Methoden
-• Beschreibung der Vorgehensweise
-• kein Beweis theoretischer Resultate, aber Definition der verwendeten Größen
-• nachvollziehbare Beschreibung der Simulation}
 
 \subsection{Datensatz}
 
@@ -33,12 +27,12 @@ folgende Einflussgrößen:
 
 \subsubsection{Transformation}
 Die Zielgröße \texttt{soil.res} zeigt eine rechtsschiefe Verteilung. Um eine möglichst stabile Schätzung des Modells
-zu erreichen, wurden die Zielgröße mit dem natürlichen Logarithmus transformiert.
+zu erreichen, wurde die Zielgröße mit dem natürlichen Logarithmus transformiert.
 
 \subsubsection{Korrelationen}
 
-Es wurden alle Korrelationen zwischen Zielgröße und den Einflussgrößen bestimmt, sowie Multikollinearität
-zwischen den Einflussgrößen.
+Es wurden alle Korrelationen zwischen Ziel- und Einflussgrößen sowie Multikollinearität
+zwischen den Einflussgrößen bestimmt.
 
 \subsubsection{Interaktionen zwischen den Einflussgrößen} \label{Interaktionen}
 
@@ -47,26 +41,31 @@ einer anderen Einflussgröße abhängig ist. Dabei handelt es sich um eine Inter
 linearem Modell explizit beschrieben werden muss. Die Modelle wurden jeweils mit und ohne Interaktion betrachtet,
 wenn die Interaktion das Modell nicht verbessert hat, wurde sie weggelassen.
 \\
+\\
 Folgende Interaktionen zwischen den Einflussgrößen in näherer Auswahl siehe \ref{Kandidatenmodelle} gelten als biologisch relevant:
+\\
 \\
 \texttt{lmoi} und \texttt{litter.d}:\\
 Die Streuschicht ist der Lebensraum der Mikroorganismen, welche heterotrophe Atmung betreiben.
-Dafür brauchen sie auch Wasser. Eine dicke Streuschicht könnte also nur dann zu einer massiven Steigerung
+Dafür benötigen sie auch Wasser. Eine dicke Streuschicht könnte also nur dann zu einer massiven Steigerung
 der Atmung führen, wenn die Feuchtigkeit optimal ist, um die Mikroben am Leben zu halten. Zudem könnte
 eine dicke Streuschicht die Feuchtigkeit im Oberboden länger konservieren, was den Effekt verstärkt.
 \\
+\\
 \texttt{temp.15} und \texttt{lmoi}:\\
-Die Temperatur ist der primäre kinetische Treiber für biochemische Reaktionen.
-Die Feuchtigkeit wirkt jedoch als limitierender Faktor, in trockenen Perioden sinkt die
-Stoffwechselrate. Umgekehrt kann bei sehr hoher Feuchtigkeit in tonreichen Böden
-Sauerstoffmangel entstehen, der die aerobe Atmung trotz optimaler Temperaturen unterdrückt. \cite{diss}
+Die Temperatur ist der primäre kinetische Treiber biochemischer Reaktionen.
+Die Feuchtigkeit wirkt jedoch als limitierender Faktor. In trockenen Perioden sinkt die
+Stoffwechselrate, während bei sehr hoher Feuchtigkeit in tonreichen Böden
+Sauerstoffmangel entsteht, der die aerobe Atmung trotz optimaler Temperaturen unterdrückt. \cite{diss}
+\\
 \\
 \texttt{temp.15} und \texttt{litter.d}:\\
-Die Menge an potenziell verfügbarem Kohlenstoff in dem Streu begrenzt die maximale Respiration.
+Die Menge an potenziell verfügbarem Kohlenstoff in der Streu begrenzt die maximale Respiration.
 Höhere Temperaturen beschleunigen den Abbau dieses organischen Materials durch Mikroben exponentiell \cite{diss}.
-Ein hoher Wert bei beiden Variablen könnte zu einem überproportionalen Anstieg der (CO$_2$)-Abgabe führen,
+Ein hoher Wert beider Variablen könnte zu einem überproportionalen Anstieg der CO$_2$-Abgabe führen,
 da die mikrobielle Population in einer dicken Streuschicht bei Wärme ihre maximale metabolische Kapazität
 ausschöpfen kann.
+\\
 \\
 \texttt{soiln0} und \texttt{litter.d}:\\
 Der Stickstoffgehalt im Boden repräsentiert die chemische Verfügbarkeit von Nährstoffen, die das
@@ -74,6 +73,7 @@ mikrobielle Wachstum und die Enzymproduktion maßgeblich fördern. Da der Sticks
 Proteinen gebruacht wird. \texttt{soiln0} könnte mit der Dicke der 
 Streuschicht interagieren, da Stickstoff dadurch die effiziente Nutzung des Kohlenstoffs aus dem organischen Material
 durch die Mikroorganismen ermöglicht.
+\\
 \\
 \texttt{temp.15} und \texttt{soiln0}:\\
 Je nach Stickstoffgehalt könnten die Bodenatmung sensitiver auf die Temperatur reagieren. Wenn wenig Stickstoff
@@ -88,10 +88,10 @@ Stochastischer Teil: $Y_i \sim N(\mu_i, \sigma^2)$ mit $i= 1,...,n$\\
 
 \subsubsection{Aufstellen der Kandidatenmodelle} \label{Kandidatenmodelle}
 
-Da wir nur einen kleinen Datensatz mit 38 Datenpunkten haben, suchen wir ein Modell mit so wenig wie möglich
-Variablen, um Overfitting zu vermeiden. Neben der Korrelation zur Zielgröße wurden auch biologische
+Da nur ein kleinen Datensatz mit 38 Datenpunkten vorliegt wurde ein Modell mit möglichst wenigen
+Variablen gesucht, um Overfitting zu vermeiden. Neben der Korrelation zur Zielgröße wurden auch biologische
 Plausibilität und Multikollinearität berücksichtigt, um die Anzahl der möglichen Einflussgrößen zu
-verringern. Die Variablen mit den größten Kollinearitäten zur Zielgröße und ohe Multikollinearität
+verringern. Die Variablen mit den größten Kollinearitäten zur Zielgröße und ohne Multikollinearität
 untereinander sind \texttt{lmoi} (0,47), \texttt{litter.d} (0,3), \texttt{temp.15} (0,43) und
 \texttt{soiln0} (0,32). Wobei \texttt{soiln0} mit 0,96 sehr stark mit \texttt{soilc0} korreliert.
 Die Prädikatoren wurden in allen Modellen als quadratische Terme verwendet. Dies ist biologisch durch die
@@ -102,35 +102,34 @@ rein lineare Ansätze.
 \\
 Das erste Kandidatenmodell (\texttt{lm1}) enthält die Einflussgrößen \texttt{temp.15} und \texttt{litter.d}. Darin enthalten ist
 die Annahme, dass die Temperatur die kinetische Energie für biochemische Reaktionen der Mikroben und Wurzeln
-bereitstellt. Die Temperatur in 15 cm tiefe könnte stabiler sein als die Temperatur an der Oberfläche und
-wird deswegen verwendet. Die Streuschichtdicke repräsentiert das Substrat für die heterotrophe Zersetzung.
+bereitstellt. Verwendet wurde die Temperatur in 15 cm Tiefe, da sie stabiler sein könnte als die Temperatur an der Oberfläche. Die Streuschichtdicke repräsentiert das Substrat für die heterotrophe Zersetzung.
 \\
 Im zweiten Kandidatenmodell (\texttt{lm2}) werden die Einflussgrößen \texttt{temp.15} und \texttt{lmoi} berücksichtigt.
 Bei extremer Trockenheit sinkt die Stoffwechselrate, sodass die Mikroorganismen die Wärme nicht mehr in
 höhere Respiration umsetzen können. In tonreichen Böden wie im Hainich kann zudem Staunässe zu
 Sauerstoffmangel führen, was die aerobe Atmung ebenfalls hemmt.
 \\
-Dagegen wird im dritten Kandidatenmodell (\texttt{lm3}) die Einflussgrößen \texttt{litter.d} und \texttt{soiln0} betrachtet.
+Dagegen werden im dritten Kandidatenmodell (\texttt{lm3}) die Einflussgrößen \texttt{litter.d} und \texttt{soiln0} betrachtet.
 Während litter.d die Quantität des organischen Materials angibt, steht der Stickstoffgehalt für die
 chemische Verfügbarkeit von Nährstoffen, die das mikrobielle Wachstum und die Enzymproduktion fördern. \cite{diss}
 \\
-Das vierte Kandidatenmodell (\texttt{lm4}) nutzt alle 4 Variablen: \texttt{litter.d}, \texttt{soiln0}, \texttt{temp.15} und \texttt{lmoi}.
-Dieses umfassendes Modell kombiniert abiotische Kontrolle und biologische Ressourcen. Die Temperatur steuert
-die Rate während die Feuchtigkeit dies limitieren kann. Die Dicke der Streuschicht gibt die Menge an Substrat
-an und der Stickstoff ermöglicht die effiziente Nutzung des Kohlenstoffs durch Mikroorganismen.
+Das vierte Kandidatenmodell (\texttt{lm4}) nutzt alle vier Variablen: \texttt{litter.d}, \texttt{soiln0}, \texttt{temp.15} und \texttt{lmoi}.
+Dieses umfassende Modell kombiniert abiotische Kontrolle und biologische Ressourcen. Die Temperatur steuert
+die Rate der Bodenatmung, während die Feuchtigkeit diese begrenzen kann. Die Dicke der Streuschicht gibt die verfügbare Substratmenge
+an und der Stickstoffgehalt ermöglicht die effiziente Nutzung des Kohlenstoffs durch Mikroorganismen.
 
 \subsection{Auswahl des finalen Modells}
 
 Alle Modelle wurden mit den im Abschnitt \ref{Validation} beschriebenen Tests betrachtet. Für die Wahl
-zwischen den Modellen wurde aber ausschließlich das BIC genutzt. Das BIC ist das Bayesian Information
+zwischen den Modellen wurde ausschließlich das BIC genutzt. Das BIC ist das Bayesian Information
 Criterion und ist ein Kriterium zur Modellwahl. Es wägt die Anpassungsgüte eines statistischen Modells gegen
 seine Komplexität, also die Anzahl der Variablen ab. Das BIC wird berechnet mit der Formel:
 \[-2\cdot logL+log(n)\cdot p \] mit der Log-Likelihood (L) des Modells, der Anzahl der geschätzten Parameter
-(p) und dem Stichprobenumfang (n). Damit lässt sich einfach der Varianz Trade-off ablesen. Das BIC bestraft
-Modellkomplexität stärker und bevorzugt einfachere Modelle als das AIC und wurde deswegen aufgrund der
-geringen Datenmenge bevorzugt, um Overfitting zu vermeiden.\\
+(p) und dem Stichprobenumfang (n). Damit lässt sich einfach der Varianz Trade-off ablesen. Da das BIC Modellkomplexität
+stärker bestraft als das AIC und daher einfachere Modelle bevorzugt, wurde es aufgrund der geringen Datenmenge
+verwendet um Overfitting zu vermeiden.\\
 
-\subsubsection{Validierung des finalen Modells} \label{Validation}
+\subsection{Validierung des finalen Modells} \label{Validation}
 
 Zur Beurteilung der Qualität der Modelle wurden mehrere Validierungsschritte durchgeführt. Ziel war es, sowohl die statistische Zulässigkeit der Modelle als auch deren Prognosegüte und Komplexität zu bewerten.\\
 
@@ -164,16 +163,20 @@ Durch die Kombination beider Verfahren kann sowohl eine nahezu unverzerrte als a
 
 \subsection{Simulationsstudie}
 
-Ziel der Simulationsstudie ist eine mehrfache Vorwärtsselektion von Prädiktoren. Nach der Wahl des besten Modells ($\beta$) in \ref{Statistisches Modell} erfolgt die Berechnung einer Designmatrix ($X$). Diese wird fuer jede Simulation neu gezogen ist aber für jeden Stichprobenumfang in einer Simulation gleich. Die Berechnung geschieht durch ziehen mit zurücklegen aus der ursprünglichen Designmatrix. 
-Die Simulierung mehrerer Pseudobeobachtungen ($Y$) ist notwendig um, die Verteilung von Teststatistiken zu approximieren. Simuliert werden diese durch:\\
+Ziel der Simulationsstudie ist eine mehrfache Vorwärtsselektion von Prädiktoren. Nach der Wahl des besten Modells ($\beta$) in
+\ref{Statistisches Modell} erfolgt die Berechnung einer Designmatrix ($X$). Diese wird für jede Simulation neu gezogen, ist aber
+für jeden Stichprobenumfang in einer Simulation gleich. Die Berechnung geschieht durch ziehen mit zurücklegen aus der ursprünglichen
+Designmatrix. Die Simulierung mehrerer Pseudobeobachtungen ($Y$) ist notwendig, um die Verteilung von Teststatistiken zu approximieren.
+Simuliert werden diese durch:\\
 \begin{equation}
 \mathrm{Y} \sim X\beta + \epsilon
 \end{equation}
-wobei $\epsilon \sim N(0,\sigma^2)$. Darauf folgt eine Serie an t-Tests wobei jeder t-Test die Qualität der aufnahme eines Prädiktors in das Modell tested. Dies passiert durch testung der Null Hypothese:\\
+wobei $\epsilon \sim N(0,\sigma^2)$ gilt. Darauf folgt eine Serie an t-Tests, wobei jeder t-Test die Qualität der Aufnahme eines
+Prädiktors in das Modell testet. Dies passiert durch Testung der Null Hypothese:\\
 \begin{equation}
 \mathrm{H_0 : \beta_j}  = 0 
 \end{equation}
-die zugehörige t-statistik ergibt sich aus: 
+Die zugehörige t-Statistik ergibt sich aus: 
 \begin{equation} \label{Einstichprobentest}
 %t = \frac{\overline{x}-\mu_0}{\frac{s}{\sqrt{n}}}
 t_{j} = \frac{\hat{\beta_{j}}}{SE(\hat{\beta_{j}})}
@@ -183,10 +186,13 @@ wobei $\hat{\beta_{j}}$ der geschätzte Regressionskoeffizient und $SE(\hat{\bet
 \begin{equation}
 T = \mathop{max}_{\textbf{j}}|t_j|
 \end{equation}
-In jeder Runde der Vorwärtsselektion wird der Prädiktor mit dem höchesten t-max selektiert und es wird überprüft ob T über dem kritischen Wert liegt. Wenn dies der Fall ist wird der Prädiktor in das Modell aufgenommen und es beginnt ein neues Selektionsverfahren. Wenn nicht, wird der Selektionsschritt wiederholt mit den gleichen bereits selektierten Prädiktoren. Das ganze wird wiederholt bis zu einer vordefinierten Anzahl an versuchten Aufnahmeschritten. 
+In jeder Runde der Vorwärtsselektion wird der Prädiktor mit dem höchesten t-max selektiert und es wird überprüft, ob T über dem
+kritischen Wert liegt. Wenn dies der Fall ist, wird der Prädiktor in das Modell aufgenommen und es beginnt ein neues
+Selektionsverfahren. Wenn nicht, wird der Selektionsschritt wiederholt mit den gleichen bereits selektierten Prädiktoren. Das
+ganze wird wiederholt bis zu einer vordefinierten Anzahl an versuchten Aufnahmeschritten. 
 
 \subsubsection{Parameter und Parameterwahl}
-Die Simulationsstudie ist stark abhängig von der Wahl der Parameter. Die Parameter der Simulation die gesetzt werden können sind:
+Die Simulationsstudie ist stark abhängig von der Wahl der Parameter. Die Parameter der Simulation die gesetzt werden können, sind:
 \begin{itemize}
     \item Stichprobenumfang
     \item Anzahl der Simulationen
@@ -195,27 +201,29 @@ Die Simulationsstudie ist stark abhängig von der Wahl der Parameter. Die Parame
     \item Kritischer Wert
 \end{itemize}
 
-Der Stichprobenumfang beschreibt wie häufig aus der ursprünglichen Designmatrix gezogen wird um die
-Designmatrix für jede Simulation zu erstellen. Dafür wurde der Wert 100 gewählt da dies zu stabileren
+Der Stichprobenumfang beschreibt wie häufig aus der ursprünglichen Designmatrix gezogen wird, um die
+Designmatrix für jede Simulation zu erstellen. Dafür wurde der Wert 100 gewählt, da dies zu stabileren
 Schätzungen führt als kleinere Stichprobenumfänge wie 20 oder die Größe der originalen Designmatrix
-(38). In Formel \ref{Einstichprobentest} ist der Stichprobenumfang im Zähler des Zählers, es folgt das
-die erwarteten T-werte größer sein werden wenn der Stichprobenumfang steigt. 
-Der Stichprobenumfang beschreibt wie häufig aus der ursprünglichen Designmatrix gezogen wird um die Designmatrix für jede Simulation zu erstellen. Dafür wurde der wert 100 gewählt da dies zu stabileren Schätzungen führt als kleinere Stichprobenumfänge wie 20 oder die größe der originalen Designmatrix (38). Die erwarteten T-werte größer sein werden wenn der Stichprobenumfang (n) steigt da SE($\hat{\beta_{j}}$)$\approx \frac{1}{\sqrt{n}}$. 
+(38). In Formel \ref{Einstichprobentest} ist der Stichprobenumfang im Zähler des Zählers. Daraus folgt, dass
+die erwarteten T-Werte größer sein werden, wenn der Stichprobenumfang steigt. 
+Der Stichprobenumfang beschreibt, wie häufig aus der ursprünglichen Designmatrix gezogen wird, um die Designmatrix für jede
+Simulation zu erstellen. Dafür wurde der Wert 100 gewählt, da dies zu stabileren Schätzungen führt als kleinere Stichprobenumfänge
+wie 20 oder die Größe der originalen Designmatrix (38). Die erwarteten T-Werte werden größer sein, wenn der Stichprobenumfang (n)
+steigt, da SE($\hat{\beta_{j}}$)$\approx \frac{1}{\sqrt{n}}$. 
 
-Die Anzahl an Simulationen beschreibt wie viele Simulationen in betracht gezogen werden bei der Wahl
-des nächsten Prediktor der aufgenommen wird. Diesen Wert wurde auf 5,000 gesetzt. Hier gilt
-grundsätzlich größer ist besser da somit ein besserer Durchschnitt gebildet wird, allerdings haben
-Laufzeit Limitationen die Grenze bei 5,000 bedingt.
-
-Die Fehlerstandardabweichung  ist auf eins gesetzt was gängiger Praxis entspricht, das gleiche gilt fuer das $\alpha$ von 0.05. Da $\mathrm{H_0} = 0$ gegen $\mathrm{H_0}!= 0$ getested wird entspricht das einem zweiseitigen Test und alpha muss aufgeteilt werden: 
+Die Anzahl an Simulationen beschreibt, wie viele Simulationen in Betracht gezogen werden bei der Wahl
+des nächsten Prediktor, der aufgenommen wird. Dieser Wert wurde auf 5,000 gesetzt. Grundsätzlich gilt: Je größer die Anzahl der
+Simulationen, desto besser, da dadurch ein stabilerer Durchschnitt gebildet wird. Aufgrund von Laufzeitbeschränkungen wurde die
+Obergrenze jedoch auf 5.000 gesetzt.
+Die Fehlerstandardabweichung  ist auf eins gesetzt, was gängiger Praxis entspricht. Das Gleiche gilt für das $\alpha$ von 0.05.
+Da $\mathrm{H_0} = 0$ gegen $\mathrm{H_0}!= 0$ getestet wird, entspricht dies einem zweiseitigen Test und $\alpha$ muss aufgeteilt werden: 
 \begin{equation}
 P(T>t_{crit}) = \frac{\alpha}{2} = 0.025 \rightarrow P(T \leq t_{crit}) = 0.975
 \end{equation}
-Aus 100 Simulationen und zwei Prädiktoren folgt 98 Freiheitsgrade und $t_{crit} = t_{0.975,98} \approx 1.984$.
+Aus 100 Simulationen und zwei Prädiktoren ergeben sich 98 Freiheitsgrade und $t_{crit} = t_{0.975,98} \approx 1.984$.
 
-Die Anzahl an Selektionsschritten wurde auf 10 gesetzt da im Schnitt sieben Prädiktoren aufgenommen
-werden und noch ein paar Schritte simuliert werden um zu zeigen das nicht nur durch Zufall nichts
-mehr aufgenommen wird.
+Die Anzahl der Selektionsschritte wurde auf 10 gesetzt, da im Schnitt sieben Prädiktoren aufgenommen und einige zusätzliche
+Schritte simuliert werden sollen, um zu zeigen, dass nicht nur durch Zufall nichts mehr aufgenommen wird.
 
 \subsection{Code-Verfügbarkeit}
 link zum repository\\

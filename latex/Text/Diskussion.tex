@@ -1,88 +1,82 @@
 \section{Diskussion}
-\textcolor{red}{• von der Statistik zur Fragestellung
-• Interpretation der statistischen Ergebnisse im Kontext der ursprünglichen Fragestellung
-sind die Ergebnisse plausibel/überraschend?
-was bedeuten die Ergebnisse
-• statistische Diskussion der Simulationsergebnisse}
 
 \subsection{Modellwahl}
 
 Es wurden vier Kandidatenmodelle auf Basis biologischer Überlegungen erstellt und das beste Modell mittels BIC
-ermittelt. Das Kriterium wägt zwischen Modelllgüte und Komplexität ab und identifiziert so das am besten
-passende Modell. Anschließend wurde das beste Modell validiert, indem die Residuen, der LOOCV, k-fache Kreuzvalidierung
-und der Shapiro Test, Breusch-Pagan Test, sowie die Cooks Distanz betrachtet wurden.
+ermittelt. Anschließend wurde das beste Modell validiert, indem die Residuen, der LOOCV, k-fache Kreuzvalidierung
+und der Shapiro Test, Breusch-Pagan Test sowie die Cooks Distanz betrachtet wurden.
 \\
-Das finale Modell \texttt{lm1} enthält nur drei Variablen mit dem Intercept, kann damit aber die Daten
-gut schätzen. Es treten Über- und Unterschätzungen nur im geringen Maß auf siehe Abbildung \ref{fig:Residuen}.
-Das zeigt die gewählten Prädikatoren erfassen noch nicht alle wichtigen Zusammenhänge. Mögliche Ursachen könnten fehlende
+\\
+Das finale Modell \texttt{lm1} enthält lediglich drei Variablen mit dem Intercept, kann damit aber die Daten
+gut schätzen. Über- und Unterschätzungen treten in geringem Maß auf (siehe Abbildung \ref{fig:Residuen}).
+Das zeigt, dass die gewählten Prädikatoren noch nicht alle wichtigen Zusammenhänge erfassen. Mögliche Ursachen könnten fehlende
 Einflussgrößen oder Interaktionen sein. Jedoch können auf Grundlage der 38 Datenpunkte keine weiteren
 Zusammenhänge zuverlässig ermittelt werden, wodurch das sparsamste Modell am statistisch stabilsten ist.
 \\
-Die Modelle sind von den Validierungsergebnissen nah beieinander, jedoch zeigt das finale Modell den
-niedrigsten BIC und vergleichbare Validierungswerte. Dies zeigt das die Temperatur und die Dicke der Streuschicht wichtige Faktoren sind, die die Daten beschreiben.
-Die Bodentemperatur gibt die kinetische Energie für alle biochemischen Reaktionen in den Zellen der Bodenorganismen.
-Dadurch ist sie ein wichtiger zeitlicher Treiber. Die Temperatur in 15 cm tiefe hat eine hohe Korrelationen (0,43),
-dies ist biologisch sinnvoll, da die Temperaturen in tieferen Schichten stabiler sind und damit besser die
-Wurzel und Mikrobenpopulation repräsentieren. Durch den Quadratischen Term wird abgebildet, dass sich die
-biologische Aktivität bei steigenden Temperaturen überproportional beschleunigt und ein Otpimum besitzt.
+Die Modelle zeigen ähnliche Validierungsergebnissen das finale Modell weist jedoch den
+niedrigsten BIC und vergleichbare Validierungswerte auf. Dies verdeutlicht, dass die Temperatur und die Dicke der Streuschicht wichtige Faktoren sind, die die Daten beschreiben.
+Wie bereits in der Einleitung beschrieben gibt die Bodentemperatur die kinetische Energie für alle biochemischen Reaktionen in den Zellen der Bodenorganismen.
+Dadurch ist sie ein wichtiger zeitlicher Treiber. Die Temperatur in 15 cm Tiefe zeigt eine hohe Korrelation (0,43),
+was biologisch plausibel ist, da die Temperaturen in tieferen Schichten stabiler sind und damit besser die
+Wurzel und Mikrobenpopulation repräsentieren. Durch den quadratischen Term wird abgebildet, dass sich die
+biologische Aktivität bei steigenden Temperaturen überproportional beschleunigt und ein Otpimum erreicht.
 \\
 Die Streuschichtdicke repräsentiert die Quantität des frischen organischen
 Materials, das den Mikroorganismen als primäre Energiequelle für die heterotrophe Respiration dient.
 Während die Temperatur primär zeitliche Schwankungen erklärt, ist die Dicke der Streu in Wäldern ein
 entscheidender Faktor für die räumlichen Muster der Bodenatmung. Der quadratische Term deutet darauf hin,
-dass die Menge des Substrats die Atmung nicht einfach nur linear erhöht, sondern dass z. B. eine sehr
+dass die Menge des Substrats die Atmung nicht einfach nur linear erhöht, sondern dass z.B. eine sehr
 dicke Streuschicht die mikrobielle Aktivität durch bessere Feuchtigkeitskonservierung oder ein massives
 Nahrungsüberangebot überproportional fördert. Die linearen Terme wurden weggelassen, das verletzt zwar
 das übliche statistische Hierarchie-Prinzip, jedoch zwang die geringe Stichprobengröße zu dieser radikalen
 Reduktion, um die Modellstabilität (BIC) zu maximieren.
 \\
-Interessant ist das \texttt{lmoi} nicht in dem Modell vorkommt, obwohl es die stärkste Korrelation zur Zielgröße
-aufweist und auch bei \cite{diss} im Modell genutzt wird. Das könnte daran liegen das die Feuchte der
-Streuschicht mit der Dicke der Streuschicht mit 0,37 korriliert. Weitere Gründe könnten sein, dass das
+Interessant ist, dass \texttt{lmoi} nicht im finalen Modell enthalten ist, obwohl es die stärkste Korrelation zur Zielgröße
+aufweist und auch bei \cite{diss} im Modell genutzt wird. Dies könnte darauf zurückzuführen sein, dass die Feuchte der
+Streuschicht mit \texttt{litter.d} mit r=0,37 korriliert. Weitere Gründe könnten sein, dass das
 Signal bei unserem kleinen Stichprobenumfang nicht stark genug war, um sich vom Rauschen abzuheben oder
 die Schätzung mit dem BIC zu instabil ist.
 \\
-Das finale Modell berücksichtigt nur physikalisch-chemische Faktoren, die biotischen Faktoren wie die
+Das finale Modell berücksichtigt somit primär physikalisch-chemische Faktoren, die biotischen Faktoren wie die
 Feinwurzelbiomasse fehlen. Es wird also nur die heterotrophe und nicht die autotrophe Atmung abgebildet,
 oderbwohl die Wurzelatmung bis zu 90\% der Bodenatmung ausmachen kann \cite{diss}.
-Dies könnte daran liegen, dass \texttt{temp.15} mit der Trockenmasse der Wurzeln in 0-5 cm tiefe mit 0,37
-korriliert. Und das zu wenige Daten vorliegen um weitere biologische Effekte zu identifizieren. Zusätzlich könnte
+Dies könnte daran liegen, dass \texttt{temp.15} mit der Trockenmasse der Wurzeln in 0-5 cm Tiefe mit 0,37
+korriliert. Zudem könnten zu wenige Daten vorliegen, um weitere biologische Effekte zu identifizieren. Zusätzlich könnte
 es auch sein, dass die Temperatur auch die Aktivität der Wurzeln abbildet.
 \\
-Vorallem bei wenigen Daten ist die Gefahr des Overfittings sehr groß, wobei streng das
-Parsimonie-Prinzip angewendet werden muss. Insgesamt zeigen die Ergebnisse das ein Modell mit wenigen
-Parametern schon gut Daten beschreiben kann.
+Vorallem bei kleineren Stichproben ist die Gefahr des Overfittings sehr groß, wobei das
+Parsimonie-Prinzip strikt angewendet werden muss. Insgesamt deuten die Ergebnisse darauf hin, dass ein Modell mit wenigen
+Parametern die Daten gut beschreiben kann.
 
 \subsection{Validierung}
 
 \subsection{Simulation}
 Das Ziel der Simulationsstudie ist die falsche Anwendung des t-Tests bei Vorwärtsselektion von
-Prädiktoren. Die Ergebnisse der Simulationsstudie in \ref{ErgebnisSim} zeigt das die Verteilungen
-der T-max Werte rechtsschief sind. Zu erwarten bei einem T-Test ist eine Normalverteilung also
-keinerlei Schiefe. Die nicht Normalität in den Ergebnissen ist zu erklären dadurch das es sich
-hier nicht um die Verteilung eines einzelnen T-Test handelt sondern um eine Verteilung der
-Maxima vieler T-Tests. Das führt auch zu erheblich höheren Werten zusätzlich zu der
+Prädiktoren. Die Ergebnisse der Simulationsstudie in \ref{ErgebnisSim} zeigen, dass die Verteilungen
+der T-max Werte rechtsschief sind. Zu erwarten bei einem T-Test, ist eine Normalverteilung, also
+keinerlei Schiefe. Die nicht Normalität in den Ergebnissen ist dadurch zu erklären dadurch, dass es sich
+hier nicht um die Verteilung eines einzelnen T-Test handelt, sondern um eine Verteilung der
+Maxima vieler T-Tests. Das führt auch zu erheblich höheren Werten zusätzlich zur
 Rechtsschiefe. Da wir weiterhin den klassischen Wert $\alpha = 0.05$ als kritischen Wert
 verwenden, werden viel mehr Prädiktoren aufgenommen als im vorher festgelegten besten Modell
-enthalten sind. In diesem Fall wurden sieben Prädiktoren aufgenommen obwohl das Modell was
-verwendet wurde um die Pseudowerte dieser Simulation zu erzeugen nur zwei Prädiktoren beinhaltet. 
+enthalten sind. In diesem Fall wurden sieben Prädiktoren aufgenommen, obwohl das Modell, welches
+verwendet wurde um die Pseudowerte dieser Simulation zu erzeugen, nur zwei Prädiktoren beinhaltet. 
 
-Diese erhöte Aufnahme führt zu einer einer generell extrem hohen Ablehnung der Nullhypothese und
-damit erheblich erhöhten Fehlerwahrscheinlichkeit erster Art. Das könnte man beheben in dem man
-den kritischen Wert anpasst zum Beispiel durch eine Bonferroni Korrektur oder einfach eine
-Simulation des max T. 
+Diese erhöhte Aufnahme führt zu einer generell stark erhöhten Ablehnung der Nullhypothese und damit zu
+einer erhöhten Fehlerwahrscheinlichkeit erster Art. Dies könnte beispielsweise durch eine Anpassung des
+kritischen Werts, etwa mittels Bonferroni-Korrektur, oder durch eine Simulation von max T adressiert
+werden.
 
-Selektions-Bias ist ein weiterer großer Schwachpunkt dieser Simulation. In der ersten Runde
-zeigt die Aufnahme eines Prädiktors zwangsweise die beste Reduktion der Residuen im Vergleich
-zu den anderen Prädiktoren. In diesem Fall $temp.15^2$. Da der T-wert dieses Prädiktors am
-höchsten ist und höher als der kritische Wert wird dieser aufgenommen aber es kann noch andere
-Prädiktoren geben die über dem kritischen Wert liegen und vielleicht mit Interaktionen mit
-anderen Prädiktoren eine besserere Erklärungskraft haben. Diese werden hier aber nicht
-aufgenommen und potenziell in kommenden Selektionsrunden auch nicht.
+Selektionsbias stellt einen weiteren zentralen Schwachpunkt dieser Simulation dar. Bereits in der
+ersten Runde erfolgt die Aufnahme eines Prädiktors zwangsläufig anhand der stärksten Reduktion der
+Residuen im Vergleich zu den übrigen Prädiktoren. In diesem Fall ist dies temp.15². Da dessen T-Wert
+am höchsten ist und über dem kritischen Wert liegt, wird dieser Prädiktor aufgenommen. Dennoch könnten
+andere Prädiktoren ebenfalls über dem kritischen Wert liegen und möglicherweise – etwa in Interaktion
+mit anderen Variablen – eine höhere Erklärungskraft aufweisen. Diese werden jedoch nicht berücksichtigt
+und könnten in späteren Selektionsrunden ebenfalls unentdeckt bleiben.
 
-Zudem kommt noch das Problem von Overfitting, es ist durchaus möglich das die Simulation das
-best möglichste Modell aufstellt für die Erklärung der Daten auf denen es trainiert ist
-allerdings kann es sein das es nicht besonders gute Vorhersagen gegeben anderer Daten treffen
-wird. Ein großer Faktor hierfür ist das immer die Variable aufgenommen wird die die Residuen
-am stärksten reduziert selbst wenn diese Reduktion sehr minimal ist und potenziel in anderen
-Bedingungen große Auswirkungen hat.
+Ein weiteres Problem stellt das Overfitting dar. Es ist durchaus möglich, dass die Simulation ein
+Modell identifiziert, das die Trainingsdaten sehr gut erklärt, jedoch nur eine eingeschränkte
+Vorhersagegüte für neue Daten besitzt. Ein wesentlicher Grund hierfür ist die wiederholte Auswahl jener
+Variablen, die die Residuen am stärksten reduzieren, selbst wenn deren Effekt gering ist und unter
+anderen Bedingungen zu Fehlanpassungen führen kann.
