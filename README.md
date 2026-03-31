@@ -1,4 +1,4 @@
-# Statistik Projekt – Bodenatmung
+# Statistik Projekt: Bodenatmung
 
 Dieses Repository enthält den vollständigen Quellcode, die Daten sowie das LaTeX-Dokument zur Projektarbeit im Modul Statistik.
 
@@ -48,6 +48,7 @@ Diese können direkt in R oder RStudio ausgeführt werden.
 ---
 
 ### LaTeX-Dokument kompilieren
+```bash
 pdflatex Script.tex
 biber Script
 pdflatex Script.tex
@@ -62,23 +63,19 @@ Die finalen Ergebnisse der Arbeit sind im PDF-Dokument enthalten:
 
 ---
 
-## Hinweise
-
-- Temporäre LaTeX-Dateien (`.aux`, `.log`, `.out`, etc.) können ignoriert werden.
-- Das Repository dient der Reproduzierbarkeit der Ergebnisse.
-
----
-
 ## Autoren
-Team member
-Anshul Khubchandani Espinoza  
-Team member
-Team member
+- Team member  
+- Anshul Khubchandani Espinoza  
+- Team member  
+- Team member  
 
 Friedrich-Schiller-Universität Jena
 
 ---
 
 ## Hinweis
+
+- Temporäre LaTeX-Dateien (`.aux`, `.log`, `.out`, etc.) können ignoriert werden.
+- Das Repository dient der Reproduzierbarkeit der Ergebnisse.
 
 Dieses Repository wurde im Rahmen einer universitären Projektarbeit erstellt und dient ausschließlich zu wissenschaftlichen Zwecken.
