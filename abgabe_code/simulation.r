@@ -4,8 +4,15 @@ if (!require("leaps", quietly = TRUE)) {
   library(leaps)
 }
 
+
+script_dir <- dirname(sys.frame(1)$ofile)
+if (is.null(script_dir)) {
+  script_dir <- "statistik/abgabe_code"
+}
+
+#best_model <- lm(log(soil.res) ~ I(temp.15^2) + I(litter.d^2), data = hainich.data)
 source("model_building.r")
-source("helper.r")
+source(file.path(script_dir, "helper.r"))
 
 print(best_model)
 
@@ -19,9 +26,9 @@ nsteps <- 10 #Anzahl an vorwaertzselektionsschritten
 
 X <- matrix(rnorm(n * p), n, p)
 
-# definiere originale design matrix
-X_orig <- read.csv2("hainich.csv", header = TRUE, stringsAsFactors = FALSE)
-X_orig <- X_orig[, -1]              # remove soil resp since it be target value
+
+X_orig <- read.csv2(file.path(script_dir, "..", "hainich.csv"), header = TRUE, stringsAsFactors = FALSE)
+X_orig <- X_orig[, -1] # remove soil resp since it be target value
 
 X_orig <- as.matrix(sapply(X_orig, as.numeric))
 
