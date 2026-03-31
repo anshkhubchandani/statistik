@@ -105,7 +105,6 @@ cook <- cooks.distance(best_model)
 
 #typische Schwelle
 cook.limit <- 4 / nrow(hainich.data)
-
 print(which(cook > cook.limit))
 cook.limit
 
@@ -121,5 +120,3 @@ plot(cook, type = "h",
      main = "Cook's Distance",
      ylab = "Cook's D")
 abline(h = cook.limit, col = 2, lty = 2)
-
-#anova
