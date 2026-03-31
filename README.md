@@ -65,7 +65,7 @@ Die finalen Ergebnisse der Arbeit sind im PDF-Dokument enthalten:
 
 ## Autoren
 - Team member  
-- Anshul Khubchandani Espinoza  
+- Anshul Khubchandani  
 - Team member  
 - Team member  
 
