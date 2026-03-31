@@ -1,16 +1,23 @@
-# macOS
+# Mac
 .DS_Store
 
-# LaTeX build files
+# LaTeX Hilfsdateien
 *.aux
-*.bbl
-*.bcf
-*.blg
-*.fdb_latexmk
-*.fls
 *.log
 *.out
+*.toc
+*.blg
+*.bcf
 *.run.xml
 *.synctex.gz
-*.toc
+
+# temporäre Dateien
 texput.log
+
+# Python / Jupyter (optional)
+__pycache__/
+.ipynb_checkpoints/
+
+# R
+.Rhistory
+.RData
