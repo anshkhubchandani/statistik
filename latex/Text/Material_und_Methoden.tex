@@ -1,0 +1,230 @@
+\section{Material und Methoden}
+
+\subsection{Datensatz}
+
+Die Analyse basiert auf dem Datensatz \texttt{hainich.csv}, der von A.~Soe (MPI Biogeochemie)
+bereitgestellt wurde. Der Datensatz enthält 38 Messungen der Bodenatmung (\texttt{soil.res}) sowie
+folgende Einflussgrößen:
+
+\begin{itemize}
+\setlength{\itemsep}{0pt}
+\item \texttt{temp.0}, \texttt{temp.5}, \texttt{temp.10}, \texttt{temp.15} – Bodentemperatur in 0, 5, 10, 15 cm Tiefe
+\item \texttt{smoi} – relative Bodenfeuchte (soil moisture)
+\item \texttt{lmoi} – relative Feuchte der Streuschicht (litter moisture)
+\item \texttt{litter.d} – Dicke der Streuschicht
+\item \texttt{ph.litter}, \texttt{ph.soil0}, \texttt{ph.soil5} – pH-Wert der Streuschicht bzw. des Bodens in 0-5 cm bzw. 5-10 cm Tiefe
+\item \texttt{rootdw0}, \texttt{rootdw5} – Trockenmasse der Wurzeln in 0-5 cm bzw. 5-10 cm Tiefe
+\item \texttt{rootn0}, \texttt{rootn5} – Stickstoffgehalt der Wurzeln in 0-5 cm bzw. 5-10 cm Tiefe
+\item \texttt{rootc0}, \texttt{rootc5} – Kohlenstoffgehalt der Wurzeln in 0-5 cm bzw. 5-10 cm Tiefe
+\item \texttt{litter.c}, \texttt{litter.n} – Kohlenstoff- bzw. Stickstoffgehalt der Streuschicht
+\item \texttt{soiln0}, \texttt{soiln5} – Stickstoffgehalt des Bodens in 0-5 cm bzw. 5-10 cm Tiefe
+\item \texttt{soilc0}, \texttt{soilc5} – Kohlenstoffgehalt der Bodens in 0-5 cm bzw. 5-10 cm Tiefe
+\item \texttt{litno3}, \texttt{sno30}, \texttt{sno35} – Nitratgehalt der Streuschicht bzw. des Bodens in 0-5 cm bzw. 5-10 cm Tiefe
+\item \texttt{litnh4}, \texttt{snh40}, \texttt{snh45} - Ammoniumgehalt der Streuschicht bzw. des Bodens in 0-5 cm bzw. 5-10 cm Tiefe
+\item \texttt{litdoc}, \texttt{sdoc0}, \texttt{sdoc5} – Gehalt an gelöstem organischen Kohlenstoff (DOC - dissolved organic carbon) der Streuschicht bzw. des Bodens in 0-5 cm bzw. 5-10 cm Tiefe
+\item \texttt{nn} – Entfernung der Probestelle zum nächsten Baum (nearest neighbour)
+\end{itemize}
+
+\subsubsection{Transformation}
+Die Zielgröße \texttt{soil.res} zeigt eine rechtsschiefe Verteilung. Um eine möglichst stabile Schätzung des Modells
+zu erreichen, wurde die Zielgröße mit dem natürlichen Logarithmus transformiert.
+
+\subsubsection{Korrelationen}
+
+Es wurden alle Korrelationen zwischen Ziel- und Einflussgrößen sowie Multikollinearität
+zwischen den Einflussgrößen bestimmt.
+
+\subsubsection{Interaktionen zwischen den Einflussgrößen} \label{Interaktionen}
+
+Es gibt Einflussgrößen deren Effekt, den sie auf die Zielgröße ausüben, von der Ausprägung
+einer anderen Einflussgröße abhängig ist. Dabei handelt es sich um eine Interaktion, welche in einem
+linearem Modell explizit beschrieben werden muss. Die Modelle wurden jeweils mit und ohne Interaktion betrachtet,
+wenn die Interaktion das Modell nicht verbessert hat, wurde sie weggelassen.
+\\
+\\
+Folgende Interaktionen zwischen den Einflussgrößen in näherer Auswahl siehe \ref{Kandidatenmodelle} gelten als biologisch relevant:
+\\
+\\
+\texttt{lmoi} und \texttt{litter.d}:\\
+Die Streuschicht ist der Lebensraum der Mikroorganismen, welche heterotrophe Atmung betreiben.
+Dafür benötigen sie auch Wasser. Eine dicke Streuschicht könnte also nur dann zu einer massiven Steigerung
+der Atmung führen, wenn die Feuchtigkeit optimal ist, um die Mikroben am Leben zu halten. Zudem könnte
+eine dicke Streuschicht die Feuchtigkeit im Oberboden länger konservieren, was den Effekt verstärkt.
+\\
+\\
+\texttt{temp.15} und \texttt{lmoi}:\\
+Die Temperatur ist der primäre kinetische Treiber biochemischer Reaktionen.
+Die Feuchtigkeit wirkt jedoch als limitierender Faktor. In trockenen Perioden sinkt die
+Stoffwechselrate, während bei sehr hoher Feuchtigkeit in tonreichen Böden
+Sauerstoffmangel entsteht, der die aerobe Atmung trotz optimaler Temperaturen unterdrückt. \cite{diss}
+\\
+\\
+\texttt{temp.15} und \texttt{litter.d}:\\
+Die Menge an potenziell verfügbarem Kohlenstoff in der Streu begrenzt die maximale Respiration.
+Höhere Temperaturen beschleunigen den Abbau dieses organischen Materials durch Mikroben exponentiell \cite{diss}.
+Ein hoher Wert beider Variablen könnte zu einem überproportionalen Anstieg der CO$_2$-Abgabe führen,
+da die mikrobielle Population in einer dicken Streuschicht bei Wärme ihre maximale metabolische Kapazität
+ausschöpfen kann.
+\\
+\\
+\texttt{soiln0} und \texttt{litter.d}:\\
+Der Stickstoffgehalt im Boden repräsentiert die chemische Verfügbarkeit von Nährstoffen, die das
+mikrobielle Wachstum und die Enzymproduktion maßgeblich fördern. Da der Stickstoff beim Bau von Enzymen und
+Proteinen gebruacht wird. \texttt{soiln0} könnte mit der Dicke der 
+Streuschicht interagieren, da Stickstoff dadurch die effiziente Nutzung des Kohlenstoffs aus dem organischen Material
+durch die Mikroorganismen ermöglicht.
+\\
+\\
+\texttt{temp.15} und \texttt{soiln0}:\\
+Je nach Stickstoffgehalt könnten die Bodenatmung sensitiver auf die Temperatur reagieren. Wenn wenig Stickstoff
+vorhanden ist, kann bei höheren Temperaturen die Aktivität nur gering gesteigert werden. Wenn viel Stickstoff
+vorhanden ist, kann bei höheren Temperaturen die Aktivität der Mikroorganismen stärker gesteigert werden.
+
+\subsection{Statistisches Modell} \label{Statistisches Modell}
+
+Zur Vorhersage der Bodenatmung wurde ein lineares Modell (\texttt{lm}) verwendet.\\
+Deterministischer Teil: $\mathbb{E}Y_i= \mu_i =\beta_0 + \beta_1x_{i1} + ... + \beta_kx_{ik}$ mit $i= 1,...,n$\\
+Stochastischer Teil: $Y_i \sim N(\mu_i, \sigma^2)$ mit $i= 1,...,n$\\
+
+\subsubsection{Aufstellen der Kandidatenmodelle} \label{Kandidatenmodelle}
+
+Da nur ein kleinen Datensatz mit 38 Datenpunkten vorliegt wurde ein Modell mit möglichst wenigen
+Variablen gesucht, um Overfitting zu vermeiden. Neben der Korrelation zur Zielgröße wurden auch biologische
+Plausibilität und Multikollinearität berücksichtigt, um die Anzahl der möglichen Einflussgrößen zu
+verringern. Die Variablen mit den größten Kollinearitäten zur Zielgröße und ohne Multikollinearität
+untereinander sind \texttt{lmoi} (0,47), \texttt{litter.d} (0,3), \texttt{temp.15} (0,43) und
+\texttt{soiln0} (0,32). Wobei \texttt{soiln0} mit 0,96 sehr stark mit \texttt{soilc0} korreliert.
+Die Prädikatoren wurden in allen Modellen als quadratische Terme verwendet. Dies ist biologisch durch die
+Existenz von Physiologischen Optima begründet. Da biologische Prozesse wie zum Beispiel die Bodenatmung bei
+extremen Umweltbedingungen (z. B. Trockenheit oder Kältestress) inhibiert werden und ein Maximum bei moderaten
+Bedingungen erreichen, bildet eine parabolische Modellierung diese Glockenkurven-Charakteristik besser ab als
+rein lineare Ansätze.
+\\
+Das erste Kandidatenmodell (\texttt{lm1}) enthält die Einflussgrößen \texttt{temp.15} und \texttt{litter.d}. Darin enthalten ist
+die Annahme, dass die Temperatur die kinetische Energie für biochemische Reaktionen der Mikroben und Wurzeln
+bereitstellt. Verwendet wurde die Temperatur in 15 cm Tiefe, da sie stabiler sein könnte als die Temperatur an der Oberfläche. Die Streuschichtdicke repräsentiert das Substrat für die heterotrophe Zersetzung.
+\\
+Im zweiten Kandidatenmodell (\texttt{lm2}) werden die Einflussgrößen \texttt{temp.15} und \texttt{lmoi} berücksichtigt.
+Bei extremer Trockenheit sinkt die Stoffwechselrate, sodass die Mikroorganismen die Wärme nicht mehr in
+höhere Respiration umsetzen können. In tonreichen Böden wie im Hainich kann zudem Staunässe zu
+Sauerstoffmangel führen, was die aerobe Atmung ebenfalls hemmt.
+\\
+Dagegen werden im dritten Kandidatenmodell (\texttt{lm3}) die Einflussgrößen \texttt{litter.d} und \texttt{soiln0} betrachtet.
+Während litter.d die Quantität des organischen Materials angibt, steht der Stickstoffgehalt für die
+chemische Verfügbarkeit von Nährstoffen, die das mikrobielle Wachstum und die Enzymproduktion fördern. \cite{diss}
+\\
+Das vierte Kandidatenmodell (\texttt{lm4}) nutzt alle vier Variablen: \texttt{litter.d}, \texttt{soiln0}, \texttt{temp.15} und \texttt{lmoi}.
+Dieses umfassende Modell kombiniert abiotische Kontrolle und biologische Ressourcen. Die Temperatur steuert
+die Rate der Bodenatmung, während die Feuchtigkeit diese begrenzen kann. Die Dicke der Streuschicht gibt die verfügbare Substratmenge
+an und der Stickstoffgehalt ermöglicht die effiziente Nutzung des Kohlenstoffs durch Mikroorganismen.
+
+\subsection{Auswahl des finalen Modells}
+
+Alle Modelle wurden mit den im Abschnitt \ref{Validation} beschriebenen Tests betrachtet. Für die Wahl
+zwischen den Modellen wurde ausschließlich das BIC genutzt. Das BIC ist das Bayesian Information
+Criterion und ist ein Kriterium zur Modellwahl. Es wägt die Anpassungsgüte eines statistischen Modells gegen
+seine Komplexität, also die Anzahl der Variablen ab. Das BIC wird berechnet mit der Formel:
+\[-2\cdot logL+log(n)\cdot p \] mit der Log-Likelihood (L) des Modells, der Anzahl der geschätzten Parameter
+(p) und dem Stichprobenumfang (n). Damit lässt sich einfach der Varianz Trade-off ablesen. Da das BIC Modellkomplexität
+stärker bestraft als das AIC und daher einfachere Modelle bevorzugt, wurde es aufgrund der geringen Datenmenge
+verwendet um Overfitting zu vermeiden.\\
+
+\subsection{Validierung des finalen Modells} \label{Validation}
+
+Zur Beurteilung der Qualität der Modelle wurden mehrere Validierungsschritte durchgeführt. Ziel war es, sowohl die statistische Zulässigkeit der Modelle als auch deren Prognosegüte und Komplexität zu bewerten.\\
+
+\subsubsection{Überprüfung der Modellannahmen}
+Die Standard-Diagnoseplots des linearen Modells wurden betrachtet (Residuals vs. Fitted, Normal Q-Q, Scale-Location, Residuals vs. Leverage). Diese dienen der Identifikation nichtlinearer Strukturen, der Beurteilung der Varianzhomogenität sowie der Erkennung einflussreicher Beobachtungen. \\
+
+Zur formalen Prüfung der Normalverteilung der Residuen wurde der Shapiro-Wilk-Test verwendet. Die Teststatistik ergibt sich zu
+\[W = \frac{\left( \sum_{i=1}^n a_i \varepsilon_{(i)} \right)^2}{\sum_{i=1}^n (\varepsilon_i - \bar{\varepsilon})^2},\]
+wobei \(\varepsilon_{(i)}\) die geordneten Residuen und \(a_i\) konstante Gewichte sind. Werte von \(W\) nahe \(1\) sprechen für eine Normalverteilung.\\
+
+Zur Prüfung der Homoskedastizität wurde der Breusch-Pagan-Test verwendet, welcher in R mit der Funktion \texttt{bptest()} implementiert ist. Dieser untersucht, ob die Varianz der Residuen von den Regressoren abhängt. Hierzu wird eine Hilfsregression der quadrierten Residuen auf die erklärenden Variablen durchgeführt:
+\[\hat{u}_i^2 = \gamma_0 + \gamma_1 z_{i1} + \dots + \gamma_q z_{iq} + v_i.\]
+Unter der Nullhypothese \(H_0: \gamma_1 = \dots = \gamma_q = 0\) liegt Homoskedastizität vor, während signifikante Koeffizienten auf Heteroskedastizität hinweisen.\\
+
+Um Einfluss einzelner Beobachtungen auf die Parameterschätzung zu messen, wurde die Cook's Distance verwendet, berechnet in R mit \texttt{cooks.distance()}:
+$$D_i = \frac{\sum_{j=1}^n (\hat{y}_j - \hat{y}_{j(i)})^2}{(k + 1) s^2}.$$
+Große Werte von \(D_i\) weisen auf Beobachtungen hin, die die Modellschätzung stark beeinflussen.\\
+
+\subsubsection{Bewertung der Prognosegüte}
+Zur Bewertung der Prognosegüte wurden LOOCV (Leave-One-Out-Cross-Validation) sowie k-fold-Cross-Validation eingesetzt.\\
+
+Bei der LOOCV wird das Modell \(n\)-mal geschätzt, wobei jeweils eine Beobachtung als Testfall und die übrigen \(n-1\) als Trainingsdaten verwendet werden. Dadurch wird jede Beobachtung genau einmal validiert und der Vorhersagefehler auf unabhängigen Daten geschätzt.
+
+\[\mathrm{RMSE}_{\mathrm{LOOCV}} = \sqrt{\frac{1}{n} \sum_{i=1}^n (y_i - \hat{y}_{(i)})^2}\] \\
+
+Bei der \( k \)-fold-Cross-Validation wird der Datensatz in \( k \) disjunkte Teilmengen (Folds) aufgeteilt. In jeder Iteration dient ein Fold als Testmenge, während die übrigen \( k-1 \) Folds zur Modellschätzung verwendet werden. Dieser Vorgang wird \( k \)-mal wiederholt. Für jeden Durchlauf wird ein mittlerer quadratischer Fehler \(MSE_j\) bestimmt, der auf dem jeweiligen Testfold basiert.
+
+\[\mathrm{RMSE}_{k\text{-fold}} = \sqrt{\frac{1}{k} \sum_{j=1}^{k} MSE_j}\]\\
+
+Durch die Kombination beider Verfahren kann sowohl eine nahezu unverzerrte als auch eine stabilere Schätzung des Vorhersagefehlers erzielt werden.
+
+\subsection{Simulationsstudie}
+
+Ziel der Simulationsstudie ist eine mehrfache Vorwärtsselektion von Prädiktoren. Nach der Wahl des besten Modells ($\beta$) in
+\ref{Statistisches Modell} erfolgt die Berechnung einer Designmatrix ($X$). Diese wird für jede Simulation neu gezogen, ist aber
+für jeden Stichprobenumfang in einer Simulation gleich. Die Berechnung geschieht durch ziehen mit zurücklegen aus der ursprünglichen
+Designmatrix. Die Simulierung mehrerer Pseudobeobachtungen ($Y$) ist notwendig, um die Verteilung von Teststatistiken zu approximieren.
+Simuliert werden diese durch:\\
+\begin{equation}
+\mathrm{Y} \sim X\beta + \epsilon
+\end{equation}
+wobei $\epsilon \sim N(0,\sigma^2)$ gilt. Darauf folgt eine Serie an t-Tests, wobei jeder t-Test die Qualität der Aufnahme eines
+Prädiktors in das Modell testet. Dies passiert durch Testung der Null Hypothese:\\
+\begin{equation}
+\mathrm{H_0 : \beta_j}  = 0 
+\end{equation}
+Die zugehörige t-Statistik \cite{kim2015t,auer2022false} ergibt sich aus: 
+\begin{equation} \label{Einstichprobentest}
+%t = \frac{\overline{x}-\mu_0}{\frac{s}{\sqrt{n}}}
+t_{j} = \frac{\hat{\beta_{j}}}{SE(\hat{\beta_{j}})}
+\end{equation}
+%\[\mathrm{t_{\hat{\beta}} =} \frac{\hat{\beta} - \beta_0}{\mathrm{SE}(\hat{\beta})}\]
+wobei $\hat{\beta_{j}}$ der geschätzte Regressionskoeffizient und $SE(\hat{\beta_{j}})$ dessen Standardfehler ist. Der maximal Wert aller t-Tests aller Simulationen bildet T:
+\begin{equation}
+T = \mathop{max}_{\textbf{j}}|t_j|
+\end{equation}
+In jeder Runde der Vorwärtsselektion wird der Prädiktor mit dem höchesten t-max selektiert und es wird überprüft, ob T über dem
+kritischen Wert liegt. Wenn dies der Fall ist, wird der Prädiktor in das Modell aufgenommen und es beginnt ein neues
+Selektionsverfahren. Wenn nicht, wird der Selektionsschritt wiederholt mit den gleichen bereits selektierten Prädiktoren. Das
+ganze wird wiederholt bis zu einer vordefinierten Anzahl an versuchten Aufnahmeschritten. 
+
+\subsubsection{Parameter und Parameterwahl}
+Die Simulationsstudie ist stark abhängig von der Wahl der Parameter. Die Parameter der Simulation die gesetzt werden können, sind:
+\begin{itemize}
+    \item Stichprobenumfang
+    \item Anzahl der Simulationen
+    \item Fehlerstandardabweichung $\sigma$
+    \item Anzahl der Selektionsschritte
+    \item Kritischer Wert
+\end{itemize}
+
+Der Stichprobenumfang beschreibt wie häufig aus der ursprünglichen Designmatrix gezogen wird, um die
+Designmatrix für jede Simulation zu erstellen. Dafür wurde der Wert 100 gewählt, da dies zu stabileren
+Schätzungen führt als kleinere Stichprobenumfänge wie 20 oder die Größe der originalen Designmatrix
+(38). In Formel \ref{Einstichprobentest} ist der Stichprobenumfang im Zähler des Zählers. Daraus folgt, dass
+die erwarteten T-Werte größer sein werden, wenn der Stichprobenumfang steigt. 
+Der Stichprobenumfang beschreibt, wie häufig aus der ursprünglichen Designmatrix gezogen wird, um die Designmatrix für jede
+Simulation zu erstellen. Dafür wurde der Wert 100 gewählt, da dies zu stabileren Schätzungen führt als kleinere Stichprobenumfänge
+wie 20 oder die Größe der originalen Designmatrix (38). Die erwarteten T-Werte werden größer sein, wenn der Stichprobenumfang (n)
+steigt, da SE($\hat{\beta_{j}}$)$\approx \frac{1}{\sqrt{n}}$. 
+
+Die Anzahl an Simulationen beschreibt, wie viele Simulationen in Betracht gezogen werden bei der Wahl
+des nächsten Prediktor, der aufgenommen wird. Dieser Wert wurde auf 5,000 gesetzt. Grundsätzlich gilt: Je größer die Anzahl der
+Simulationen, desto besser, da dadurch ein stabilerer Durchschnitt gebildet wird. Aufgrund von Laufzeitbeschränkungen wurde die
+Obergrenze jedoch auf 5.000 gesetzt.
+Die Fehlerstandardabweichung  ist auf eins gesetzt, was gängiger Praxis entspricht. Das Gleiche gilt für das $\alpha$ von 0.05.
+Da $\mathrm{H_0} = 0$ gegen $\mathrm{H_0}!= 0$ getestet wird, entspricht dies einem zweiseitigen Test und $\alpha$ muss aufgeteilt werden: 
+\begin{equation}
+P(T>t_{crit}) = \frac{\alpha}{2} = 0.025 \rightarrow P(T \leq t_{crit}) = 0.975
+\end{equation}
+Aus 100 Simulationen und zwei Prädiktoren ergeben sich 98 Freiheitsgrade und $t_{crit} = t_{0.975,98} \approx 1.984$.
+
+Die Anzahl der Selektionsschritte wurde auf 10 gesetzt, da im Schnitt sieben Prädiktoren aufgenommen und einige zusätzliche
+Schritte simuliert werden sollen, um zu zeigen, dass nicht nur durch Zufall nichts mehr aufgenommen wird.
+
+\subsection{Code-Verfügbarkeit}
+Der im Rahmen dieser Arbeit verwendete Quellcode zur Datenaufbereitung, statistischen Analyse und Visualisierung der Ergebnisse ist in einem öffentlichen Repository verfügbar:
+\url{https://git.uni-jena.de/anshul.khubchandani.espinoza/statistik}

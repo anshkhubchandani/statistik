@@ -1,0 +1,72 @@
+
+all_predictors <- c(
+  #Intercept
+  #"(Intercept)",
+  # Temperature
+  "temp.0", "I(temp.0^2)",
+  "temp.5", "I(temp.5^2)",
+  "temp.10", "I(temp.10^2)",
+  "temp.15", "I(temp.15^2)",
+  # Moisture
+  "smoi", "I(smoi^2)",
+  "lmoi", "I(lmoi^2)",
+  # Litter
+  "litter.d", "I(litter.d^2)",
+  "litter.c", "I(litter.c^2)",
+  "litter.n", "I(litter.n^2)",
+  # pH
+  "ph.litter", "I(ph.litter^2)",
+  "ph.soil0", "I(ph.soil0^2)",
+  "ph.soil5", "I(ph.soil5^2)",
+  # Roots
+  "rootdw0", "I(rootdw0^2)",
+  "rootdw5", "I(rootdw5^2)",
+  "rootn0", "I(rootn0^2)",
+  "rootc0", "I(rootc0^2)",
+  "rootn5", "I(rootn5^2)",
+  "rootc5", "I(rootc5^2)",
+  # Soil nutrients
+  "soiln0", "I(soiln0^2)",
+  "soilc0", "I(soilc0^2)",
+  "soiln5", "I(soiln5^2)",
+  "soilc5", "I(soilc5^2)",
+  # Litter nutrients
+  "litno3", "I(litno3^2)",
+  "litnh4", "I(litnh4^2)",
+  "litdoc", "I(litdoc^2)",
+  # Snow/soil solution
+  "sno30", "I(sno30^2)",
+  "snh40", "I(snh40^2)",
+  "sdoc0", "I(sdoc0^2)",
+  "sno35", "I(sno35^2)",
+  "snh45", "I(snh45^2)",
+  "sdoc5", "I(sdoc5^2)",
+  # Distance
+  "nn", "I(nn^2)"
+)
+
+extract_coefficients <- function(model, all_pred = all_predictors) {
+  coefs <- stats::coef(model)
+
+  coef_vector <- setNames(
+    rep(0, length(all_pred)),
+    all_pred
+  )
+  
+  model_names <- names(coefs)
+  
+  for (name in model_names) {
+    if (name %in% all_pred) {
+      coef_vector[name] <- coefs[name]
+    } 
+  }
+  
+  return(coef_vector)
+}
+
+get_model_coefs <- function(regfit_obj, model_size, all_pred = all_predictors) {
+  coefs <- stats::coef(regfit_obj, model_size)
+  extract_coefficients(coefs, all_pred)
+}
+
+

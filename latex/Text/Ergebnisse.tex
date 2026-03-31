@@ -1,0 +1,95 @@
+\section{Ergebnisse}
+
+\subsection{Modellwahl}
+%Tabelle mit BIC der Modelle, CV Ergebnisse, ggf. Koeffizienten
+Das Modell \texttt{lm1} wurde als bestes Modell mit einem BIC von 7,5 ermittelt:\\
+\\
+$ln(soil.res)=\beta_0+\beta_1\cdot{temp.15}^2+\beta_2\cdot{litter.d}^2+\epsilon$\\
+\\
+Die Interaktionen führt nicht zu einer Verbesserung des BIC oder der k-fachen Kreuzvalidierung und wurde deswegen
+weggelassen. Gleiches gilt für die linearen Terme \texttt{temp.15} und \texttt{litter.d}. Diese haben die Residuen des Modell
+und den BIC auf 11,72 verschlechtert.
+
+Abbildung \ref{fig:Residuen} zeigt die Residuen für das Modell. Auf der x-Achse sind die vorhergesagten Werte und auf der y-Achse die Residuen.
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{pictures/residuals_lm1.png}
+  \caption{Residuenplot des finalen Modells}
+  \label{fig:Residuen}
+\end{figure}
+
+\subsection{Validierung}
+Die Validierungsergebnisse sind in Tabelle \ref{tab:model_vergleich} zusammengefasst.
+
+Für alle betrachteten Modelle liegen die p-Werte des Shapiro-Wilk-Tests über 0{,}05 (Tabelle \ref{tab:model_vergleich}), sodass die Normalverteilungsannahme der Residuen nicht verworfen wird. 
+Auch der Breusch-Pagan-Test liefert in keinem Fall signifikante Ergebnisse, sodass keine Hinweise auf eine Verletzung der Varianzhomogenität vorliegen.
+Für das finale Modell \texttt{lm1} ergeben sich mit \(p = 0{,}080\) im Shapiro-Wilk-Test und \(p = 0{,}513\) im Breusch-Pagan-Test unauffällige Werte. 
+Damit sind die zentralen Modellannahmen für das ausgewählte Modell erfüllt.
+
+Die Werte der Kreuzvalidierung sind in Tabelle \ref{tab:model_vergleich} ebenfalls dargestellt. Dabei zeigt \texttt{lm1} mit einem LOOCV-RMSE von 0{,}245 und einem k-fold-RMSE von 0{,}250 eine Vorhersagegüte, 
+die mindestens vergleichbar mit den übrigen Modellen ist.
+Auch die Diagnoseplots des finalen Modells zeigen keine auffälligen systematischen Abweichungen. 
+Über die Cook's Distanz wurden einzelne potenziell einflussreiche Beobachtungen identifiziert, diese sind jedoch nicht so ausgeprägt, dass die Stabilität des Modells grundsätzlich in Frage gestellt wird.
+
+Insgesamt bestätigen die Validierungsergebnisse aus Tabelle \ref{tab:model_vergleich}, dass das finale Modell statistisch zulässig und hinreichend robust ist.
+
+
+\begin{table}[htbp]
+  \centering
+  \caption{Vergleich der Regressionsmodelle}
+  \label{tab:model_vergleich}
+  \begin{tabular}{lccccccc}
+  \toprule
+  Modell & Adj.\ $R^2$ & RSE & BIC & LOOCV RMSE & K-fold RMSE & Shapiro $p$ & BP $p$ \\
+  \midrule
+  lm1 & 0.400 & 0.230 & 7.502 & 0.245 & 0.250 & 0.080 & 0.513 \\
+  lm2 & 0.295 & 0.249 & 13.634 & 0.255 & 0.255 & 0.278 & 0.699 \\
+  lm3 & 0.136 & 0.276 & 21.337 & 0.307 & 0.307 & 0.844 & 0.733 \\
+  lm4 & 0.436 & 0.223 & 10.213 & 0.254 & 0.258 & 0.512 & 0.217 \\
+  \bottomrule
+  \end{tabular}
+  \end{table}
+<<<<<<< HEAD
+=======
+
+>>>>>>> d38a0311f4e08c2b406c158e13b2b1ddb86b442c
+\subsection{Simulation} \label{ErgebnisSim}
+Die Simulationsstudie erzeugt für jeden Aufnahmeschritt eine Verteilung der T-max Werte:
+
+\newpage
+\input{Text/Plots.tex}
+\newpage
+
+Diese sind stark rechtsschief für die ersten paar Aufnahmeschritte. Zudem sind viele Werte
+größer als $T=1.98$ zu beobachten. Bei Simulationsschritt fünf ist ein deutlicher Abfall zu erkennen und
+nach Schritt sieben existieren keine T-Werte größer als 1.98. Die drei meist aufgenommenen
+Prädiktoren in jedem Selektionsschritt sind: 
+\begin{itemize}
+  \item Schritt 1: $temp.15^2, litdoc, temp.15$
+  \item Schritt 2: $temp.15^2, litter.d, temp.15$
+  \item Schritt 3: $litter.d, snh40, litter.d^2$
+  \item Schritt 4: $rootn5^2, rootdw0^2, litter.d^2$
+  \item Schritt 5: $snh45^2, smoi, ph.soil5^2$
+  \item Schritt 6: $sdoc0, rootc5^2, rootdw0^2$
+  \item Schritt 7: $lmoi^2, none$ 
+  \item Schritt 8: $none$
+  \item Schritt 9: $none$
+  \item Schritt 10: $none$
+\end{itemize}
+Zudem wurde der empirische Fehler:
+\begin{equation}
+  \text{Empirical error} = \frac{\text{number of simulations with } t_{\max} > t_{\text{crit}}}{\text{number of total simulations}}
+\end{equation}
+für jeden Simulationsschritt berechnet:
+\begin{itemize}
+  \item Schritt 1: 0.853
+  \item Schritt 2: 0.53
+  \item Schritt 3: 0.244
+  \item Schritt 4: 0.094
+  \item Schritt 5: 0.029
+  \item Schritt 6: 0.007
+  \item Schritt 7: 0.002
+  \item Schritt 8: 0
+  \item Schritt 9: 0
+  \item Schritt 10: 0
+\end{itemize}

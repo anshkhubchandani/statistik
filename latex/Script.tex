@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{graphicx} 
+\usepackage{subcaption}
+\usepackage{geometry}
+\usepackage{xcolor}
+\usepackage{amsmath, amssymb}
+\usepackage[hidelinks]{hyperref}
+\usepackage{pdfpages}
+\usepackage[ngerman]{babel}
+\usepackage{booktabs}
+% Bibliography 
+\usepackage[backend=biber,style=numeric]{biblatex}
+\addbibresource{references.bib} 
+
+\begin{document}
+
+\include{Text/Deckblatt}
+
+\tableofcontents
+\thispagestyle{empty}
+\addtocounter{page}{-1}
+
+%\newpage
+
+%\include{Text/Organisatorisches}
+
+\newpage
+
+\include{Text/Einleitung}
+
+\newpage
+
+\include{Text/Material_und_Methoden}
+
+\newpage
+
+\include{Text/Ergebnisse}
+
+\newpage
+
+\include{Text/Diskussion}
+
+
+
+\newpage
+\section{Literatur}\label{sec:literatur}
+\printbibliography[heading=none]
+
+\newpage
+\includepdf[pages = {1}]{Eigenstaendigkeitserklaerungen/Eigenständigkeitserklärung_Arne}
+\includepdf[pages = {1}]{Eigenstaendigkeitserklaerungen/Eigenständigkeitserklärung_Anshul.pdf}
+\includepdf[pages = {1}]{Eigenstaendigkeitserklaerungen/Eigenständigkeitserklärung_Lydia.pdf}
+\includepdf[pages = {1}]{Eigenstaendigkeitserklaerungen/Eigenständigkeitserklärung_Charlotte.pdf}
+
+\end{document}
