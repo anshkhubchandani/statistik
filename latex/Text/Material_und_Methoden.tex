@@ -82,21 +82,21 @@ verringern. Die Variablen mit den größten Kollinearitäten zur Zielgröße und
 untereinander sind \texttt{lmoi} (0,47), \texttt{litter.d} (0,3), \texttt{temp.15} (0,43) und
 \texttt{soiln0} (0,32). Wobei \texttt{soiln0} mit 0,96 sehr stark mit \texttt{soilc0} korreliert.
 \\
-Das erste Modell (\texttt{lm1}) enthält die Einflussgrößen \texttt{temp.15} und \texttt{litter.d}. Darin enthalten ist
+Das erste Kandidatenmodell (\texttt{lm1}) enthält die Einflussgrößen \texttt{temp.15} und \texttt{litter.d}. Darin enthalten ist
 die Annahme, dass die Temperatur die kinetische Energie für biochemische Reaktionen der Mikroben und Wurzeln
 bereitstellt. Die Temperatur in 15 cm tiefe könnte stabiler sein als die Temperatur an der Oberfläche und
 wird deswegen verwendet. Die Streuschichtdicke repräsentiert das Substrat für die heterotrophe Zersetzung.
 \\
-Im zweiten Modell (\texttt{lm2}) werden die Einflussgrößen \texttt{temp.15} und \texttt{lmoi} berücksichtigt.
+Im zweiten Kandidatenmodell (\texttt{lm2}) werden die Einflussgrößen \texttt{temp.15} und \texttt{lmoi} berücksichtigt.
 Bei extremer Trockenheit sinkt die Stoffwechselrate, sodass die Mikroorganismen die Wärme nicht mehr in
 höhere Respiration umsetzen können. In tonreichen Böden wie im Hainich kann zudem Staunässe zu
 Sauerstoffmangel führen, was die aerobe Atmung ebenfalls hemmt.
 \\
-Dagegen wird im dritten Modell (\texttt{lm3}) die Einflussgrößen \texttt{litter.d} und \texttt{soiln0} betrachtet.
+Dagegen wird im dritten Kandidatenmodell (\texttt{lm3}) die Einflussgrößen \texttt{litter.d} und \texttt{soiln0} betrachtet.
 Während litter.d die Quantität des organischen Materials angibt, steht der Stickstoffgehalt für die
 chemische Verfügbarkeit von Nährstoffen, die das mikrobielle Wachstum und die Enzymproduktion fördern. \cite{diss}
 \\
-Das vierte Modell (\texttt{lm4}) nutzt alle 4 Variablen: \texttt{litter.d}, \texttt{soiln0}, \texttt{temp.15} und \texttt{lmoi}.
+Das vierte Kandidatenmodell (\texttt{lm4}) nutzt alle 4 Variablen: \texttt{litter.d}, \texttt{soiln0}, \texttt{temp.15} und \texttt{lmoi}.
 Dieses umfassendes Modell kombiniert abiotische Kontrolle und biologische Ressourcen. Die Temperatur steuert
 die Rate während die Feuchtigkeit dies limitieren kann. Die Dicke der Streuschicht gibt die Menge an Substrat
 an und der Stickstoff ermöglicht die effiziente Nutzung des Kohlenstoffs durch Mikroorganismen.
@@ -161,11 +161,11 @@ die zugehörige t-statistik ergibt sich aus:
 t_{j} = \frac{\hat{\beta_{j}}}{SE(\hat{\beta_{j}})}
 \end{equation}
 %\[\mathrm{t_{\hat{\beta}} =} \frac{\hat{\beta} - \beta_0}{\mathrm{SE}(\hat{\beta})}\]
-wobei $\hat{\beta_{j}}$ der geschätzte regressionskoeffizient und $SE(\hat{\beta_{j}})$ dessen Standardfehler ist. Der maximal Wert aller t-Tests aller Simulationen bildet T:
+wobei $\hat{\beta_{j}}$ der geschätzte Regressionskoeffizient und $SE(\hat{\beta_{j}})$ dessen Standardfehler ist. Der maximal Wert aller t-Tests aller Simulationen bildet T:
 \begin{equation}
 T = \mathop{max}_{\textbf{j}}|t_j|
 \end{equation}
-In jeder runde der Vorwärtsselektion wird der Prädiktor mit dem höchesten t-max selektiert und es wird überprüft ob T über dem kritischen Wert liegt. Wenn dies der fall ist wird der Prädiktor in das Modell aufgenommen und es beginnt ein neues Selektionsverfahren. Wenn nicht wird der Selektionsschritt wiederholt mit den gleichen bereits selektierten Prädiktoren. Das ganze wird wiederholt bis zu einer vordefinierten Anzahl an versuchten Aufnahmeschritten. 
+In jeder Runde der Vorwärtsselektion wird der Prädiktor mit dem höchesten t-max selektiert und es wird überprüft ob T über dem kritischen Wert liegt. Wenn dies der Fall ist wird der Prädiktor in das Modell aufgenommen und es beginnt ein neues Selektionsverfahren. Wenn nicht, wird der Selektionsschritt wiederholt mit den gleichen bereits selektierten Prädiktoren. Das ganze wird wiederholt bis zu einer vordefinierten Anzahl an versuchten Aufnahmeschritten. 
 
 \subsubsection{Parameter und Parameterwahl}
 Die Simulationsstudie ist stark abhängig von der Wahl der Parameter. Die Parameter der Simulation die gesetzt werden können sind:
@@ -174,20 +174,31 @@ Die Simulationsstudie ist stark abhängig von der Wahl der Parameter. Die Parame
     \item Anzahl der Simulationen
     \item Fehlerstandardabweichung $\sigma$
     \item Anzahl der Selektionsschritte
-    \item Kritischer wert
+    \item Kritischer Wert
 \end{itemize}
 
-Der Stichprobenumfang beschreibt wie häufig aus der ursprünglichen Designmatrix gezogen wird um die Designmatrix für jede Simulation zu erstellen. Dafür wurde der wert 100 gewählt da dies zu stabileren Schätzungen führt als kleinere Stichprobenumfänge wie 20 oder die größe der originalen Designmatrix (38). In Formel \ref{Einstichprobentest} ist der Stichprobenumfang im zähler des zählers, es folgt das die erwarteten T-werte größer sein werden wenn der Stichprobenumfang steigt. 
+Der Stichprobenumfang beschreibt wie häufig aus der ursprünglichen Designmatrix gezogen wird um die
+Designmatrix für jede Simulation zu erstellen. Dafür wurde der Wert 100 gewählt da dies zu stabileren
+Schätzungen führt als kleinere Stichprobenumfänge wie 20 oder die Größe der originalen Designmatrix
+(38). In Formel \ref{Einstichprobentest} ist der Stichprobenumfang im Zähler des Zählers, es folgt das
+die erwarteten T-werte größer sein werden wenn der Stichprobenumfang steigt. 
 
-Die anzahl an Simulationen beschreibt wie viele Simulationen in betracht gezogen werden bei der Wahl des nächsten Prediktor der aufgenommen wird. Diesen wert wurde auf 5,000 gesetzt. Hier gilt grundsätzlich größer ist besser da somit ein besserer Dürchschnitt gebildet wird, allerdings haben Laufzeit limitationen die Grenze bei 5,000 bedingt.
+Die Anzahl an Simulationen beschreibt wie viele Simulationen in betracht gezogen werden bei der Wahl
+des nächsten Prediktor der aufgenommen wird. Diesen Wert wurde auf 5,000 gesetzt. Hier gilt
+grundsätzlich größer ist besser da somit ein besserer Durchschnitt gebildet wird, allerdings haben
+Laufzeit Limitationen die Grenze bei 5,000 bedingt.
 
-Die Fehlerstandardabweichung  ist auf eins gesetzt was gängiger Praxis entspricht, das gleiche gilt fuer das $\alpha$ von 0.05. Da H0 = 0 gegen H0 != 0 getested wird entspricht das einem zweiseitigen Test und alpha muss aufgeteilt werden: 
+Die Fehlerstandardabweichung  ist auf eins gesetzt was gängiger Praxis entspricht, das gleiche gilt
+für das $\alpha$ von 0.05. Da H0 = 0 gegen H0 != 0 getested wird entspricht das einem zweiseitigen
+Test und alpha muss aufgeteilt werden: 
 \begin{equation}
 P(T>t_{crit}) = \frac{\alpha}{2} = 0.025 \rightarrow P(T \leq t_{crit}) = 0.975
 \end{equation}
 Aus 100 Simulationen und zwei Prädiktoren folgt 98 Freiheitsgrade und $t_{crit} = t_{0.975,98} \approx 1.984$.
 
-Die anzahl an Selektionsschritten wurde auf 10 gesetzt da im schnitt sieben Prädiktoren aufgenommen werden und noch ein paar Schritte simuliert werden um zu zeigen das nicht nur durch zufall nichts mehr aufgenommen wird.
+Die Anzahl an Selektionsschritten wurde auf 10 gesetzt da im Schnitt sieben Prädiktoren aufgenommen
+werden und noch ein paar Schritte simuliert werden um zu zeigen das nicht nur durch Zufall nichts
+mehr aufgenommen wird.
 
 \subsection{Code-Verfügbarkeit}
 link zum repository\\

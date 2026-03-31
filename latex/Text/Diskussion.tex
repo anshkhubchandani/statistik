@@ -13,13 +13,13 @@ passende Modell. Anschließend wurde das beste Modell validiert, indem die Resid
 und der Shapiro Test, Breusch-Pagan Test, sowie die Cooks Distanz betrachtet wurden.
 \\
 Das finale Modell \texttt{lm1} enthält nur drei Variablen mit dem Intercept, kann damit aber die Daten
-gut schätzen. Es treten Über- und Unterschätzungen nur im geringen Maß auf siehe \ref{fig:Residuen}.
+gut schätzen. Es treten Über- und Unterschätzungen nur im geringen Maß auf siehe Abbildung \ref{fig:Residuen}.
 Das zeigt die gewählten Prädikatoren erfassen noch nicht alle wichtigen Zusammenhänge. Mögliche Ursachen könnten fehlende
 Einflussgrößen oder Interaktionen sein. Jedoch können auf Grundlage der 38 Datenpunkte keine weiteren
 Zusammenhänge zuverlässig ermittelt werden, wodurch das sparsamste Modell am statistisch stabilsten ist.
 \\
 Die Modelle sind von den Validierungsergebnissen nah beieinander, jedoch zeigt das finale Modell den
-niedrigsten BIC und vergleichbare Validierungswerte. Dies zeigt das die Temperatur und die Dicke der Streuschicht wichtige Faktoren sind die die Daten beschreiben.
+niedrigsten BIC und vergleichbare Validierungswerte. Dies zeigt das die Temperatur und die Dicke der Streuschicht wichtige Faktoren sind, die die Daten beschreiben.
 Die Bodentemperatur gibt die kinetische Energie für alle biochemischen Reaktionen in den Zellen der Bodenorganismen.
 Dadurch ist sie ein wichtiger zeitlicher Treiber. Die Temperatur in 15 cm tiefe hat eine hohe Korrelationen (0,43),
 dies ist biologisch sinnvoll, da die Temperaturen in tieferen Schichten stabiler sind und damit besser die
@@ -35,7 +35,7 @@ dicke Streuschicht die mikrobielle Aktivität durch bessere Feuchtigkeitskonserv
 Nahrungsüberangebot überproportional fördert.
 \\
 Interessant ist das \texttt{lmoi} nicht in dem Modell vorkommt, obwohl es die stärkste Korrelation zur Zielgröße
-aufweist und auch bei ref{diss} im Modell genutzt wird. Das könnte daran liegen das die Feuchte der
+aufweist und auch bei \cite{diss} im Modell genutzt wird. Das könnte daran liegen das die Feuchte der
 Streuschicht mit der Dicke der Streuschicht korriliert mit 0,37. Ein weiterer Grund könnte sein, dass das
 Signal bei unserem kleinen Stichprobenumfang nicht stark genug war, um sich vom Rauschen abzuheben.
 \\
@@ -50,10 +50,33 @@ Parametern schon gut Daten beschreiben kann.
 \subsection{Validierung}
 
 \subsection{Simulation}
-Das Ziel der Simulationsstudie ist die falsche anwendung des t-Tests bei Vorwärtsselektion von Prädiktoren. Die Ergebnisse der Simulationsstudie in \ref{ErgebnisSim} zeigt das die Verteilungen der T-max Werte rechtsschief sind. Zu erwarten bei einem T test ist eine Normalverteilung also keinerlei Schiefe. Die nicht normalität in den Ergebnissen ist zu erklären dadurch das es sich hier nicht um die Verteilung eines einzelnen T test handelt sondern um eine Verteilung der Maxima vieler T tests. Das führt auch zu erheblich höheren Werten zusätzlich zu der rechtsschiefe. Da wir weiterhin den klassischen Wert $\alpha = 0.05$ als kritischen Wert verwenden, werden viel mehr Prädiktoren aufgenommen als im vorher festgelegten besten Modell enthalten sind. In diesem fall wurden sieben Prädiktoren aufgenommen obwohl das Modell was verwendet wurde um die Pseudowerte dieser Simulation zu erzeugen nur zwei Prädiktoren beinhaltet. 
+Das Ziel der Simulationsstudie ist die falsche Anwendung des t-Tests bei Vorwärtsselektion von
+Prädiktoren. Die Ergebnisse der Simulationsstudie in \ref{ErgebnisSim} zeigt das die Verteilungen
+der T-max Werte rechtsschief sind. Zu erwarten bei einem T-Test ist eine Normalverteilung also
+keinerlei Schiefe. Die nicht Normalität in den Ergebnissen ist zu erklären dadurch das es sich
+hier nicht um die Verteilung eines einzelnen T-Test handelt sondern um eine Verteilung der
+Maxima vieler T-Tests. Das führt auch zu erheblich höheren Werten zusätzlich zu der
+Rechtsschiefe. Da wir weiterhin den klassischen Wert $\alpha = 0.05$ als kritischen Wert
+verwenden, werden viel mehr Prädiktoren aufgenommen als im vorher festgelegten besten Modell
+enthalten sind. In diesem Fall wurden sieben Prädiktoren aufgenommen obwohl das Modell was
+verwendet wurde um die Pseudowerte dieser Simulation zu erzeugen nur zwei Prädiktoren beinhaltet. 
 
-Diese erhöte aufnahme führt zu einer einer generell extrem hohen Ablehnung der Nullhypothese und damit erheblich erhöhten Fehlerwahrscheinlichkeit erster art. Das könnte man beheben in dem man den kritischen Wert anpasst zum beispiel durch eine Bonferroni Korrektur oder einfach eine Simulation des max T. 
+Diese erhöte Aufnahme führt zu einer einer generell extrem hohen Ablehnung der Nullhypothese und
+damit erheblich erhöhten Fehlerwahrscheinlichkeit erster Art. Das könnte man beheben in dem man
+den kritischen Wert anpasst zum Beispiel durch eine Bonferroni Korrektur oder einfach eine
+Simulation des max T. 
 
-Selektions-Bias ist ein weiterer großer Schwachpunkt dieser Simulation. In der ersten Runde zeigt die aufnahme eines Prädiktors zwangsweise die beste reduktion der Residuen im vergleich zu den anderen Prädiktoren. In diesem Fall $temp.15^2$. Da der T-wert dieses Prädiktors am höchsten ist und höher als der kritische Wert wird dieser aufgenommen aber es kann noch andere Prädiktoren geben die über dem kritischen Wert liegen und vielleicht mit Interaktionen mit anderen Prädiktoren eine besserere Erklärungskraft haben. Diese werden hier aber nicht aufgenommen und potenziell in kommenden Selektionsrunden auch nicht.
+Selektions-Bias ist ein weiterer großer Schwachpunkt dieser Simulation. In der ersten Runde
+zeigt die Aufnahme eines Prädiktors zwangsweise die beste Reduktion der Residuen im Vergleich
+zu den anderen Prädiktoren. In diesem Fall $temp.15^2$. Da der T-wert dieses Prädiktors am
+höchsten ist und höher als der kritische Wert wird dieser aufgenommen aber es kann noch andere
+Prädiktoren geben die über dem kritischen Wert liegen und vielleicht mit Interaktionen mit
+anderen Prädiktoren eine besserere Erklärungskraft haben. Diese werden hier aber nicht
+aufgenommen und potenziell in kommenden Selektionsrunden auch nicht.
 
-Zudem kommt noch das problem von Overfitting, es ist durchaus möglich das die Simulation das best möglichste Modell aufstellt für die Erklärung der Daten auf denen es trainiert ist allerdings kann es sein das es nicht besonders gute vorhersagen gegeben anderer Daten treffen wird. Ein großer Faktor hierfür ist das immer die Variable aufgenommen wird die die Residuen am stärksten reduziert selbst wenn diese reduktion sehr minimal ist und potenziel in anderen bedingungen große auswirkungen hat.
+Zudem kommt noch das Problem von Overfitting, es ist durchaus möglich das die Simulation das
+best möglichste Modell aufstellt für die Erklärung der Daten auf denen es trainiert ist
+allerdings kann es sein das es nicht besonders gute Vorhersagen gegeben anderer Daten treffen
+wird. Ein großer Faktor hierfür ist das immer die Variable aufgenommen wird die die Residuen
+am stärksten reduziert selbst wenn diese Reduktion sehr minimal ist und potenziel in anderen
+Bedingungen große Auswirkungen hat.
