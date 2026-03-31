@@ -17,6 +17,8 @@ Die Analyse umfasst:
 ---
 
 ##  Repository-Struktur
+```
+.
 ├── abgabe_code/        # Finale R-Skripte für Analyse und Modelle
 ├── latex/              # LaTeX-Dokument der Arbeit
 │   ├── Text/           # Kapitel der Arbeit
@@ -27,7 +29,7 @@ Die Analyse umfasst:
 ├── *.r                 # Weitere Analyse-Skripte
 ├── hainich.csv         # Datensatz
 └── Script.pdf          # Finale Abgabe (PDF)
-
+```
 ---
 
 ## Verwendete wurde
