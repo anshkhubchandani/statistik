@@ -9,8 +9,9 @@ und der Shapiro Test, Breusch-Pagan Test sowie die Cooks Distanz betrachtet wurd
 \\
 Das finale Modell \texttt{lm1} enthält lediglich drei Variablen mit dem Intercept, kann damit aber die Daten
 gut schätzen. Über- und Unterschätzungen treten in geringem Maß auf (siehe Abbildung \ref{fig:Residuen}).
-Das zeigt, dass die gewählten Prädikatoren noch nicht alle wichtigen Zusammenhänge erfassen. Mögliche Ursachen könnten fehlende
-Einflussgrößen oder Interaktionen sein. Jedoch können auf Grundlage der 38 Datenpunkte keine weiteren
+
+Dies deutet darauf hin, dass die gewählten Prädiktoren nicht alle relevanten Zusammenhänge vollständig erfassen. Mögliche Ursachen hierfür sind fehlende
+Einflussgrößen oder Interaktionen. Jedoch können auf Grundlage der 38 Datenpunkte keine weiteren
 Zusammenhänge zuverlässig ermittelt werden, wodurch das sparsamste Modell am statistisch stabilsten ist.
 \\
 Die Modelle zeigen ähnliche Validierungsergebnissen das finale Modell weist jedoch den
@@ -31,11 +32,12 @@ Nahrungsüberangebot überproportional fördert. Die linearen Terme wurden wegge
 das übliche statistische Hierarchie-Prinzip, jedoch zwang die geringe Stichprobengröße zu dieser radikalen
 Reduktion, um die Modellstabilität (BIC) zu maximieren.
 \\
-Interessant ist, dass \texttt{lmoi} nicht im finalen Modell enthalten ist, obwohl es die stärkste Korrelation zur Zielgröße
-aufweist und auch bei \cite{diss} im Modell genutzt wird. Dies könnte darauf zurückzuführen sein, dass die Feuchte der
-Streuschicht mit \texttt{litter.d} mit r=0,37 korriliert. Weitere Gründe könnten sein, dass das
-Signal bei unserem kleinen Stichprobenumfang nicht stark genug war, um sich vom Rauschen abzuheben oder
-die Schätzung mit dem BIC zu instabil ist.
+Auffällig ist, dass \texttt{lmoi} nicht im finalen Modell enthalten ist, obwohl es die höchste Korrelation zur Zielgröße 
+aufweist und auch bei \cite{diss} im Modell verwendet wird.
+Dies könnte darauf zurückzuführen sein, dass die Feuchte der
+Streuschicht mit \texttt{litter.d} mit r=0,37 korriliert. 
+Weitere mögliche Ursachen sind, dass das Signal bei dem geringen Stichprobenumfang nicht ausreichend stark ist, um sich vom Rauschen abzuheben, 
+oder dass die Schätzung auf Basis des BIC zu instabil ist.
 \\
 Das finale Modell berücksichtigt somit primär physikalisch-chemische Faktoren, die biotischen Faktoren wie die
 Feinwurzelbiomasse fehlen. Es wird also nur die heterotrophe und nicht die autotrophe Atmung abgebildet,
@@ -75,8 +77,7 @@ andere Prädiktoren ebenfalls über dem kritischen Wert liegen und möglicherwei
 mit anderen Variablen – eine höhere Erklärungskraft aufweisen. Diese werden jedoch nicht berücksichtigt
 und könnten in späteren Selektionsrunden ebenfalls unentdeckt bleiben.
 
-Ein weiteres Problem stellt das Overfitting dar. Es ist durchaus möglich, dass die Simulation ein
-Modell identifiziert, das die Trainingsdaten sehr gut erklärt, jedoch nur eine eingeschränkte
-Vorhersagegüte für neue Daten besitzt. Ein wesentlicher Grund hierfür ist die wiederholte Auswahl jener
-Variablen, die die Residuen am stärksten reduzieren, selbst wenn deren Effekt gering ist und unter
-anderen Bedingungen zu Fehlanpassungen führen kann.
+Ein weiteres Problem stellt Overfitting dar. Dabei kann die Simulation ein Modell identifizieren, 
+das die Trainingsdaten sehr gut beschreibt, jedoch nur eine eingeschränkte Vorhersagegüte für neue Daten aufweist. 
+Ein wesentlicher Grund hierfür ist die wiederholte Auswahl jener Variablen, die die Residuen am stärksten reduzieren, 
+selbst wenn deren Effekt gering ist und unter anderen Bedingungen zu Fehlanpassungen führen kann.

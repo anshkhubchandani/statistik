@@ -88,7 +88,7 @@ Stochastischer Teil: $Y_i \sim N(\mu_i, \sigma^2)$ mit $i= 1,...,n$\\
 
 \subsubsection{Aufstellen der Kandidatenmodelle} \label{Kandidatenmodelle}
 
-Da nur ein kleinen Datensatz mit 38 Datenpunkten vorliegt wurde ein Modell mit möglichst wenigen
+Da nur einen kleinen Datensatz mit 38 Datenpunkten vorliegt wurde ein Modell mit möglichst wenigen
 Variablen gesucht, um Overfitting zu vermeiden. Neben der Korrelation zur Zielgröße wurden auch biologische
 Plausibilität und Multikollinearität berücksichtigt, um die Anzahl der möglichen Einflussgrößen zu
 verringern. Die Variablen mit den größten Kollinearitäten zur Zielgröße und ohne Multikollinearität
@@ -201,11 +201,7 @@ Die Simulationsstudie ist stark abhängig von der Wahl der Parameter. Die Parame
     \item Kritischer Wert
 \end{itemize}
 
-Der Stichprobenumfang beschreibt wie häufig aus der ursprünglichen Designmatrix gezogen wird, um die
-Designmatrix für jede Simulation zu erstellen. Dafür wurde der Wert 100 gewählt, da dies zu stabileren
-Schätzungen führt als kleinere Stichprobenumfänge wie 20 oder die Größe der originalen Designmatrix
-(38). In Formel \ref{Einstichprobentest} ist der Stichprobenumfang im Zähler des Zählers. Daraus folgt, dass
-die erwarteten T-Werte größer sein werden, wenn der Stichprobenumfang steigt. 
+
 Der Stichprobenumfang beschreibt, wie häufig aus der ursprünglichen Designmatrix gezogen wird, um die Designmatrix für jede
 Simulation zu erstellen. Dafür wurde der Wert 100 gewählt, da dies zu stabileren Schätzungen führt als kleinere Stichprobenumfänge
 wie 20 oder die Größe der originalen Designmatrix (38). Die erwarteten T-Werte werden größer sein, wenn der Stichprobenumfang (n)
