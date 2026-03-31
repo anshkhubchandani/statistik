@@ -182,15 +182,14 @@ Designmatrix für jede Simulation zu erstellen. Dafür wurde der Wert 100 gewäh
 Schätzungen führt als kleinere Stichprobenumfänge wie 20 oder die Größe der originalen Designmatrix
 (38). In Formel \ref{Einstichprobentest} ist der Stichprobenumfang im Zähler des Zählers, es folgt das
 die erwarteten T-werte größer sein werden wenn der Stichprobenumfang steigt. 
+Der Stichprobenumfang beschreibt wie häufig aus der ursprünglichen Designmatrix gezogen wird um die Designmatrix für jede Simulation zu erstellen. Dafür wurde der wert 100 gewählt da dies zu stabileren Schätzungen führt als kleinere Stichprobenumfänge wie 20 oder die größe der originalen Designmatrix (38). Die erwarteten T-werte größer sein werden wenn der Stichprobenumfang (n) steigt da SE($\hat{\beta_{j}}$)$\approx \frac{1}{\sqrt{n}}$. 
 
 Die Anzahl an Simulationen beschreibt wie viele Simulationen in betracht gezogen werden bei der Wahl
 des nächsten Prediktor der aufgenommen wird. Diesen Wert wurde auf 5,000 gesetzt. Hier gilt
 grundsätzlich größer ist besser da somit ein besserer Durchschnitt gebildet wird, allerdings haben
 Laufzeit Limitationen die Grenze bei 5,000 bedingt.
 
-Die Fehlerstandardabweichung  ist auf eins gesetzt was gängiger Praxis entspricht, das gleiche gilt
-für das $\alpha$ von 0.05. Da H0 = 0 gegen H0 != 0 getested wird entspricht das einem zweiseitigen
-Test und alpha muss aufgeteilt werden: 
+Die Fehlerstandardabweichung  ist auf eins gesetzt was gängiger Praxis entspricht, das gleiche gilt fuer das $\alpha$ von 0.05. Da $\mathrm{H_0} = 0$ gegen $\mathrm{H_0}!= 0$ getested wird entspricht das einem zweiseitigen Test und alpha muss aufgeteilt werden: 
 \begin{equation}
 P(T>t_{crit}) = \frac{\alpha}{2} = 0.025 \rightarrow P(T \leq t_{crit}) = 0.975
 \end{equation}
