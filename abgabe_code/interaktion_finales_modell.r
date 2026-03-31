@@ -8,6 +8,7 @@ hainich.data <- read.csv("hainich.csv", sep=";")
 
 ###### Modelle
 
+## finales Modell
 #temp.15, litter.d
 lm1 <- lm(log(soil.res) ~ I(temp.15^2) + I(litter.d^2), data = hainich.data)
 

@@ -35,13 +35,19 @@ folgende Einflussgrößen:
 Die Zielgröße \texttt{soil.res} zeigt eine rechtsschiefe Verteilung. Um eine möglichst stabile Schätzung des Modells
 zu erreichen, wurden die Zielgröße mit dem natürlichen Logarithmus transformiert.
 
+\subsubsection{Korrelationen}
+
+Es wurden alle Korrelationen zwischen Zielgröße und den Einflussgrößen bestimmt, sowie Multikollinearität
+zwischen den Einflussgrößen.
+
 \subsubsection{Interaktionen zwischen den Einflussgrößen} \label{Interaktionen}
 
 Es gibt Einflussgrößen deren Effekt, den sie auf die Zielgröße ausüben, von der Ausprägung
 einer anderen Einflussgröße abhängig ist. Dabei handelt es sich um eine Interaktion, welche in einem
-linearem Modell explizit beschrieben werden muss.
+linearem Modell explizit beschrieben werden muss. Die Modelle wurden jeweils mit und ohne Interaktion betrachtet,
+wenn die Interaktion das Modell nicht verbessert hat, wurde sie weggelassen.
 \\
-Folgende Interaktionen zwischen den Einflussgrößen in dem Modell (\texttt{lmoi}, \texttt{litter.d}, \texttt{temp.15}) gelten als biologisch relevant:
+Folgende Interaktionen zwischen den Einflussgrößen in näherer Auswahl siehe \ref{Kandidatenmodelle} gelten als biologisch relevant:
 \\
 \texttt{lmoi} und \texttt{litter.d}:\\
 Die Streuschicht ist der Lebensraum der Mikroorganismen, welche heterotrophe Atmung betreiben.
@@ -61,11 +67,18 @@ Höhere Temperaturen beschleunigen den Abbau dieses organischen Materials durch 
 Ein hoher Wert bei beiden Variablen könnte zu einem überproportionalen Anstieg der (CO$_2$)-Abgabe führen,
 da die mikrobielle Population in einer dicken Streuschicht bei Wärme ihre maximale metabolische Kapazität
 ausschöpfen kann.
-
-\subsubsection{Korrelationen}
-
-Es wurden alle Korrelationen zwischen Zielgröße und den Einflussgrößen bestimmt, sowie Multikollinearität
-zwischen den Einflussgrößen.
+\\
+\texttt{soiln0} und \texttt{litter.d}:\\
+Der Stickstoffgehalt im Boden repräsentiert die chemische Verfügbarkeit von Nährstoffen, die das
+mikrobielle Wachstum und die Enzymproduktion maßgeblich fördern. Da der Stickstoff beim Bau von Enzymen und
+Proteinen gebruacht wird. \texttt{soiln0} könnte mit der Dicke der 
+Streuschicht interagieren, da Stickstoff dadurch die effiziente Nutzung des Kohlenstoffs aus dem organischen Material
+durch die Mikroorganismen ermöglicht.
+\\
+\texttt{temp.15} und \texttt{soiln0}:\\
+Je nach Stickstoffgehalt könnten die Bodenatmung sensitiver auf die Temperatur reagieren. Wenn wenig Stickstoff
+vorhanden ist, kann bei höheren Temperaturen die Aktivität nur gering gesteigert werden. Wenn viel Stickstoff
+vorhanden ist, kann bei höheren Temperaturen die Aktivität der Mikroorganismen stärker gesteigert werden.
 
 \subsection{Statistisches Modell} \label{Statistisches Modell}
 
@@ -73,14 +86,19 @@ Zur Vorhersage der Bodenatmung wurde ein lineares Modell (\texttt{lm}) verwendet
 Deterministischer Teil: $\mathbb{E}Y_i= \mu_i =\beta_0 + \beta_1x_{i1} + ... + \beta_kx_{ik}$ mit $i= 1,...,n$\\
 Stochastischer Teil: $Y_i \sim N(\mu_i, \sigma^2)$ mit $i= 1,...,n$\\
 
-\subsubsection{Aufstellen der Kandidatenmodelle}
-%quadratische Terme
+\subsubsection{Aufstellen der Kandidatenmodelle} \label{Kandidatenmodelle}
+
 Da wir nur einen kleinen Datensatz mit 38 Datenpunkten haben, suchen wir ein Modell mit so wenig wie möglich
 Variablen, um Overfitting zu vermeiden. Neben der Korrelation zur Zielgröße wurden auch biologische
 Plausibilität und Multikollinearität berücksichtigt, um die Anzahl der möglichen Einflussgrößen zu
 verringern. Die Variablen mit den größten Kollinearitäten zur Zielgröße und ohe Multikollinearität
 untereinander sind \texttt{lmoi} (0,47), \texttt{litter.d} (0,3), \texttt{temp.15} (0,43) und
 \texttt{soiln0} (0,32). Wobei \texttt{soiln0} mit 0,96 sehr stark mit \texttt{soilc0} korreliert.
+Die Prädikatoren wurden in allen Modellen als quadratische Terme verwendet. Dies ist biologisch durch die
+Existenz von Physiologischen Optima begründet. Da biologische Prozesse wie zum Beispiel die Bodenatmung bei
+extremen Umweltbedingungen (z. B. Trockenheit oder Kältestress) inhibiert werden und ein Maximum bei moderaten
+Bedingungen erreichen, bildet eine parabolische Modellierung diese Glockenkurven-Charakteristik besser ab als
+rein lineare Ansätze.
 \\
 Das erste Kandidatenmodell (\texttt{lm1}) enthält die Einflussgrößen \texttt{temp.15} und \texttt{litter.d}. Darin enthalten ist
 die Annahme, dass die Temperatur die kinetische Energie für biochemische Reaktionen der Mikroben und Wurzeln
