@@ -155,12 +155,13 @@ wobei $\epsilon \sim N(0,\sigma^2)$. Darauf folgt eine Serie an t-Tests wobei je
 \begin{equation}
 \mathrm{H_0 : \beta_j}  = 0 
 \end{equation}
-was zusammen mit dem t-Test mit einer Stichprobe: 
+die zugehörige t-statistik ergibt sich aus: 
 \begin{equation} \label{Einstichprobentest}
-t = \frac{\overline{x}-\mu_0}{\frac{s}{\sqrt{n}}}
+%t = \frac{\overline{x}-\mu_0}{\frac{s}{\sqrt{n}}}
+t_{j} = \frac{\hat{\beta_{j}}}{SE(\hat{\beta_{j}})}
 \end{equation}
 %\[\mathrm{t_{\hat{\beta}} =} \frac{\hat{\beta} - \beta_0}{\mathrm{SE}(\hat{\beta})}\]
-die t-Statistik bildet. Der maximal Wert aller t-Tests aller Simulationen bildet T:
+Der maximal Wert aller t-Tests aller Simulationen bildet T:
 \begin{equation}
 T = \mathop{max}_{\textbf{j}}|t_j|
 \end{equation}
