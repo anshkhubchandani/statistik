@@ -32,16 +32,22 @@ Während die Temperatur primär zeitliche Schwankungen erklärt, ist die Dicke d
 entscheidender Faktor für die räumlichen Muster der Bodenatmung. Der quadratische Term deutet darauf hin,
 dass die Menge des Substrats die Atmung nicht einfach nur linear erhöht, sondern dass z. B. eine sehr
 dicke Streuschicht die mikrobielle Aktivität durch bessere Feuchtigkeitskonservierung oder ein massives
-Nahrungsüberangebot überproportional fördert.
+Nahrungsüberangebot überproportional fördert. Die linearen Terme wurden weggelassen, das verletzt zwar
+das übliche statistische Hierarchie-Prinzip, jedoch zwang die geringe Stichprobengröße zu dieser radikalen
+Reduktion, um die Modellstabilität (BIC) zu maximieren.
 \\
 Interessant ist das \texttt{lmoi} nicht in dem Modell vorkommt, obwohl es die stärkste Korrelation zur Zielgröße
 aufweist und auch bei \cite{diss} im Modell genutzt wird. Das könnte daran liegen das die Feuchte der
-Streuschicht mit der Dicke der Streuschicht korriliert mit 0,37. Ein weiterer Grund könnte sein, dass das
-Signal bei unserem kleinen Stichprobenumfang nicht stark genug war, um sich vom Rauschen abzuheben.
+Streuschicht mit der Dicke der Streuschicht mit 0,37 korriliert. Weitere Gründe könnten sein, dass das
+Signal bei unserem kleinen Stichprobenumfang nicht stark genug war, um sich vom Rauschen abzuheben oder
+die Schätzung mit dem BIC zu instabil ist.
 \\
-Das finale Modell berücksichtigt nur physikalisch-chemische Faktoren, die biotischen Faktoren fehlen.
-Dies könnte auch daran liegen, dass \texttt{temp.15} mit der Trockenmasse der Wurzeln in 0-5 cm tiefe mit 0,37
-korriliert. Und das zu wenige Daten vorliegen um weitere biologische Effekte zu identifizieren.
+Das finale Modell berücksichtigt nur physikalisch-chemische Faktoren, die biotischen Faktoren wie die
+Feinwurzelbiomasse fehlen. Es wird also nur die heterotrophe und nicht die autotrophe Atmung abgebildet,
+oderbwohl die Wurzelatmung bis zu 90\% der Bodenatmung ausmachen kann \cite{diss}.
+Dies könnte daran liegen, dass \texttt{temp.15} mit der Trockenmasse der Wurzeln in 0-5 cm tiefe mit 0,37
+korriliert. Und das zu wenige Daten vorliegen um weitere biologische Effekte zu identifizieren. Zusätzlich könnte
+es auch sein, dass die Temperatur auch die Aktivität der Wurzeln abbildet.
 \\
 Vorallem bei wenigen Daten ist die Gefahr des Overfittings sehr groß, wobei streng das
 Parsimonie-Prinzip angewendet werden muss. Insgesamt zeigen die Ergebnisse das ein Modell mit wenigen
